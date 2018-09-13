@@ -42,3 +42,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+*.js
+*.js.map
+src/.vs/config/applicationhost.config
+src/.vs/ProjectSettings.json
+src/.vs/slnx.sqlite
+src/.vs/src/v15/.suo
+src/.vs/VSWorkspaceState.json
