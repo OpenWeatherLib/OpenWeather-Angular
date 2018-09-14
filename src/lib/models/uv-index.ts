@@ -1,5 +1,7 @@
 import { GeoLocation } from "./geo-location";
+import { classJsonKey } from "../decorator";
 
+@classJsonKey("", "")
 export class UvIndex {
   geoLocation: GeoLocation = new GeoLocation();
   date: Date = new Date();
