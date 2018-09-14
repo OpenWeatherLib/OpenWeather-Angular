@@ -16,7 +16,7 @@ describe("ApiService", () => {
             providers: []
         });
 
-        classToTest = new ApiService(MockValues.city());
+        classToTest = new ApiService();
     });
 
     afterEach(() => {
