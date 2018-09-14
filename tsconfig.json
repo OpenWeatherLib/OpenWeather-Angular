@@ -11,9 +11,22 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "types": [
+      "jasmine"
+    ],
     "lib": [
       "es2017",
-      "dom"
-    ]
+      "dom",
+      "scripthost"
+    ],
+    "baseUrl": "src", // This must be specified if "paths" is.
+    "paths": {
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@app/*": [
+        "app/*"
+      ]
+    }
   }
 }

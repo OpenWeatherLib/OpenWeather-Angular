@@ -1,5 +1,7 @@
 import { GeoLocation } from "./geo-location";
+import { classJsonKey } from "../decorator";
 
+@classJsonKey("", "")
 export class City {
   id: number = 0;
   name: string = "";

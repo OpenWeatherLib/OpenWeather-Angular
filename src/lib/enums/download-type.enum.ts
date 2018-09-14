@@ -1,3 +1,6 @@
 export enum DownloadType {
-  Null, Current, Forecast, UvIndex
+  Null,
+  Current,
+  Forecast,
+  UvIndex
 }
