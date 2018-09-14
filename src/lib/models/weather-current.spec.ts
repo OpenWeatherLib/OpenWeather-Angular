@@ -34,4 +34,27 @@ describe("WeatherCurrent", () => {
         // Assert
         expect(classToTest).toBeTruthy();
     });
+
+    it("isDefault should return true", () => {
+        // Arrange
+        const weatherCurrent = new WeatherCurrent();
+
+        // Act
+        const isDefault = weatherCurrent.isDefault();
+
+        // Assert
+        expect(isDefault).toBeTruthy();
+    });
+
+    it("isDefault should return false", () => {
+        // Arrange
+        const weatherCurrent = new WeatherCurrent();
+        weatherCurrent.icon = "420";
+
+        // Act
+        const isDefault = weatherCurrent.isDefault();
+
+        // Assert
+        expect(isDefault).toBeFalsy();
+    });
 });

@@ -34,4 +34,27 @@ describe("WeatherForecastPart", () => {
         // Assert
         expect(classToTest).toBeTruthy();
     });
+
+    it("isDefault should return true", () => {
+        // Arrange
+        const weatherForecastPart = new WeatherForecastPart();
+
+        // Act
+        const isDefault = weatherForecastPart.isDefault();
+
+        // Assert
+        expect(isDefault).toBeTruthy();
+    });
+
+    it("isDefault should return false", () => {
+        // Arrange
+        const weatherForecastPart = new WeatherForecastPart();
+        weatherForecastPart.description = "420";
+
+        // Act
+        const isDefault = weatherForecastPart.isDefault();
+
+        // Assert
+        expect(isDefault).toBeFalsy();
+    });
 });

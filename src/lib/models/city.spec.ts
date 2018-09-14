@@ -34,4 +34,27 @@ describe("City", () => {
         // Assert
         expect(classToTest).toBeTruthy();
     });
+
+    it("isDefault should return true", () => {
+        // Arrange
+        const city = new City();
+
+        // Act
+        const isDefault = city.isDefault();
+
+        // Assert
+        expect(isDefault).toBeTruthy();
+    });
+
+    it("isDefault should return false", () => {
+        // Arrange
+        const city = new City();
+        city.id = 420;
+
+        // Act
+        const isDefault = city.isDefault();
+
+        // Assert
+        expect(isDefault).toBeFalsy();
+    });
 });

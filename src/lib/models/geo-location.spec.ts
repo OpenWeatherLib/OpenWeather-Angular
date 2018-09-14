@@ -34,4 +34,27 @@ describe("GeoLocation", () => {
         // Assert
         expect(classToTest).toBeTruthy();
     });
+
+    it("isDefault should return true", () => {
+        // Arrange
+        const geoLocation = new GeoLocation();
+
+        // Act
+        const isDefault = geoLocation.isDefault();
+
+        // Assert
+        expect(isDefault).toBeTruthy();
+    });
+
+    it("isDefault should return false", () => {
+        // Arrange
+        const geoLocation = new GeoLocation();
+        geoLocation.lat = 42.00;
+
+        // Act
+        const isDefault = geoLocation.isDefault();
+
+        // Assert
+        expect(isDefault).toBeFalsy();
+    });
 });

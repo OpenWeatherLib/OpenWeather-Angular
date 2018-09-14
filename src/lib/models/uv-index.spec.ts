@@ -34,4 +34,27 @@ describe("UvIndex", () => {
         // Assert
         expect(classToTest).toBeTruthy();
     });
+
+    it("isDefault should return true", () => {
+        // Arrange
+        const uvIndex = new UvIndex();
+
+        // Act
+        const isDefault = uvIndex.isDefault();
+
+        // Assert
+        expect(isDefault).toBeTruthy();
+    });
+
+    it("isDefault should return false", () => {
+        // Arrange
+        const uvIndex = new UvIndex();
+        uvIndex.value = 4.20;
+
+        // Act
+        const isDefault = uvIndex.isDefault();
+
+        // Assert
+        expect(isDefault).toBeFalsy();
+    });
 });
