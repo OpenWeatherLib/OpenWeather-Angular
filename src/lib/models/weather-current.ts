@@ -1,5 +1,6 @@
-import { classJsonKey } from "../decorator";
-import WeatherCondition from "../enums/weather-condition.enum";
+import "@lib/extensions/string.extensions";
+import { classJsonKey } from "@lib/decorator";
+import WeatherCondition from "@lib/enums/weather-condition.enum";
 import { City } from "./city";
 
 @classJsonKey(String().empty, "sys")

@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 
-import MockServices from "../mock/services.mock";
-import MockValues from "../mock/values.mock";
+// import MockServices from "@lib/mock/services.mock";
+import MockValues from "@lib/mock/values.mock";
 
 import { UvIndex } from "./uv-index";
 
@@ -49,7 +49,7 @@ describe("UvIndex", () => {
     it("isDefault should return false", () => {
         // Arrange
         const uvIndex = new UvIndex();
-        uvIndex.value = 4.20;
+        uvIndex.geoLocation = MockValues.geoLocation();
 
         // Act
         const isDefault = uvIndex.isDefault();

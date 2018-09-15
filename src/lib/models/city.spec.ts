@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 
-import MockServices from "../mock/services.mock";
-import MockValues from "../mock/values.mock";
+// import MockServices from "@lib/mock/services.mock";
+import MockValues from "@lib/mock/values.mock";
 
 import { City } from "./city";
 
@@ -49,7 +49,7 @@ describe("City", () => {
     it("isDefault should return false", () => {
         // Arrange
         const city = new City();
-        city.id = 420;
+        city.geoLocation = MockValues.geoLocation();
 
         // Act
         const isDefault = city.isDefault();

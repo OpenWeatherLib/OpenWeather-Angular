@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 
-import MockServices from "../mock/services.mock";
-import MockValues from "../mock/values.mock";
+// import MockServices from "@lib/mock/services.mock";
+// import MockValues from "@lib/mock/values.mock";
 
 import { GeoLocation } from "./geo-location";
 
