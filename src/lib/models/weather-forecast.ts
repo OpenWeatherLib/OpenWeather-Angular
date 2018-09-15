@@ -1,6 +1,7 @@
-import { classJsonKey } from "../decorator";
-import { City } from "./city";
-import { WeatherForecastPart } from "./weather-forecast-part";
+import "@lib/extensions/string.extensions";
+import { classJsonKey } from "@lib/decorator";
+import { City } from "@lib/models/city";
+import { WeatherForecastPart } from "@lib/models/weather-forecast-part";
 
 @classJsonKey(String().empty, String().empty)
 export class WeatherForecast {

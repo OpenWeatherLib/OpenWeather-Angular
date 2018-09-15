@@ -1,6 +1,7 @@
-import { classJsonKey } from "../decorator";
-import { ForecastListType } from "../enums";
-import WeatherCondition from "../enums/weather-condition.enum";
+import "@lib/extensions/string.extensions";
+import { classJsonKey } from "@lib/decorator";
+import { ForecastListType } from "@lib/enums";
+import WeatherCondition from "@lib/enums/weather-condition.enum";
 
 @classJsonKey(String().empty, "sys")
 export class WeatherForecastPart {

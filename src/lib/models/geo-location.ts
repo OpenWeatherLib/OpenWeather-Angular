@@ -1,4 +1,4 @@
-import { classJsonKey } from "../decorator";
+import { classJsonKey } from "@lib/decorator";
 
 @classJsonKey("", "")
 export class GeoLocation {
