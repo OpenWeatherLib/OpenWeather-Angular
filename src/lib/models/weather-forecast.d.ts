@@ -1,0 +1,2 @@
+export interface WeatherForecast {
+}

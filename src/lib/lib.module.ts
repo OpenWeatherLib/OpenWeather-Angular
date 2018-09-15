@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule } from "@angular/common/http";
 
-import { ApiService } from "./services";
+import { ApiService, OpenWeatherService } from "./services";
 
 @NgModule({
     imports: [
@@ -12,7 +12,8 @@ import { ApiService } from "./services";
     exports: [],
     declarations: [],
     providers: [
-        ApiService
+        ApiService,
+        OpenWeatherService
     ],
     entryComponents: []
 })

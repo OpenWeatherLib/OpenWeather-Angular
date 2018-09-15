@@ -4,7 +4,6 @@ import { take } from "rxjs/operators";
 
 import "@lib/extensions/string.extensions";
 
-import { JsonToDataConverter } from "@lib/converter";
 import { WeatherCurrent, WeatherForecast, UvIndex } from "@lib/models";
 import { ApiService } from "@lib/services/api.service";
 
@@ -15,9 +14,7 @@ export class OpenWeatherService {
     private forecastWeather$ = new BehaviorSubject<WeatherForecast>(null);
     private uvIndex$ = new BehaviorSubject<UvIndex>(null);
 
-    constructor(
-        private readonly apiService: ApiService,
-        private readonly jsonToDataConverter: JsonToDataConverter) { }
+    constructor(private readonly apiService: ApiService) { }
 
     currentWeather(): Observable<WeatherCurrent> {
         return this.currentWeather$;
@@ -36,10 +33,7 @@ export class OpenWeatherService {
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
-                    const currentWeather = this.jsonToDataConverter.convertToWeatherCurrent(response);
-                    if (currentWeather) {
-                        this.currentWeather$.next(currentWeather);
-                    }
+                    this.currentWeather$.next(response);
                 }
             });
     }
@@ -49,10 +43,7 @@ export class OpenWeatherService {
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
-                    const forecastWeather = this.jsonToDataConverter.convertToWeatherForecast(response);
-                    if (forecastWeather) {
-                        this.forecastWeather$.next(forecastWeather);
-                    }
+                    this.forecastWeather$.next(response);
                 }
             });
     }
@@ -62,10 +53,7 @@ export class OpenWeatherService {
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
-                    const uvIndex = this.jsonToDataConverter.convertToUvIndex(response);
-                    if (uvIndex) {
-                        this.uvIndex$.next(uvIndex);
-                    }
+                    this.uvIndex$.next(response);
                 }
             });
     }
