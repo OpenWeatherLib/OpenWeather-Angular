@@ -1,4 +1,11 @@
-import { City, UvIndex, WeatherCurrent, WeatherForecast, WeatherForecastPart } from "@lib/models";
+import {
+    City,
+    UvIndex,
+    WeatherCurrent,
+    WeatherForecast,
+    WeatherForecastPart,
+    WeatherPart
+} from "@lib/models";
 
 export default class MockValues {
     static apiKey(): string {
@@ -26,14 +33,18 @@ export default class MockValues {
     }
 
     static weatherCurrent(): WeatherCurrent {
-        return {};
+        return {} as WeatherCurrent;
     }
 
     static weatherForecast(): WeatherForecast {
-        return {};
+        return {} as WeatherForecast;
     }
 
     static weatherForecastPart(): WeatherForecastPart {
-        return {};
+        return {} as WeatherForecastPart;
+    }
+
+    static weatherPart(): WeatherPart {
+        return {} as WeatherPart;
     }
 }

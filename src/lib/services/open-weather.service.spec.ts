@@ -4,7 +4,6 @@ import { of } from "rxjs";
 import MockServices from "@lib/mock/services.mock";
 import MockValues from "@lib/mock/values.mock";
 
-import { WeatherCurrent, WeatherForecast, UvIndex } from "@lib/models";
 import { ApiService } from "@lib/services/api.service";
 
 import { OpenWeatherService } from "./open-weather.service";
@@ -47,7 +46,7 @@ describe("OpenWeatherService", () => {
     it("loadCurrentWeather should call apiService and set currentWeather", (done: DoneFn) => {
         // Arrange
         const expectedValue = MockValues.weatherCurrent();
-        apiServiceMock.currentWeather.and.returnValue(of({} as WeatherCurrent));
+        apiServiceMock.currentWeather.and.returnValue(of(expectedValue));
 
         classToTest.currentWeather().subscribe(value => {
             if (value) {
@@ -63,7 +62,7 @@ describe("OpenWeatherService", () => {
     it("loadForecastWeather should call apiService and set forecastWeather", (done: DoneFn) => {
         // Arrange
         const expectedValue = MockValues.weatherForecast();
-        apiServiceMock.forecastWeather.and.returnValue(of({} as WeatherForecast));
+        apiServiceMock.forecastWeather.and.returnValue(of(expectedValue));
 
         classToTest.forecastWeather().subscribe(value => {
             if (value) {
@@ -79,7 +78,7 @@ describe("OpenWeatherService", () => {
     it("loadUvIndex should call apiService and set uvIndex", (done: DoneFn) => {
         // Arrange
         const expectedValue = MockValues.uvIndex();
-        apiServiceMock.uvIndex.and.returnValue(of({} as UvIndex));
+        apiServiceMock.uvIndex.and.returnValue(of(expectedValue));
 
         classToTest.uvIndex().subscribe(value => {
             if (value) {
