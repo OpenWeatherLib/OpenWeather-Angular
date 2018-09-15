@@ -58,7 +58,25 @@ describe("ApiService", () => {
 
     it("currentWeather should return expected json", (done: DoneFn) => {
         // Arrange
-        const expectedJson = "{ \"data\": { \"name\": \"testData\" } }";
+        const expectedJson = "{\"coord\":{\"lon\":11.08,\"lat\":49.45}," +
+            "\"weather\":" +
+            "[" +
+            "{\"id\":802,\"main\":\"Clouds\",\"description\":\"scattered clouds\",\"icon\":\"03d\"}" +
+            "]," +
+            "\"base\":\"stations\"," +
+            "\"main\":" +
+            "{\"temp\":21.37,\"pressure\":1021,\"humidity\":56,\"temp_min\":20,\"temp_max\":23}," +
+            "\"visibility\":10000," +
+            "\"wind\":" +
+            "{\"speed\":3.1,\"deg\":90}," +
+            "\"clouds\":" +
+            "{\"all\":40}," +
+            "\"dt\":1527326400," +
+            "\"sys\":" +
+            "{\"type\":1,\"id\":4888,\"message\":0.0147,\"country\":\"DE\",\"sunrise\":1527304731,\"sunset\":1527361642}," +
+            "\"id\":2861650," +
+            "\"name\":\"Nuremberg\"," +
+            "\"cod\":200}";
         classToTest["apiKey"] = MockValues.apiKey();
         classToTest["city"] = MockValues.city();
 
@@ -67,7 +85,9 @@ describe("ApiService", () => {
             .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
-                expect(response).toBe(expectedJson);
+                expect(response.cod).toBe(200);
+                expect(response.clouds.all).toBe(40);
+                expect(response.sys.country).toBe("DE");
                 done();
             });
 
@@ -115,7 +135,7 @@ describe("ApiService", () => {
                 done();
             });
 
-        const req = httpMock.expectOne(`http://api.openweathermap.org/data/2.5/uvi?lat=${MockValues.city().lat.toFixed(2)}&lon=${MockValues.city().long.toFixed(2)}&APPID=${MockValues.apiKey()}`);
+        const req = httpMock.expectOne(`http://api.openweathermap.org/data/2.5/uvi?lat=${MockValues.city().coord.lat.toFixed(2)}&lon=${MockValues.city().coord.lon.toFixed(2)}&APPID=${MockValues.apiKey()}`);
         expect(req.request.method).toEqual("GET");
         req.flush(expectedJson);
         httpMock.verify();

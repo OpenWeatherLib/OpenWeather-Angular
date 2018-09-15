@@ -44,8 +44,8 @@ export class ApiService {
     return this.doRestCall<UvIndex>(
       String().format(
         this.uvIndexUrl,
-        this.city.lat.toFixed(2),
-        this.city.long.toFixed(2),
+        this.city.coord.lat.toFixed(2),
+        this.city.coord.lon.toFixed(2),
         this.apiKey));
   }
 

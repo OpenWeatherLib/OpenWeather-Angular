@@ -11,8 +11,7 @@ export default class MockValues {
         city.name = "Nuremberg";
         city.country = "DE";
         city.population = 499523;
-        city.lat = 45.3452;
-        city.long = 23.543;
+        city.coord = { lat: 45.3452, lon: 23.543 };
         return city;
     }
 
