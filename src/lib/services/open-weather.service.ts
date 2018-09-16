@@ -102,4 +102,22 @@ export class OpenWeatherService {
 
         return ApiCallState.Calling;
     }
+
+    searchForecast(searchValue: string): WeatherForecast {
+        if (!this.forecastWeather$.value || !this.forecastWeather$.value.cnt) {
+            return null;
+        }
+
+        const value = this.forecastWeather$.value;
+        let list = value.list;
+        list = list.filter(x => { return JSON.stringify(x).includes(searchValue); });
+
+        return {
+            cod: value.cod,
+            message: value.message,
+            cnt: list.length,
+            list: list,
+            city: value.city
+        };
+    }
 }

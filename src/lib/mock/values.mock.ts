@@ -114,14 +114,32 @@ export default class MockValues {
     }
 
     static weatherForecast(): WeatherForecast {
-        return {} as WeatherForecast;
+        return {
+            cod: "200",
+            message: 0.1234,
+            cnt: 5,
+            list: [
+                this.weatherForecastPart("clear"),
+                this.weatherForecastPart("rain"),
+                this.weatherForecastPart("rain"),
+                this.weatherForecastPart("cloudy"),
+                this.weatherForecastPart("sun"),
+            ],
+            city: this.city()
+        };
     }
 
-    static weatherForecastPart(): WeatherForecastPart {
-        return {} as WeatherForecastPart;
+    static weatherForecastPart(description: string): WeatherForecastPart {
+        return {
+            weather: [
+                this.weatherPart(description)
+            ]
+        } as WeatherForecastPart;
     }
 
-    static weatherPart(): WeatherPart {
-        return {} as WeatherPart;
+    static weatherPart(description: string): WeatherPart {
+        return {
+            description: description
+        } as WeatherPart;
     }
 }
