@@ -113,4 +113,28 @@ describe("OpenWeatherService", () => {
         // Act
         classToTest.loadUvIndex();
     });
+
+    it("searchForecast should return valid object for rain", () => {
+        // Arrange
+        classToTest["forecastWeather$"] = new BehaviorSubject(MockValues.weatherForecast());
+
+        // Act
+        const actual = classToTest.searchForecast("rain");
+
+        // Assert
+        expect(actual).toBeDefined();
+        expect(actual.cnt).toBe(2);
+    });
+
+    it("searchForecast should return valid object for clear", () => {
+        // Arrange
+        classToTest["forecastWeather$"] = new BehaviorSubject(MockValues.weatherForecast());
+
+        // Act
+        const actual = classToTest.searchForecast("clear");
+
+        // Assert
+        expect(actual).toBeDefined();
+        expect(actual.cnt).toBe(1);
+    });
 });

@@ -1,0 +1,48 @@
+@import "./fontawesome.scss";
+@import "./fa-regular.scss";
+@import "./fa-solid.scss";
+
+$widths: "0"0,
+"10"10,
+"20"20,
+"30"30,
+"40"40,
+"50"50,
+"60"60,
+"70"70,
+"80"80,
+"90"90,
+"100"100;
+
+@each $width in $widths {
+  .ga-width-#{nth($width, 1)}-per {
+    width: nth($width, 2)+%;
+    left: 0;
+    right: 0;
+  }
+}
+
+$margins: "0"0,
+"1"1,
+"2"2,
+"3"3,
+"4"4,
+"5"5;
+
+@each $margin in $margins {
+  .ga-margin-#{nth($margin, 1)}-rem {
+    margin: nth($margin, 2)+rem;
+  }
+}
+
+.ga-icon-menu-black-fas:before {
+  @include fa-icon;
+  @extend .fas;
+  content: fa-content($fa-var-bars);
+  color: black;
+  font-size: 1rem;
+}
+
+.ga-cursor-pointer {
+  cursor: pointer;
+}
