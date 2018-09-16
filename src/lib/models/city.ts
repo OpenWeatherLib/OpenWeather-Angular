@@ -1,5 +1,5 @@
 import { classJsonKey } from "@lib/decorator";
-import { GeoLocation } from "./geo-location";
+import { Coordinates } from "@lib/models/coordinates";
 
 @classJsonKey("", "")
 export class City {
@@ -7,9 +7,13 @@ export class City {
   name: string = "";
   country: string = "";
   population: number = 0;
-  geoLocation: GeoLocation = new GeoLocation();
+  coord: Coordinates = { lat: 720.0, lon: 720.0 };
 
-  isDefault(): boolean {
-    return this.id === 0 && this.name === "" && this.country === "" && this.population === 0 && this.geoLocation.isDefault();
+  isNameSet(): boolean {
+    return !this.name.isNullOrEmpty();
+  }
+
+  isCoordSet(): boolean {
+    return this.coord.lat !== 720.0 && this.coord.lon !== 720.0;
   }
 }

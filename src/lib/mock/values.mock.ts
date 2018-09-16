@@ -1,17 +1,42 @@
-import WeatherCondition from "@lib/enums/weather-condition.enum";
-import { ForecastListType } from "@lib/enums";
-import { City, GeoLocation, UvIndex, WeatherCurrent, WeatherForecast, WeatherForecastPart } from "@lib/models";
+import {
+    AddressComponent,
+    City,
+    City2,
+    Coordinates2,
+    Geometry,
+    UvIndex,
+    Viewport,
+    WeatherCurrent,
+    WeatherForecast,
+    WeatherForecastPart,
+    WeatherPart
+} from "@lib/models";
 
 export default class MockValues {
-    static apiKey(): string {
-        return "fdsje423rfsdu";
+    static addressComponentCity(): AddressComponent {
+        return {
+            short_name: "Nuremberg",
+            types: [
+                "locality",
+                "political"
+            ],
+            long_name: "Nuremberg, DE"
+        };
     }
 
-    static geoLocation(): GeoLocation {
-        const geoLocation = new GeoLocation();
-        geoLocation.lat = 45.3452;
-        geoLocation.long = 23.543;
-        return geoLocation;
+    static addressComponentCountry(): AddressComponent {
+        return {
+            short_name: "DE",
+            types: [
+                "country",
+                "political"
+            ],
+            long_name: "Germany"
+        };
+    }
+
+    static apiKey(): string {
+        return "fdsje423rfsdu";
     }
 
     static city(): City {
@@ -20,66 +45,83 @@ export default class MockValues {
         city.name = "Nuremberg";
         city.country = "DE";
         city.population = 499523;
-        city.geoLocation = this.geoLocation();
+        city.coord = { lat: 45.3452, lon: 23.543 };
         return city;
     }
 
+    static city2(): City2 {
+        return {
+            address_components: [
+                this.addressComponentCity(),
+                this.addressComponentCountry()
+            ],
+            geometry: this.geometry(),
+            types: [
+                "locality",
+                "political"
+            ]
+        };
+    }
+
+    static coordinatesNE(): Coordinates2 {
+        return {
+            lat: 49.5730438232,
+            lng: 11.3236637115
+        };
+    }
+
+    static coordinatesSW(): Coordinates2 {
+        return {
+            lat: 49.3166618347,
+            lng: 10.9793968201
+        };
+    }
+
+    static geometry(): Geometry {
+        return {
+            location_type: "APPROXIMATE",
+            viewport: this.viewport(),
+            location: this.location()
+        };
+    }
+
+    static location(): Coordinates2 {
+        return {
+            lat: 49.45421,
+            lng: 11.07752
+        };
+    }
+
     static uvIndex(): UvIndex {
-        const uvIndex = new UvIndex();
-        uvIndex.date = new Date();
-        uvIndex.geoLocation = this.geoLocation();
-        uvIndex.value = 4.20;
-        return uvIndex;
+        return {
+            lat: 45.3452,
+            lon: 23.543,
+            date_iso: "2018-06-29 03:00:00",
+            date: 1530219600,
+            value: 4.20
+        };
+    }
+
+    static viewport(): Viewport {
+        return {
+            northeast: this.coordinatesNE(),
+            southwest: this.coordinatesSW()
+        };
     }
 
     static weatherCurrent(): WeatherCurrent {
-        const weatherCurrent = new WeatherCurrent();
-        weatherCurrent.icon = "2n";
-        weatherCurrent.description = "clear";
-        weatherCurrent.weatherCondition = WeatherCondition.clear;
-        weatherCurrent.temperature = 21.4;
-        weatherCurrent.temperatureMin = 20.8;
-        weatherCurrent.temperatureMax = 22.1;
-        weatherCurrent.humidity = 65.3;
-        weatherCurrent.pressure = 991.2;
-        weatherCurrent.visibility = 5000;
-        weatherCurrent.cloudsAll = 3;
-        weatherCurrent.windSpeed = 1.3;
-        weatherCurrent.windDegree = 65.3;
-        weatherCurrent.dateTime = new Date();
-        weatherCurrent.sunriseTime = new Date();
-        weatherCurrent.sunsetTime = new Date();
-        weatherCurrent.city = this.city();
-        weatherCurrent.lastUpdate = new Date();
-        return weatherCurrent;
+        return {} as WeatherCurrent;
     }
 
     static weatherForecast(): WeatherForecast {
-        const weatherForecast = new WeatherForecast();
-        weatherForecast.city = this.city();
-        weatherForecast.list = [this.weatherForecastPart()];
-        return weatherForecast;
+        return {} as WeatherForecast;
     }
 
     static weatherForecastPart(): WeatherForecastPart {
-        const weatherForecastPart = new WeatherForecastPart();
-        weatherForecastPart.main = "clear";
-        weatherForecastPart.weatherCondition = WeatherCondition.clear;
-        weatherForecastPart.description = "clear";
-        weatherForecastPart.weatherDefaultIcon = "2n";
-        weatherForecastPart.temperature = 21.4;
-        weatherForecastPart.temperatureMin = 20.8;
-        weatherForecastPart.temperatureMax = 22.1;
-        weatherForecastPart.temperatureKf = 18.4;
-        weatherForecastPart.pressure = 991.2;
-        weatherForecastPart.pressureSeaLevel = 998.3;
-        weatherForecastPart.pressureGroundLevel = 990.3;
-        weatherForecastPart.humidity = 65.3;
-        weatherForecastPart.cloudsAll = 3;
-        weatherForecastPart.windSpeed = 1.3;
-        weatherForecastPart.windDegree = 65.3;
-        weatherForecastPart.dateTime = new Date();
-        weatherForecastPart.listType = ForecastListType.Null;
-        return weatherForecastPart;
+        return {} as WeatherForecastPart;
+    }
+
+    static weatherPart(): WeatherPart {
+        return {} as WeatherPart;
     }
 }
