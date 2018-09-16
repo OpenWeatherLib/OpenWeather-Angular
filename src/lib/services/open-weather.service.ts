@@ -4,7 +4,9 @@ import { take } from "rxjs/operators";
 
 import "@lib/extensions/string.extensions";
 
-import { WeatherCurrent, WeatherForecast, UvIndex } from "@lib/models";
+import { environment } from "../../environments/environment";
+
+import { WeatherCurrent, WeatherForecast, UvIndex, City } from "@lib/models";
 import { ApiService } from "@lib/services/api.service";
 
 @Injectable()
@@ -13,6 +15,9 @@ export class OpenWeatherService {
     private currentWeather$ = new BehaviorSubject<WeatherCurrent>(null);
     private forecastWeather$ = new BehaviorSubject<WeatherForecast>(null);
     private uvIndex$ = new BehaviorSubject<UvIndex>(null);
+
+    private apiKey: string = environment.apiKey;
+    private city: City = new City();
 
     constructor(private readonly apiService: ApiService) { }
 
@@ -29,7 +34,7 @@ export class OpenWeatherService {
     }
 
     loadCurrentWeather(): void {
-        this.apiService.currentWeather()
+        this.apiService.currentWeather(this.apiKey, this.city)
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
@@ -39,7 +44,7 @@ export class OpenWeatherService {
     }
 
     loadForecastWeather(): void {
-        this.apiService.forecastWeather()
+        this.apiService.forecastWeather(this.apiKey, this.city)
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
@@ -49,12 +54,16 @@ export class OpenWeatherService {
     }
 
     loadUvIndex(): void {
-        this.apiService.uvIndex()
+        this.apiService.uvIndex(this.apiKey, this.city)
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
                     this.uvIndex$.next(response);
                 }
             });
+    }
+
+    private updateCityFromResponse(): void {
+
     }
 }

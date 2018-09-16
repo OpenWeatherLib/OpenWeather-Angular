@@ -3,8 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
-import { environment } from "../../environments/environment";
-
 import "@lib/extensions/string.extensions";
 import { City, UvIndex, WeatherForecast, WeatherCurrent } from "@lib/models";
 
@@ -14,39 +12,31 @@ export class ApiService {
   private forecastWeatherUrl: string = "http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&APPID={1}";
   private uvIndexUrl: string = "http://api.openweathermap.org/data/2.5/uvi?lat={0}&lon={1}&APPID={2}";
 
-  private apiKey: string = environment.apiKey;
-  private city: City = new City();
-
   constructor(private readonly http: HttpClient) { }
 
-  initialize(apiKey: string, city: City): void {
-    this.apiKey = apiKey;
-    this.city = city;
-  }
-
-  currentWeather(): Observable<WeatherCurrent> {
+  currentWeather(apiKey: string, city: City): Observable<WeatherCurrent> {
     return this.doRestCall<WeatherCurrent>(
       String().format(
         this.currentWeatherUrl,
-        this.city.name,
-        this.apiKey));
+        city.name,
+        apiKey));
   }
 
-  forecastWeather(): Observable<WeatherForecast> {
+  forecastWeather(apiKey: string, city: City): Observable<WeatherForecast> {
     return this.doRestCall<WeatherForecast>(
       String().format(
         this.forecastWeatherUrl,
-        this.city.name,
-        this.apiKey));
+        city.name,
+        apiKey));
   }
 
-  uvIndex(): Observable<UvIndex> {
+  uvIndex(apiKey: string, city: City): Observable<UvIndex> {
     return this.doRestCall<UvIndex>(
       String().format(
         this.uvIndexUrl,
-        this.city.coord.lat.toFixed(2),
-        this.city.coord.lon.toFixed(2),
-        this.apiKey));
+        city.coord.lat.toFixed(2),
+        city.coord.lon.toFixed(2),
+        apiKey));
   }
 
   private doRestCall<T>(url: string): Observable<T> {

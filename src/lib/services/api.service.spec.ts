@@ -43,19 +43,6 @@ describe("ApiService", () => {
         expect(classToTest).toBeTruthy();
     });
 
-    it("initialize should set apiKey and city", () => {
-        // Arrange
-        const apiKey = MockValues.apiKey();
-        const city = MockValues.city();
-
-        // Act
-        classToTest.initialize(apiKey, city);
-
-        // Assert
-        expect(classToTest["apiKey"]).toBe(apiKey);
-        expect(classToTest["city"]).toBe(city);
-    });
-
     it("currentWeather should return expected json", (done: DoneFn) => {
         // Arrange
         const expectedJson = "{\"coord\":{\"lon\":11.08,\"lat\":49.45}," +
@@ -77,11 +64,9 @@ describe("ApiService", () => {
             "\"id\":2861650," +
             "\"name\":\"Nuremberg\"," +
             "\"cod\":200}";
-        classToTest["apiKey"] = MockValues.apiKey();
-        classToTest["city"] = MockValues.city();
 
         // Act
-        classToTest.currentWeather()
+        classToTest.currentWeather(MockValues.apiKey(), MockValues.city())
             .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
@@ -134,11 +119,9 @@ describe("ApiService", () => {
             "\"grnd_level\":979.77,\"humidity\":82,\"temp_kf\":-1.15},\"weather\":[{\"id\":500,\"main\":\"Rain\",\"description\":\"light rain\"," +
             "\"icon\":\"10n\"}],\"clouds\":{\"all\":88},\"wind\":{\"speed\":2.52,\"deg\":22.001},\"rain\":{\"3h\":0.21},\"sys\":{\"pod\":\"n\"},\"dt_txt\":\"2018-06-29 03:00:00\"}]," +
             "\"city\":{\"id\":2861650,\"name\":\"Nuremberg\",\"coord\":{\"lat\":49.4539,\"lon\":11.0773},\"country\":\"DE\",\"population\":499237}}";
-        classToTest["apiKey"] = MockValues.apiKey();
-        classToTest["city"] = MockValues.city();
 
         // Act
-        classToTest.forecastWeather()
+        classToTest.forecastWeather(MockValues.apiKey(), MockValues.city())
             .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
@@ -164,11 +147,9 @@ describe("ApiService", () => {
     it("uvIndex should return expected json", (done: DoneFn) => {
         // Arrange
         const expectedJson = "{\"lat\":37.75,\"lon\":-122.37,\"date_iso\":\"2018-09-13T12:00:00Z\",\"date\":1536840000,\"value\":6.96}";
-        classToTest["apiKey"] = MockValues.apiKey();
-        classToTest["city"] = MockValues.city();
 
         // Act
-        classToTest.uvIndex()
+        classToTest.uvIndex(MockValues.apiKey(), MockValues.city())
             .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
