@@ -43,6 +43,46 @@ describe("ApiService", () => {
         expect(classToTest).toBeTruthy();
     });
 
+    it("geoCodeForCity should return expected json", (done: DoneFn) => {
+        // Arrange
+        const expectedJson = `{
+            "status": "OK",
+            "results": [
+              {
+                "address_components": [
+                  {"short_name": "Nuremberg", "types": ["locality", "political"], "long_name": "Nuremberg, DE"},
+                  {"short_name": "DE", "types": ["country", "political"], "long_name": "Germany"}
+                ],
+                "geometry": {
+                  "location_type": "APPROXIMATE",
+                  "viewport": {"northeast": {"lat": 49.5730438232, "lng": 11.3236637115}, "southwest": {"lat": 49.3166618347, "lng": 10.9793968201}},
+                  "location": {"lat": 49.45421, "lng": 11.07752}
+                },
+                "types": ["locality", "political"]
+              }
+            ]
+          }`;
+
+        // Act
+        classToTest.geoCodeForCity("Nuremberg")
+            .subscribe(response => {
+                // Assert
+                expect(response).toBeDefined();
+                expect(response.status).toBe("OK");
+                expect(response.results.length).toBe(1);
+                expect(response.results[0].address_components.length).toBe(2);
+                expect(response.results[0].geometry.location.lat).toBe(49.45421);
+                expect(response.results[0].geometry.location.lng).toBe(11.07752);
+                expect(response.results[0].types.length).toBe(2);
+                done();
+            });
+
+        const req = httpMock.expectOne("http://www.datasciencetoolkit.org/maps/api/geocode/json?address=Nuremberg");
+        expect(req.request.method).toEqual("GET");
+        req.flush(expectedJson);
+        httpMock.verify();
+    });
+
     it("currentWeather should return expected json", (done: DoneFn) => {
         // Arrange
         const expectedJson = "{\"coord\":{\"lon\":11.08,\"lat\":49.45}," +

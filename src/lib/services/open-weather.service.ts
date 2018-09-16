@@ -7,7 +7,7 @@ import "@lib/extensions/string.extensions";
 import { environment } from "../../environments/environment";
 
 import { ApiCallState } from "@lib/enums";
-import { City, City2, Coordinates, UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
+import { City, City2, UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
 import { ApiService } from "@lib/services/api.service";
 
 @Injectable()
@@ -24,15 +24,6 @@ export class OpenWeatherService {
 
     city(): Observable<City> {
         return this.city$;
-    }
-
-    setCityData(name: string, coord?: Coordinates): void {
-        const city = this.city$.value;
-        city.name = name;
-        if (coord) {
-            city.coord = coord;
-        }
-        this.city$.next(city);
     }
 
     currentWeather(): Observable<WeatherCurrent> {
@@ -53,7 +44,13 @@ export class OpenWeatherService {
             .subscribe(response => {
                 if (response && response.status && response.status === "OK" && response.results && response.results.length > 0) {
                     const city2: City2 = response.results[0];
-                    this.setCityData(city2.address_components[0].long_name, { lat: city2.geometry.location.lat, lon: city2.geometry.location.lng });
+
+                    const city = new City();
+                    city.name = city2.address_components[0].short_name;
+                    city.country = city2.address_components[1].short_name;
+                    city.coord = { lat: city2.geometry.location.lat, lon: city2.geometry.location.lng };
+
+                    this.city$.next(city);
                 }
             });
     }
