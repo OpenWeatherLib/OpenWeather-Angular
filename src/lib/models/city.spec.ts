@@ -35,26 +35,49 @@ describe("City", () => {
         expect(classToTest).toBeTruthy();
     });
 
-    it("isDefault should return true", () => {
+    it("isNameSet should return false", () => {
         // Arrange
         const city = new City();
 
         // Act
-        const isDefault = city.isDefault();
+        const isNameSet = city.isNameSet();
 
         // Assert
-        expect(isDefault).toBeTruthy();
+        expect(isNameSet).toBeFalsy();
     });
 
-    it("isDefault should return false", () => {
+    it("isNameSet should return true", () => {
         // Arrange
         const city = new City();
         city.name = "Nuremberg";
 
         // Act
-        const isDefault = city.isDefault();
+        const isNameSet = city.isNameSet();
 
         // Assert
-        expect(isDefault).toBeFalsy();
+        expect(isNameSet).toBeTruthy();
+    });
+
+    it("isCoordSet should return false", () => {
+        // Arrange
+        const city = new City();
+
+        // Act
+        const isCoordSet = city.isCoordSet();
+
+        // Assert
+        expect(isCoordSet).toBeFalsy();
+    });
+
+    it("isCoordSet should return true", () => {
+        // Arrange
+        const city = new City();
+        city.coord = { lat: 45.324, lon: 32.1 };
+
+        // Act
+        const isCoordSet = city.isCoordSet();
+
+        // Assert
+        expect(isCoordSet).toBeTruthy();
     });
 });

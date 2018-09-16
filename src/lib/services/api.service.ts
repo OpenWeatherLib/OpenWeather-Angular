@@ -8,35 +8,27 @@ import { City, UvIndex, WeatherForecast, WeatherCurrent } from "@lib/models";
 
 @Injectable()
 export class ApiService {
+  private geoCodeForCityUrl: string = "http://www.datasciencetoolkit.org/maps/api/geocode/json?address={0}";
   private currentWeatherUrl: string = "http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&APPID={1}";
   private forecastWeatherUrl: string = "http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&APPID={1}";
   private uvIndexUrl: string = "http://api.openweathermap.org/data/2.5/uvi?lat={0}&lon={1}&APPID={2}";
 
   constructor(private readonly http: HttpClient) { }
 
+  geoCodeForCity(cityName: string): Observable<any> {
+    return this.doRestCall<any>(String().format(this.geoCodeForCityUrl, cityName));
+  }
+
   currentWeather(apiKey: string, city: City): Observable<WeatherCurrent> {
-    return this.doRestCall<WeatherCurrent>(
-      String().format(
-        this.currentWeatherUrl,
-        city.name,
-        apiKey));
+    return this.doRestCall<WeatherCurrent>(String().format(this.currentWeatherUrl, city.name, apiKey));
   }
 
   forecastWeather(apiKey: string, city: City): Observable<WeatherForecast> {
-    return this.doRestCall<WeatherForecast>(
-      String().format(
-        this.forecastWeatherUrl,
-        city.name,
-        apiKey));
+    return this.doRestCall<WeatherForecast>(String().format(this.forecastWeatherUrl, city.name, apiKey));
   }
 
   uvIndex(apiKey: string, city: City): Observable<UvIndex> {
-    return this.doRestCall<UvIndex>(
-      String().format(
-        this.uvIndexUrl,
-        city.coord.lat.toFixed(2),
-        city.coord.lon.toFixed(2),
-        apiKey));
+    return this.doRestCall<UvIndex>(String().format(this.uvIndexUrl, city.coord.lat.toFixed(2), city.coord.lon.toFixed(2), apiKey));
   }
 
   private doRestCall<T>(url: string): Observable<T> {

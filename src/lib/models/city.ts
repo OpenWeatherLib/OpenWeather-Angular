@@ -9,7 +9,11 @@ export class City {
   population: number = 0;
   coord: Coordinates = { lat: 720.0, lon: 720.0 };
 
-  isDefault(): boolean {
-    return this.id === 0 && this.name === "" && this.country === "" && this.population === 0 && this.coord.lat === 720.0 && this.coord.lon === 720.0;
+  isNameSet(): boolean {
+    return !this.name.isNullOrEmpty();
+  }
+
+  isCoordSet(): boolean {
+    return this.coord.lat !== 720.0 && this.coord.lon !== 720.0;
   }
 }
