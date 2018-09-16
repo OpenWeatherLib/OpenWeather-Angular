@@ -3,6 +3,6 @@ export interface Sys {
     id: number;
     message: number;
     country: string;
-    sunrise: Date;
-    sunset: Date;
+    sunrise: number;
+    sunset: number;
 }

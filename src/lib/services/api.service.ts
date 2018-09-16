@@ -55,7 +55,7 @@ export class ApiService {
       .pipe(
         map(response => {
           const value: T = JSON.parse(response.toString());
-          return of(value);
+          return value;
         }),
         catchError(error => {
           return of(null);

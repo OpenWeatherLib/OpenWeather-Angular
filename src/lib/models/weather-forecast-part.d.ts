@@ -5,11 +5,11 @@ import { WeatherPart } from "@lib/models/weather-part";
 import { Wind } from "@lib/models/wind";
 
 export interface WeatherForecastPart {
-    dt: Date;
+    dt: number;
     main: Main;
     weather: WeatherPart[];
     clouds: Clouds;
     wind: Wind;
     rain: Rain;
-    dt_txt: Date;
+    dt_txt: string;
 }

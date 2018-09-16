@@ -82,13 +82,35 @@ describe("ApiService", () => {
 
         // Act
         classToTest.currentWeather()
-            .subscribe(json => {
-                const response = json.value;
+            .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
-                expect(response.cod).toBe(200);
+                expect(response.coord.lon).toBe(11.08);
+                expect(response.coord.lat).toBe(49.45);
+                expect(response.weather[0].id).toBe(802);
+                expect(response.weather[0].main).toBe("Clouds");
+                expect(response.weather[0].description).toBe("scattered clouds");
+                expect(response.weather[0].icon).toBe("03d");
+                expect(response.base).toBe("stations");
+                expect(response.main.temp).toBe(21.37);
+                expect(response.main.pressure).toBe(1021);
+                expect(response.main.humidity).toBe(56);
+                expect(response.main.temp_min).toBe(20);
+                expect(response.main.temp_max).toBe(23);
+                expect(response.visibility).toBe(10000);
+                expect(response.wind.speed).toBe(3.1);
+                expect(response.wind.deg).toBe(90);
                 expect(response.clouds.all).toBe(40);
+                expect(response.dt).toBe(1527326400);
+                expect(response.sys.type).toBe(1);
+                expect(response.sys.id).toBe(4888);
+                expect(response.sys.message).toBe(0.0147);
                 expect(response.sys.country).toBe("DE");
+                expect(response.sys.sunrise).toBe(1527304731);
+                expect(response.sys.sunset).toBe(1527361642);
+                expect(response.id).toBe(2861650);
+                expect(response.name).toBe("Nuremberg");
+                expect(response.cod).toBe(200);
                 done();
             });
 
@@ -117,14 +139,19 @@ describe("ApiService", () => {
 
         // Act
         classToTest.forecastWeather()
-            .subscribe(json => {
-                const response = json.value;
+            .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
-                expect(response.cod).toBe(200);
+                expect(response.cod).toBe("200");
+                expect(response.message).toBe(0.0026);
                 expect(response.cnt).toBe(3);
                 expect(response.list.length).toBe(3);
                 expect(response.city.id).toBe(2861650);
+                expect(response.city.name).toBe("Nuremberg");
+                expect(response.city.coord.lat).toBe(49.4539);
+                expect(response.city.coord.lon).toBe(11.0773);
+                expect(response.city.country).toBe("DE");
+                expect(response.city.population).toBe(499237);
                 done();
             });
 
@@ -142,12 +169,13 @@ describe("ApiService", () => {
 
         // Act
         classToTest.uvIndex()
-            .subscribe(json => {
-                const response = json.value;
+            .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
                 expect(response.lat).toBe(37.75);
                 expect(response.lon).toBe(-122.37);
+                expect(response.date_iso).toBe("2018-09-13T12:00:00Z");
+                expect(response.date).toBe(1536840000);
                 expect(response.value).toBe(6.96);
                 done();
             });

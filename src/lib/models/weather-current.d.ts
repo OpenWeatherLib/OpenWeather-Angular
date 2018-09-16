@@ -13,7 +13,7 @@ export interface WeatherCurrent {
     visibility: number;
     wind: Wind;
     clouds: Clouds;
-    dt: Date;
+    dt: number;
     sys: Sys;
     id: number;
     name: string;
