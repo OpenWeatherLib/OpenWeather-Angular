@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
@@ -8,10 +8,24 @@ import { City, UvIndex, WeatherForecast, WeatherCurrent } from "@lib/models";
 
 @Injectable()
 export class ApiService {
+
+  // TODO
+  // To fix api call error
+  // https://github.com/angular/angular-cli/blob/master/docs/documentation/stories/proxy.md
+
   private geoCodeForCityUrl: string = "http://www.datasciencetoolkit.org/maps/api/geocode/json?address={0}";
   private currentWeatherUrl: string = "http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&APPID={1}";
   private forecastWeatherUrl: string = "http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&APPID={1}";
   private uvIndexUrl: string = "http://api.openweathermap.org/data/2.5/uvi?lat={0}&lon={1}&APPID={2}";
+
+  private readonly headers = new HttpHeaders({
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "Expires": "Sat, 01 Jan 2000 00:00:00 GMT",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT, OPTIONS",
+    "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+  });
 
   constructor(private readonly http: HttpClient) { }
 
@@ -33,7 +47,7 @@ export class ApiService {
 
   private doRestCall<T>(url: string): Observable<T> {
     return this.http
-      .get(url)
+      .get(url, { headers: this.headers })
       .pipe(
         map(response => {
           const value: T = JSON.parse(response.toString());
