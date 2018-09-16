@@ -3,7 +3,7 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
+    basePath: "",
     frameworks: [
         "jasmine",
         "@angular-devkit/build-angular"
@@ -29,15 +29,15 @@ module.exports = function (config) {
         }
     },
     angularCli: {
-      environment: 'dev'
+      environment: "dev"
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ["progress", "kjhtml"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome', "ChromeHeadless"],
+    browsers: ["Chrome", "ChromeHeadless"],
     singleRun: false,
-    browserNoActivityTimeout: 135000
+    browserNoActivityTimeout: 60000
   });
 };

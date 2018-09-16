@@ -110,7 +110,7 @@ export class OpenWeatherService {
 
         const value = this.forecastWeather$.value;
         let list = value.list;
-        list = list.filter(x => { return JSON.stringify(x).includes(searchValue); });
+        list = list.filter(x => JSON.stringify(x).includes(searchValue));
 
         return {
             cod: value.cod,
