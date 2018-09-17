@@ -77,9 +77,9 @@ describe("ApiService", () => {
                 done();
             });
 
-        const req = httpMock.expectOne("http://www.datasciencetoolkit.org/maps/api/geocode/json?address=Nuremberg");
+        const req = httpMock.expectOne("http://allorigins.me/get?url=http://www.datasciencetoolkit.org/maps/api/geocode/json?address=Nuremberg");
         expect(req.request.method).toEqual("GET");
-        req.flush(expectedJson);
+        req.flush({ contents: expectedJson });
         httpMock.verify();
     });
 
@@ -141,7 +141,7 @@ describe("ApiService", () => {
 
         const req = httpMock.expectOne(`http://api.openweathermap.org/data/2.5/weather?q=${MockValues.city().name}&units=metric&APPID=${MockValues.apiKey()}`);
         expect(req.request.method).toEqual("GET");
-        req.flush(expectedJson);
+        req.flush(JSON.parse(expectedJson));
         httpMock.verify();
     });
 
@@ -180,7 +180,7 @@ describe("ApiService", () => {
 
         const req = httpMock.expectOne(`http://api.openweathermap.org/data/2.5/forecast?q=${MockValues.city().name}&units=metric&APPID=${MockValues.apiKey()}`);
         expect(req.request.method).toEqual("GET");
-        req.flush(expectedJson);
+        req.flush(JSON.parse(expectedJson));
         httpMock.verify();
     });
 
@@ -203,7 +203,7 @@ describe("ApiService", () => {
 
         const req = httpMock.expectOne(`http://api.openweathermap.org/data/2.5/uvi?lat=${MockValues.city().coord.lat.toFixed(2)}&lon=${MockValues.city().coord.lon.toFixed(2)}&APPID=${MockValues.apiKey()}`);
         expect(req.request.method).toEqual("GET");
-        req.flush(expectedJson);
+        req.flush(JSON.parse(expectedJson));
         httpMock.verify();
     });
 });
