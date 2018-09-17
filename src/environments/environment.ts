@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  version: "0.0.1.180916",
+  version: "0.1.0.180917",
   apiKey: ""
 };
