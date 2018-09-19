@@ -19,21 +19,21 @@ export function validate<T>(defaultReturnValue: T) {
         descriptor.value = function () {
             const requiredParameters: any[] = Reflect.getOwnMetadata(requiredMetadataKey, target, propertyName);
             if (requiredParameters) {
-                for (const parameters of requiredParameters) {
-                    if (parameters.index >= arguments.length) {
-                        console.error(`Missing required argument at ${propertyName}.`);
+                for (const parameter of requiredParameters) {
+                    if (parameter.index >= arguments.length) {
+                        console.error(`Missing required argument at ${propertyName} with parameter ${JSON.stringify(parameter)}`);
                         return defaultReturnValue;
                     } else {
-                        const argumentValue = arguments[parameters.index];
+                        const argumentValue = arguments[parameter.index];
                         if (argumentValue === undefined || argumentValue === null) {
-                            console.error(`Missing required argument undefined|null at ${propertyName}.`);
+                            console.error(`Missing required argument undefined|null at ${propertyName} with parameter ${JSON.stringify(parameter)}.`);
                             return defaultReturnValue;
                         } else {
-                            if (parameters.type === ValidationRequiredType.String && argumentValue === "") {
-                                console.error(`Missing required argument for string at ${propertyName}.`);
+                            if (parameter.type === ValidationRequiredType.String && argumentValue === "") {
+                                console.error(`Missing required argument for string at ${propertyName} with parameter ${JSON.stringify(parameter)}.`);
                                 return defaultReturnValue;
-                            } else if (parameters.type === ValidationRequiredType.Array && argumentValue.length === 0) {
-                                console.error(`Missing required argument for array at ${propertyName}.`);
+                            } else if (parameter.type === ValidationRequiredType.Array && argumentValue.length === 0) {
+                                console.error(`Missing required argument for array at ${propertyName} with parameter ${JSON.stringify(parameter)}.`);
                                 return defaultReturnValue;
                             }
                         }

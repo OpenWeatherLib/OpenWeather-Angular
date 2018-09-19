@@ -1,25 +1,40 @@
 <mat-sidenav-container class="ga-sidenav-container">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <div class="ga-margin-1-rem ga-cursor-pointer">
-      <div class="ga-icon-menu-black-fas" (click)="sidenav.toggle();mainMenuVisible=true;" *ngIf="!mainMenuVisible">
+      <mat-icon svgIcon="menu" (click)="sidenav.toggle();mainMenuVisible=true;" *ngIf="!mainMenuVisible">
         Menu
-      </div>
+      </mat-icon>
     </div>
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="currentWeather()">Current Weather</button>
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="currentWeather()">
+        Load Current Weather
+      </button>
     </div>
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="forecastWeather()">Forecast Weather</button>
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="forecastWeather()">
+        Load Forecast Weather
+      </button>
     </div>
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="uvIndex()">UV Index</button>
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="uvIndex()">
+        Load UV Index
+      </button>
     </div>
+    <form class="ga-margin-1-rem">
+      <mat-form-field class="ga-width-100-per">
+        <input matInput placeholder="Enter new city" [(ngModel)]="newCity" [ngModelOptions]="{standalone: true}">
+        <button mat-button *ngIf="newCity" matSuffix mat-icon-button aria-label="Clear" (click)="newCity=''">
+          <mat-icon svgIcon="close"></mat-icon>
+        </button>
+      </mat-form-field>
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="updateCity()" [disabled]="!newCity || newCity===city">
+        Update city
+      </button>
+    </form>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div class="ga-icon-menu-black-fas ga-margin-1-rem ga-cursor-pointer" (click)="sidenav.toggle();mainMenuVisible=false;"
-      *ngIf="mainMenuVisible">
-      Menu
-    </div>
+    <mat-icon class="ga-margin-1-rem ga-cursor-pointer" svgIcon="menu" (click)="sidenav.toggle();mainMenuVisible=false;"
+      *ngIf="mainMenuVisible"></mat-icon>
   </mat-sidenav-content>
 </mat-sidenav-container>
