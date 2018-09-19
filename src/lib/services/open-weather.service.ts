@@ -6,9 +6,10 @@ import "@lib/extensions/string.extensions";
 
 import { environment } from "../../environments/environment";
 
-import { ApiCallState } from "@lib/enums";
+import { ApiCallState, ValidationRequiredType } from "@lib/enums";
 import { City, City2, UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
 import { ApiService } from "@lib/services/api.service";
+import { validate, required } from "@lib/decorator";
 
 @Injectable()
 export class OpenWeatherService {
@@ -38,7 +39,8 @@ export class OpenWeatherService {
         return this.uvIndex$;
     }
 
-    loadCityData(cityName: string): void {
+    @validate(null)
+    loadCityData(@required(ValidationRequiredType.String) cityName: string): void {
         this.apiService.geoCodeForCity(cityName)
             .pipe(take(1))
             .subscribe(response => {
@@ -103,7 +105,8 @@ export class OpenWeatherService {
         return ApiCallState.Calling;
     }
 
-    searchForecast(searchValue: string): WeatherForecast {
+    @validate(null)
+    searchForecast(@required(ValidationRequiredType.String) searchValue: string): WeatherForecast {
         if (!this.forecastWeather$.value || !this.forecastWeather$.value.cnt) {
             return null;
         }

@@ -5,6 +5,8 @@ import { catchError, map } from "rxjs/operators";
 
 import "@lib/extensions/string.extensions";
 
+import { validate, required } from "@lib/decorator";
+import { ValidationRequiredType } from "@lib/enums";
 import { City, UvIndex, WeatherForecast, WeatherCurrent } from "@lib/models";
 
 @Injectable()
@@ -23,19 +25,23 @@ export class ApiService {
 
   constructor(private readonly http: HttpClient) { }
 
-  geoCodeForCity(cityName: string): Observable<any> {
+  @validate(of(null))
+  geoCodeForCity(@required(ValidationRequiredType.String) cityName: string): Observable<any> {
     return this.doRestCall<any>(String().format(this.geoCodeForCityUrl, cityName), true);
   }
 
-  currentWeather(apiKey: string, city: City): Observable<WeatherCurrent> {
+  @validate(of(null))
+  currentWeather(@required(ValidationRequiredType.String) apiKey: string, @required(ValidationRequiredType.Object) city: City): Observable<WeatherCurrent> {
     return this.doRestCall<WeatherCurrent>(String().format(this.currentWeatherUrl, city.name, apiKey));
   }
 
-  forecastWeather(apiKey: string, city: City): Observable<WeatherForecast> {
+  @validate(of(null))
+  forecastWeather(@required(ValidationRequiredType.String) apiKey: string, @required(ValidationRequiredType.Object) city: City): Observable<WeatherForecast> {
     return this.doRestCall<WeatherForecast>(String().format(this.forecastWeatherUrl, city.name, apiKey));
   }
 
-  uvIndex(apiKey: string, city: City): Observable<UvIndex> {
+  @validate(of(null))
+  uvIndex(@required(ValidationRequiredType.String) apiKey: string, @required(ValidationRequiredType.Object) city: City): Observable<UvIndex> {
     return this.doRestCall<UvIndex>(String().format(this.uvIndexUrl, city.coord.lat.toFixed(2), city.coord.lon.toFixed(2), apiKey));
   }
 
