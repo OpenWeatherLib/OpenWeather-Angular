@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
@@ -25,6 +26,7 @@ import { AppComponent } from "./app.component";
     HttpClientModule,
     FormsModule,
     MatButtonModule,
+    MatCardModule,
     MatCheckboxModule,
     MatIconModule,
     MatInputModule,
