@@ -3,7 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { ApiInterceptor } from "@lib/interceptor/api.interceptor";
-import { ApiService, OpenWeatherService } from "@lib/services";
+import { ApiService, ImageService, OpenWeatherService } from "@lib/services";
 
 @NgModule({
     imports: [
@@ -19,6 +19,7 @@ import { ApiService, OpenWeatherService } from "@lib/services";
             useClass: ApiInterceptor,
             multi: true
         },
+        ImageService,
         OpenWeatherService
     ],
     entryComponents: []

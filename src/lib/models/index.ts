@@ -8,6 +8,7 @@ export * from "./geometry";
 export * from "./main";
 export * from "./rain";
 export * from "./sys";
+export * from "./unsplash-image-response";
 export * from "./uv-index";
 export * from "./viewport";
 export * from "./weather-current";

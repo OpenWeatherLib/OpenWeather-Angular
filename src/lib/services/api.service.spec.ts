@@ -4,6 +4,8 @@ import { TestBed } from "@angular/core/testing";
 // import MockServices from "@lib/mock/services.mock";
 import MockValues from "@lib/mock/values.mock";
 
+import { UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
+
 import { ApiService } from "./api.service";
 
 describe("ApiService", () => {
@@ -43,46 +45,6 @@ describe("ApiService", () => {
         expect(classToTest).toBeTruthy();
     });
 
-    it("geoCodeForCity should return expected json", (done: DoneFn) => {
-        // Arrange
-        const expectedJson = `{
-            "status": "OK",
-            "results": [
-              {
-                "address_components": [
-                  {"short_name": "Nuremberg", "types": ["locality", "political"], "long_name": "Nuremberg, DE"},
-                  {"short_name": "DE", "types": ["country", "political"], "long_name": "Germany"}
-                ],
-                "geometry": {
-                  "location_type": "APPROXIMATE",
-                  "viewport": {"northeast": {"lat": 49.5730438232, "lng": 11.3236637115}, "southwest": {"lat": 49.3166618347, "lng": 10.9793968201}},
-                  "location": {"lat": 49.45421, "lng": 11.07752}
-                },
-                "types": ["locality", "political"]
-              }
-            ]
-          }`;
-
-        // Act
-        classToTest.geoCodeForCity("Nuremberg")
-            .subscribe(response => {
-                // Assert
-                expect(response).toBeDefined();
-                expect(response.status).toBe("OK");
-                expect(response.results.length).toBe(1);
-                expect(response.results[0].address_components.length).toBe(2);
-                expect(response.results[0].geometry.location.lat).toBe(49.45421);
-                expect(response.results[0].geometry.location.lng).toBe(11.07752);
-                expect(response.results[0].types.length).toBe(2);
-                done();
-            });
-
-        const req = httpMock.expectOne("http://allorigins.me/get?url=http://www.datasciencetoolkit.org/maps/api/geocode/json?address=Nuremberg");
-        expect(req.request.method).toEqual("GET");
-        req.flush({ contents: expectedJson });
-        httpMock.verify();
-    });
-
     it("currentWeather should return expected json", (done: DoneFn) => {
         // Arrange
         const expectedJson = "{\"coord\":{\"lon\":11.08,\"lat\":49.45}," +
@@ -106,7 +68,7 @@ describe("ApiService", () => {
             "\"cod\":200}";
 
         // Act
-        classToTest.currentWeather(MockValues.apiKey(), MockValues.city())
+        classToTest.get<WeatherCurrent>(`http://api.openweathermap.org/data/2.5/weather?q=${MockValues.city().name}&units=metric&APPID=${MockValues.apiKey()}`)
             .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
@@ -161,7 +123,7 @@ describe("ApiService", () => {
             "\"city\":{\"id\":2861650,\"name\":\"Nuremberg\",\"coord\":{\"lat\":49.4539,\"lon\":11.0773},\"country\":\"DE\",\"population\":499237}}";
 
         // Act
-        classToTest.forecastWeather(MockValues.apiKey(), MockValues.city())
+        classToTest.get<WeatherForecast>(`http://api.openweathermap.org/data/2.5/forecast?q=${MockValues.city().name}&units=metric&APPID=${MockValues.apiKey()}`)
             .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();
@@ -189,7 +151,7 @@ describe("ApiService", () => {
         const expectedJson = "{\"lat\":37.75,\"lon\":-122.37,\"date_iso\":\"2018-09-13T12:00:00Z\",\"date\":1536840000,\"value\":6.96}";
 
         // Act
-        classToTest.uvIndex(MockValues.apiKey(), MockValues.city())
+        classToTest.get<UvIndex>(`http://api.openweathermap.org/data/2.5/uvi?lat=${MockValues.city().coord.lat.toFixed(2)}&lon=${MockValues.city().coord.lon.toFixed(2)}&APPID=${MockValues.apiKey()}`)
             .subscribe(response => {
                 // Assert
                 expect(response).toBeDefined();

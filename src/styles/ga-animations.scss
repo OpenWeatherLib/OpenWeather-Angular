@@ -1,0 +1,29 @@
+@import "./ga-variables.scss";
+
+.ga-action-indicator-black::after {
+  content: ' .';
+  animation: dots-black 1s steps(5, end) infinite;
+}
+
+@keyframes dots-black {
+
+  0%,
+  20% {
+    color: $black-alpha;
+    text-shadow: .25em 0 0 $black-alpha, .5em 0 0 $black-alpha;
+  }
+
+  40% {
+    color: $white;
+    text-shadow: .25em 0 0 $black-alpha, .5em 0 0 $black-alpha;
+  }
+
+  60% {
+    text-shadow: .25em 0 0 $black, .5em 0 0 $black-alpha;
+  }
+
+  80%,
+  100% {
+    text-shadow: .25em 0 0 $black, .5em 0 0 $black;
+  }
+}
