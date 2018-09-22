@@ -10,4 +10,6 @@
 
 library for downloading and handling data from openweather
 
-![alt tag](https://github.com/OpenWeatherLib/OpenWeather-Angular/tree/develop/screenshots/img001.png)
+---
+![alt tag](https://github.com/OpenWeatherLib/OpenWeather-Angular/blob/develop/screenshots/img001.png)
+---
