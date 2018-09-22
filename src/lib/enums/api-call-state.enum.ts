@@ -1,6 +1,8 @@
 export enum ApiCallState {
     Null,
+    Calling,
     CityNotSet,
     CoordNotSet,
-    Calling
+    NoOpenWeatherApiKey,
+    NoUnsplashAccessKey
 }

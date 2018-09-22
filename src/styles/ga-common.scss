@@ -1,7 +1,3 @@
-@import "./fontawesome.scss";
-@import "./fa-regular.scss";
-@import "./fa-solid.scss";
-
 $widths: "0"0,
 "10"10,
 "20"20,
@@ -35,14 +31,10 @@ $margins: "0"0,
   }
 }
 
-.ga-icon-menu-black-fas:before {
-  @include fa-icon;
-  @extend .fas;
-  content: fa-content($fa-var-bars);
-  color: black;
-  font-size: 1rem;
-}
-
 .ga-cursor-pointer {
   cursor: pointer;
+}
+
+.ga-display-inline-block {
+  display: inline-block;
 }

@@ -1,25 +1,98 @@
-<mat-sidenav-container class="ga-sidenav-container">
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+<mat-toolbar class="ga-header" color="primary">
+  <mat-toolbar-row>
     <div class="ga-margin-1-rem ga-cursor-pointer">
-      <div class="ga-icon-menu-black-fas" (click)="sidenav.toggle();mainMenuVisible=true;" *ngIf="!mainMenuVisible">
-        Menu
+      <mat-icon svgIcon="menu" (click)="sidenav.toggle()"></mat-icon>
+      OpenWeather - Angular - Example
+      <div class="ga-toolbar-city">
+        <mat-icon svgIcon="city"></mat-icon>
+        <span [ngClass]="{'ga-action-indicator-black':updatingCity}">
+          {{city?.name}}
+        </span>
       </div>
     </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="ga-sidenav-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="currentWeather()">Current Weather</button>
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadCurrentWeather()" [disabled]="updatingCurrentWeather">
+        Load Current Weather
+      </button>
     </div>
+
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="forecastWeather()">Forecast Weather</button>
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadForecastWeather()" [disabled]="updatingForecastWeather">
+        Load Forecast Weather
+      </button>
     </div>
+
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="uvIndex()">UV Index</button>
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadUvIndex()" [disabled]="updatingUvIndex">
+        Load UV Index
+      </button>
     </div>
+
+    <form class="ga-margin-1-rem">
+      <mat-form-field class="ga-width-100-per">
+        <input matInput placeholder="Enter new city" [(ngModel)]="newCityName" [ngModelOptions]="{standalone: true}">
+
+        <button mat-button *ngIf="newCityName && newCityName !== city?.name && !updatingCity" matSuffix mat-icon-button
+          aria-label="Save" (click)="updateCity()">
+          <mat-icon svgIcon="save"></mat-icon>
+        </button>
+
+        <button mat-button *ngIf="newCityName" matSuffix mat-icon-button aria-label="Clear" (click)="newCityName=''">
+          <mat-icon svgIcon="close"></mat-icon>
+        </button>
+      </mat-form-field>
+    </form>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div class="ga-icon-menu-black-fas ga-margin-1-rem ga-cursor-pointer" (click)="sidenav.toggle();mainMenuVisible=false;"
-      *ngIf="mainMenuVisible">
-      Menu
+
+    <div class="ga-card-position">
+      <span class="ga-display-inline-block">
+        <mat-card class="ga-card" *ngIf="currentWeather">
+          <mat-card-header>
+            <img mat-card-avatar class="ga-card-header-image" src="{{currentWeather?.weatherCondition?.icon}}" alt="Current weather pic">
+            <mat-card-title>Current Weather</mat-card-title>
+            <mat-card-subtitle>{{currentWeather?.weatherCondition?.description}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="{{currentWeather?.weatherCondition?.wallpaper}}" alt="Current weather pic">
+          <mat-card-content>
+            <p>Temperature: {{currentWeather?.main?.temp}}°C
+              ({{currentWeather?.main?.temp_min}}°C-{{currentWeather?.main?.temp_max}}°C)</p>
+            <p>Pressure: {{currentWeather?.main?.pressure}} mBar</p>
+            <p>Humidity: {{currentWeather?.main?.humidity}} %</p>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="ga-card" *ngIf="uvIndex">
+          <mat-card-header>
+            <img mat-card-avatar class="ga-card-header-image" src="/assets/uv_index.png" alt="UvIndex pic">
+            <mat-card-title>UvIndex</mat-card-title>
+            <mat-card-subtitle>{{uvIndex?.value}}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </span>
+
+      <span class="ga-display-inline-block">
+        <mat-card class="ga-card" *ngIf="city">
+          <mat-card-header>
+            <img mat-card-avatar class="ga-card-header-image" src="{{cityPictureUrl}}" alt="City pic">
+            <mat-card-title>City</mat-card-title>
+            <mat-card-subtitle>{{city?.name}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="{{cityPictureUrl}}" alt="City pic">
+          <mat-card-content>
+            <p>Country: {{city?.country}}</p>
+            <p>Population: {{city?.population}}</p>
+            <p>Coordinates: Lat: {{city?.coord?.lat}}, Lon: {{city?.coord?.lon}}</p>
+          </mat-card-content>
+        </mat-card>
+      </span>
     </div>
   </mat-sidenav-content>
+
 </mat-sidenav-container>

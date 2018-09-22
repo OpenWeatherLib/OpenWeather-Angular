@@ -6,9 +6,11 @@ import "@lib/extensions/string.extensions";
 
 import { environment } from "../../environments/environment";
 
-import { ApiCallState } from "@lib/enums";
+import { ApiCallState, ValidationRequiredType } from "@lib/enums";
 import { City, City2, UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
 import { ApiService } from "@lib/services/api.service";
+import { validate, required } from "@lib/decorator";
+import WeatherCondition from "@lib/enums/weather-condition.enum";
 
 @Injectable()
 export class OpenWeatherService {
@@ -18,7 +20,12 @@ export class OpenWeatherService {
     private forecastWeather$ = new BehaviorSubject<WeatherForecast>(null);
     private uvIndex$ = new BehaviorSubject<UvIndex>(null);
 
-    private apiKey: string = environment.apiKey;
+    private apiKey: string = environment.openWeatherApiKey;
+
+    private geoCodeForCityUrl: string = "http://www.datasciencetoolkit.org/maps/api/geocode/json?address={0}";
+    private currentWeatherUrl: string = "http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&APPID={1}";
+    private forecastWeatherUrl: string = "http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&APPID={1}";
+    private uvIndexUrl: string = "http://api.openweathermap.org/data/2.5/uvi?lat={0}&lon={1}&APPID={2}";
 
     constructor(private readonly apiService: ApiService) { }
 
@@ -38,8 +45,9 @@ export class OpenWeatherService {
         return this.uvIndex$;
     }
 
-    loadCityData(cityName: string): void {
-        this.apiService.geoCodeForCity(cityName)
+    @validate(null)
+    loadCityData(@required(ValidationRequiredType.String) cityName: string): void {
+        this.apiService.get<any>(String().format(this.geoCodeForCityUrl, cityName), true)
             .pipe(take(1))
             .subscribe(response => {
                 if (response && response.status && response.status === "OK" && response.results && response.results.length > 0) {
@@ -60,10 +68,18 @@ export class OpenWeatherService {
             return ApiCallState.CityNotSet;
         }
 
-        this.apiService.currentWeather(this.apiKey, this.city$.value)
+        if (!this.apiKey) {
+            return ApiCallState.NoOpenWeatherApiKey;
+        }
+
+        const city = this.city$.value;
+        const url = String().format(this.currentWeatherUrl, city.name, this.apiKey);
+
+        this.apiService.get<WeatherCurrent>(url)
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
+                    response.weatherCondition = WeatherCondition.getByDescription(response.weather[0].description);
                     this.currentWeather$.next(response);
                 }
             });
@@ -76,7 +92,14 @@ export class OpenWeatherService {
             return ApiCallState.CoordNotSet;
         }
 
-        this.apiService.forecastWeather(this.apiKey, this.city$.value)
+        if (!this.apiKey) {
+            return ApiCallState.NoOpenWeatherApiKey;
+        }
+
+        const city = this.city$.value;
+        const url = String().format(this.forecastWeatherUrl, city.name, this.apiKey);
+
+        this.apiService.get<WeatherForecast>(url)
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
@@ -92,7 +115,14 @@ export class OpenWeatherService {
             return ApiCallState.CoordNotSet;
         }
 
-        this.apiService.uvIndex(this.apiKey, this.city$.value)
+        if (!this.apiKey) {
+            return ApiCallState.NoOpenWeatherApiKey;
+        }
+
+        const city = this.city$.value;
+        const url = String().format(this.uvIndexUrl, city.coord.lat.toFixed(2), city.coord.lon.toFixed(2), this.apiKey);
+
+        this.apiService.get<UvIndex>(url)
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
@@ -103,7 +133,8 @@ export class OpenWeatherService {
         return ApiCallState.Calling;
     }
 
-    searchForecast(searchValue: string): WeatherForecast {
+    @validate(null)
+    searchForecast(@required(ValidationRequiredType.String) searchValue: string): WeatherForecast {
         if (!this.forecastWeather$.value || !this.forecastWeather$.value.cnt) {
             return null;
         }

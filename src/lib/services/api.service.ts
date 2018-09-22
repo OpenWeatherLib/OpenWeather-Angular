@@ -5,7 +5,8 @@ import { catchError, map } from "rxjs/operators";
 
 import "@lib/extensions/string.extensions";
 
-import { City, UvIndex, WeatherForecast, WeatherCurrent } from "@lib/models";
+import { validate, required } from "@lib/decorator";
+import { ValidationRequiredType } from "@lib/enums";
 
 @Injectable()
 export class ApiService {
@@ -16,30 +17,10 @@ export class ApiService {
   private crossOriginUrl: string = "https://crossorigin.me/";
   private whateverOriginUrl: string = "http://www.whateverorigin.org/get?url=";
 
-  private geoCodeForCityUrl: string = "http://www.datasciencetoolkit.org/maps/api/geocode/json?address={0}";
-  private currentWeatherUrl: string = "http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&APPID={1}";
-  private forecastWeatherUrl: string = "http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&APPID={1}";
-  private uvIndexUrl: string = "http://api.openweathermap.org/data/2.5/uvi?lat={0}&lon={1}&APPID={2}";
-
   constructor(private readonly http: HttpClient) { }
 
-  geoCodeForCity(cityName: string): Observable<any> {
-    return this.doRestCall<any>(String().format(this.geoCodeForCityUrl, cityName), true);
-  }
-
-  currentWeather(apiKey: string, city: City): Observable<WeatherCurrent> {
-    return this.doRestCall<WeatherCurrent>(String().format(this.currentWeatherUrl, city.name, apiKey));
-  }
-
-  forecastWeather(apiKey: string, city: City): Observable<WeatherForecast> {
-    return this.doRestCall<WeatherForecast>(String().format(this.forecastWeatherUrl, city.name, apiKey));
-  }
-
-  uvIndex(apiKey: string, city: City): Observable<UvIndex> {
-    return this.doRestCall<UvIndex>(String().format(this.uvIndexUrl, city.coord.lat.toFixed(2), city.coord.lon.toFixed(2), apiKey));
-  }
-
-  private doRestCall<T>(url: string, useProxyService: boolean = false): Observable<T> {
+  @validate(of(null))
+  get<T>(@required(ValidationRequiredType.String) url: string, useProxyService: boolean = false): Observable<T> {
     return this.http
       .get(useProxyService ? (this.allOriginsUrl + url) : url)
       .pipe(

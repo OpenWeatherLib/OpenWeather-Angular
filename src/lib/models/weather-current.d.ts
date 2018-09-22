@@ -5,6 +5,8 @@ import { Sys } from "@lib/models/sys";
 import { WeatherPart } from "@lib/models/weather-part";
 import { Wind } from "@lib/models/wind";
 
+import WeatherCondition from "@lib/enums/weather-condition.enum";
+
 export interface WeatherCurrent {
     coord: Coordinates;
     weather: WeatherPart[];
@@ -18,4 +20,5 @@ export interface WeatherCurrent {
     id: number;
     name: string;
     cod: number;
+    weatherCondition: WeatherCondition;
 }

@@ -18,4 +18,14 @@ export default class WeatherCondition {
         WeatherCondition.haze, WeatherCondition.mist, WeatherCondition.rain, WeatherCondition.sleet, WeatherCondition.snow,
         WeatherCondition.squalls, WeatherCondition.sun, WeatherCondition.thunderstorm
     ];
+
+    static getByDescription(description: string): WeatherCondition {
+        const weatherCondition = WeatherCondition.values
+            .find(x => x.description.toUpperCase().includes(description.toUpperCase())
+                || description.toUpperCase().includes(x.description.toUpperCase()));
+        if (!weatherCondition) {
+            return WeatherCondition.null;
+        }
+        return weatherCondition;
+    }
 }

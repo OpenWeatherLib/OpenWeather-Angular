@@ -1,7 +1,46 @@
+@import "../styles/ga-theme.scss";
+@import "../styles/ga-variables.scss";
+
+// Header
+
+.ga-header {
+  height: $toolbar-height;
+}
+
+.ga-toolbar-city {
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+}
+
+// Sidenav Content
+
 .ga-sidenav-container {
   position: absolute;
-  top: 0;
+  top: $toolbar-height;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+// Cards
+
+.ga-card {
+  min-width: 22rem;
+  max-width: 22rem;
+  width: 22rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.ga-card-position {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+.ga-card-header-image {
+  background-size: cover;
+  background-color: mat-color(map-get($theme, primary));
+  ;
 }

@@ -3,7 +3,7 @@ import { TestBed, async } from "@angular/core/testing";
 import MockServices from "@lib/mock/services.mock";
 // import MockValues from "@lib/mock/values.mock";
 
-import { ApiService, OpenWeatherService } from "@lib/services";
+import { ApiService, ImageService, OpenWeatherService } from "@lib/services";
 
 import { AppComponent } from "./app.component";
 
@@ -11,10 +11,12 @@ describe("AppComponent", () => {
   let classToTest: AppComponent;
 
   const apiServiceMock = MockServices.substitute(ApiService);
+  const imageServiceMock = MockServices.substitute(ImageService);
   const openWeatherServiceMock = MockServices.substitute(OpenWeatherService);
 
   const serviceMockList: any[] = [
     apiServiceMock,
+    imageServiceMock,
     openWeatherServiceMock
   ];
 
@@ -25,6 +27,7 @@ describe("AppComponent", () => {
       ],
       providers: [
         { provide: ApiService, useValue: apiServiceMock },
+        { provide: ImageService, useValue: imageServiceMock },
         { provide: OpenWeatherService, useValue: openWeatherServiceMock }
       ]
     }).overrideTemplate(AppComponent, "<div>Test</div>").compileComponents();

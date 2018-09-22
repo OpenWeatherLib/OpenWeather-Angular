@@ -45,7 +45,7 @@ describe("OpenWeatherService", () => {
 
     it("loadCityData should call apiService and set city", (done: DoneFn) => {
         // Arrange
-        apiServiceMock.geoCodeForCity.and.returnValue(of({ status: "OK", results: [MockValues.city2()] }));
+        apiServiceMock.get.and.returnValue(of({ status: "OK", results: [MockValues.city2()] }));
 
         classToTest.city().subscribe(value => {
             if (value) {
@@ -65,7 +65,7 @@ describe("OpenWeatherService", () => {
         classToTest["city$"] = new BehaviorSubject(MockValues.city());
         classToTest["apiKey"] = MockValues.apiKey();
         const expectedValue = MockValues.weatherCurrent();
-        apiServiceMock.currentWeather.and.returnValue(of(expectedValue));
+        apiServiceMock.get.and.returnValue(of(expectedValue));
 
         classToTest.currentWeather().subscribe(value => {
             if (value) {
@@ -83,7 +83,7 @@ describe("OpenWeatherService", () => {
         classToTest["city$"] = new BehaviorSubject(MockValues.city());
         classToTest["apiKey"] = MockValues.apiKey();
         const expectedValue = MockValues.weatherForecast();
-        apiServiceMock.forecastWeather.and.returnValue(of(expectedValue));
+        apiServiceMock.get.and.returnValue(of(expectedValue));
 
         classToTest.forecastWeather().subscribe(value => {
             if (value) {
@@ -101,7 +101,7 @@ describe("OpenWeatherService", () => {
         classToTest["city$"] = new BehaviorSubject(MockValues.city());
         classToTest["apiKey"] = MockValues.apiKey();
         const expectedValue = MockValues.uvIndex();
-        apiServiceMock.uvIndex.and.returnValue(of(expectedValue));
+        apiServiceMock.get.and.returnValue(of(expectedValue));
 
         classToTest.uvIndex().subscribe(value => {
             if (value) {
