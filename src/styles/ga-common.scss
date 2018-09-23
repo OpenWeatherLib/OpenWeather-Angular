@@ -29,6 +29,22 @@ $margins: "0"0,
   .ga-margin-#{nth($margin, 1)}-rem {
     margin: nth($margin, 2)+rem;
   }
+
+  .ga-margin-left-#{nth($margin, 1)}-rem {
+    margin-left: nth($margin, 2)+rem;
+  }
+
+  .ga-margin-right-#{nth($margin, 1)}-rem {
+    margin-right: nth($margin, 2)+rem;
+  }
+
+  .ga-margin-top-#{nth($margin, 1)}-rem {
+    margin-top: nth($margin, 2)+rem;
+  }
+
+  .ga-margin-bottom-#{nth($margin, 1)}-rem {
+    margin-bottom: nth($margin, 2)+rem;
+  }
 }
 
 .ga-cursor-pointer {
@@ -37,4 +53,5 @@ $margins: "0"0,
 
 .ga-display-inline-block {
   display: inline-block;
+  vertical-align: top;
 }

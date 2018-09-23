@@ -110,7 +110,7 @@ export default class MockValues {
     }
 
     static weatherCurrent(): WeatherCurrent {
-        return {} as WeatherCurrent;
+        return { weather: [{ description: "clear" } as WeatherPart] } as WeatherCurrent;
     }
 
     static weatherForecast(): WeatherForecast {

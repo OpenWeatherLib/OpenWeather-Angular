@@ -5,8 +5,10 @@ import { Subscription } from "rxjs";
 import { take } from "rxjs/operators";
 
 import { ApiCallState } from "@lib/enums";
-import { City, WeatherCurrent, WeatherForecast, UvIndex } from "@lib/models";
+import { mostWeatherCondition } from "@lib/extensions/weather-forecast.extension";
+import { City, WeatherCurrent, WeatherForecast, UvIndex, WeatherForecastPart } from "@lib/models";
 import { ImageService, OpenWeatherService } from "@lib/services";
+import WeatherCondition from "@lib/enums/weather-condition.enum";
 
 @Component({
   selector: "app-root",
@@ -27,6 +29,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   forecastWeather: WeatherForecast = null;
   updatingForecastWeather: boolean = false;
+  mostWeatherCondition: WeatherCondition = WeatherCondition.null;
+  forecastWeatherList: WeatherForecastPart[] = [];
+  forecastWeatherSearch: string = "";
 
   uvIndex: UvIndex = null;
   updatingUvIndex: boolean = false;
@@ -77,6 +82,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
           if (forecastWeather) {
             this.forecastWeather = forecastWeather;
+            this.forecastWeatherList = this.forecastWeather.list;
+            this.mostWeatherCondition = mostWeatherCondition(this.forecastWeatherList);
           }
         }));
 
@@ -141,6 +148,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.updatingCity = true;
     this.openWeatherService.loadCityData(this.newCityName);
+  }
+
+  searchForecastWeather(): void {
+    if (this.forecastWeatherSearch) {
+      this.forecastWeatherList = this.forecastWeather.list.filter(x => JSON.stringify(x).includes(this.forecastWeatherSearch));
+    } else {
+      this.forecastWeatherList = this.forecastWeather.list;
+    }
+    this.mostWeatherCondition = mostWeatherCondition(this.forecastWeatherList);
   }
 
   private registerIcons(): void {

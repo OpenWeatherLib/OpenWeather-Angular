@@ -103,6 +103,7 @@ export class OpenWeatherService {
             .pipe(take(1))
             .subscribe(response => {
                 if (response) {
+                    response.list.forEach(x => x.weatherCondition = WeatherCondition.getByDescription(x.weather[0].description));
                     this.forecastWeather$.next(response);
                 }
             });
