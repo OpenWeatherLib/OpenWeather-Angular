@@ -1,7 +1,7 @@
 export default class WeatherCondition {
     static null = { id: 0, description: "Null", wallpaper: "/assets/weather_wallpaper_dummy.png", icon: "/assets/weather_dummy.png", count: 0 };
     static clear = { id: 1, description: "Clear", wallpaper: "/assets/weather_wallpaper_clear.png", icon: "/assets/weather_clear.png", count: 0 };
-    static clouds = { id: 2, description: "Clouds", wallpaper: "/assets/weather_wallpaper_clouds.png", icon: "/assets/weather_clouds.png", count: 0 };
+    static clouds = { id: 2, description: "Clouds", wallpaper: "/assets/weather_wallpaper_cloud.png", icon: "/assets/weather_cloud.png", count: 0 };
     static drizzle = { id: 3, description: "Drizzle", wallpaper: "/assets/weather_wallpaper_drizzle.png", icon: "/assets/weather_drizzle.png", count: 0 };
     static fog = { id: 4, description: "Fog", wallpaper: "/assets/weather_wallpaper_fog.png", icon: "/assets/weather_fog.png", count: 0 };
     static haze = { id: 5, description: "Haze", wallpaper: "/assets/weather_wallpaper_haze.png", icon: "/assets/weather_haze.png", count: 0 };

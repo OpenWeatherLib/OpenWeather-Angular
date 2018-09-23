@@ -45,6 +45,7 @@ describe("ImageService", () => {
 
     it("receiveImagePictureUrl should call apiService and return a url", (done: DoneFn) => {
         // Arrange
+        classToTest["accessKey"] = "MyAccessKey";
         apiServiceMock.get.and.returnValue(of({ total: 1, results: [{ urls: { small: "Just an url" } }] }));
 
         // Act
