@@ -1,0 +1,14 @@
+<mat-card class="ga-card" *ngIf="currentWeather">
+  <mat-card-header>
+    <img mat-card-avatar class="ga-card-header-image" src="{{currentWeather?.weatherCondition?.icon}}" alt="Current weather pic">
+    <mat-card-title>Current Weather</mat-card-title>
+    <mat-card-subtitle>{{currentWeather?.weatherCondition?.description}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="{{currentWeather?.weatherCondition?.wallpaper}}" alt="Current weather pic">
+  <mat-card-content>
+    <p>Temperature: {{currentWeather?.main?.temp}}°C
+      ({{currentWeather?.main?.temp_min}}°C-{{currentWeather?.main?.temp_max}}°C)</p>
+    <p>Pressure: {{currentWeather?.main?.pressure}} mBar</p>
+    <p>Humidity: {{currentWeather?.main?.humidity}} %</p>
+  </mat-card-content>
+</mat-card>

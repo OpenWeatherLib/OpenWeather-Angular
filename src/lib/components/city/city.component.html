@@ -1,0 +1,13 @@
+<mat-card class="ga-card" *ngIf="city">
+  <mat-card-header>
+    <img mat-card-avatar class="ga-card-header-image" src="{{cityPictureUrl}}" alt="City pic">
+    <mat-card-title>City</mat-card-title>
+    <mat-card-subtitle>{{city?.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="{{cityPictureUrl}}" alt="City pic">
+  <mat-card-content>
+    <p>Country: {{city?.country}}</p>
+    <p>Population: {{city?.population}}</p>
+    <p>Coordinates: Lat: {{city?.coord?.lat}}, Lon: {{city?.coord?.lon}}</p>
+  </mat-card-content>
+</mat-card>

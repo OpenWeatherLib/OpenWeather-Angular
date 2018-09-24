@@ -1,0 +1,10 @@
+<mat-card class="ga-card" *ngIf="uvIndex">
+  <mat-card-header>
+    <img mat-card-avatar class="ga-card-header-image" src="/assets/uv_index.png" alt="UvIndex pic">
+    <mat-card-title>UvIndex</mat-card-title>
+    <mat-card-subtitle>{{uvIndex?.value}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Coordinates: Lat: {{uvIndex?.lat}}, Lon: {{uvIndex?.lon}}</p>
+  </mat-card-content>
+</mat-card>

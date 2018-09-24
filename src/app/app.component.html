@@ -52,88 +52,15 @@
   <mat-sidenav-content>
     <div class="ga-card-position">
       <span class="ga-display-inline-block">
-        <mat-card class="ga-card" *ngIf="city">
-          <mat-card-header>
-            <img mat-card-avatar class="ga-card-header-image" src="{{cityPictureUrl}}" alt="City pic">
-            <mat-card-title>City</mat-card-title>
-            <mat-card-subtitle>{{city?.name}}</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src="{{cityPictureUrl}}" alt="City pic">
-          <mat-card-content>
-            <p>Country: {{city?.country}}</p>
-            <p>Population: {{city?.population}}</p>
-            <p>Coordinates: Lat: {{city?.coord?.lat}}, Lon: {{city?.coord?.lon}}</p>
-          </mat-card-content>
-        </mat-card>
+        <ga-city [initialCityName]="city?.name"></ga-city>
       </span>
 
       <span class="ga-display-inline-block">
-        <mat-card class="ga-card" *ngIf="currentWeather">
-          <mat-card-header>
-            <img mat-card-avatar class="ga-card-header-image" src="{{currentWeather?.weatherCondition?.icon}}" alt="Current weather pic">
-            <mat-card-title>Current Weather</mat-card-title>
-            <mat-card-subtitle>{{currentWeather?.weatherCondition?.description}}</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src="{{currentWeather?.weatherCondition?.wallpaper}}" alt="Current weather pic">
-          <mat-card-content>
-            <p>Temperature: {{currentWeather?.main?.temp}}°C
-              ({{currentWeather?.main?.temp_min}}°C-{{currentWeather?.main?.temp_max}}°C)</p>
-            <p>Pressure: {{currentWeather?.main?.pressure}} mBar</p>
-            <p>Humidity: {{currentWeather?.main?.humidity}} %</p>
-          </mat-card-content>
-        </mat-card>
-
-        <mat-card class="ga-card" *ngIf="uvIndex">
-          <mat-card-header>
-            <img mat-card-avatar class="ga-card-header-image" src="/assets/uv_index.png" alt="UvIndex pic">
-            <mat-card-title>UvIndex</mat-card-title>
-            <mat-card-subtitle>{{uvIndex?.value}}</mat-card-subtitle>
-          </mat-card-header>
-        </mat-card>
+        <ga-weather-current></ga-weather-current>
+        <ga-uv-index></ga-uv-index>
       </span>
 
-      <span class="ga-display-inline-block">
-        <mat-card class="ga-card-forecast-header" *ngIf="forecastWeather">
-          <mat-card-header>
-            <img mat-card-avatar class="ga-card-header-image" src="{{mostWeatherCondition?.icon}}" alt="Forecast weather pic">
-            <mat-card-title>Forecast Weather</mat-card-title>
-            <mat-card-subtitle>{{mostWeatherCondition?.description}}</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src="{{mostWeatherCondition?.wallpaper}}" alt="Forecast weather pic">
-        </mat-card>
-      </span>
-
-      <span class="ga-display-inline-block">
-        <div class="ga-forecast-container" *ngIf="forecastWeather">
-          <form class="ga-margin-1-rem">
-            <mat-form-field class="ga-width-100-per">
-              <input matInput placeholder="Search" [(ngModel)]="forecastWeatherSearch" [ngModelOptions]="{standalone: true}" (keyup)="searchForecastWeather()">
-              <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="forecastWeatherSearch=''">
-                <mat-icon svgIcon="close"></mat-icon>
-              </button>
-            </mat-form-field>
-          </form>
-
-          <mat-list>
-            <mat-list-item *ngFor="let forecastPart of forecastWeatherList" class="ga-card-forecast-weather-height-fix">
-              <mat-card class="ga-card">
-                <mat-card-header>
-                  <img mat-card-avatar class="ga-card-header-image" src="{{forecastPart?.weatherCondition?.icon}}" alt="Forecast weather pic">
-                  <mat-card-title>{{forecastPart?.dt_txt}}</mat-card-title>
-                  <mat-card-subtitle>{{forecastPart?.weatherCondition?.description}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                  <p>Temperature: {{forecastPart?.main?.temp}}°C
-                    ({{forecastPart?.main?.temp_min}}°C-{{forecastPart?.main?.temp_max}}°C)</p>
-                  <p>Pressure: {{forecastPart?.main?.pressure}} mBar</p>
-                  <p>Humidity: {{forecastPart?.main?.humidity}} %</p>
-                </mat-card-content>
-              </mat-card>
-            </mat-list-item>
-          </mat-list>
-        </div>
-      </span>
+      <ga-weather-forecast></ga-weather-forecast>
     </div>
   </mat-sidenav-content>
-
 </mat-sidenav-container>

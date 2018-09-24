@@ -1,4 +1,4 @@
-@import "../styles/ga-theme.scss";
+@import "../styles/ga-common.scss";
 @import "../styles/ga-variables.scss";
 
 // Header
@@ -25,37 +25,8 @@
 
 // Cards
 
-.ga-card {
-  min-width: 22rem;
-  max-width: 22rem;
-  width: 22rem;
-  margin-bottom: 1rem;
-  margin-left: 1rem;
-}
-
-.ga-card-forecast-header {
-  @extend .ga-card;
-  margin-left: 2rem;
-}
-
 .ga-card-position {
   position: absolute;
   right: 1rem;
   top: 1rem;
-}
-
-.ga-card-header-image {
-  background-size: cover;
-  background-color: mat-color(map-get($theme, primary));
-}
-
-.ga-forecast-container {
-  overflow: overlay;
-  height: 90vh;
-  width: 27rem;
-}
-
-// Default height for mat-list-item is 48px, but our cards have another height
-.ga-card-forecast-weather-height-fix {
-  height: 100% !important;
 }

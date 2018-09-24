@@ -1,3 +1,5 @@
+@import "./ga-theme.scss";
+
 $widths: "0"0,
 "10"10,
 "20"20,
@@ -54,4 +56,17 @@ $margins: "0"0,
 .ga-display-inline-block {
   display: inline-block;
   vertical-align: top;
+}
+
+.ga-card {
+  min-width: 22rem;
+  max-width: 22rem;
+  width: 22rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+
+.ga-card-header-image {
+  background-size: cover;
+  background-color: mat-color(map-get($theme, primary));
 }
