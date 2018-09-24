@@ -123,9 +123,9 @@
       "camelCase"
     ],
     "component-selector": [
-      true,
+      false,
       "element",
-      "app",
+      "ga",
       "kebab-case"
     ],
     "no-output-on-prefix": true,

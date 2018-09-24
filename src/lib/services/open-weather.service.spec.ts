@@ -46,6 +46,9 @@ describe("OpenWeatherService", () => {
     it("loadCityData should call apiService and set city", (done: DoneFn) => {
         // Arrange
         apiServiceMock.get.and.returnValue(of({ status: "OK", results: [MockValues.city2()] }));
+        spyOn(classToTest, "loadCurrentWeather");
+        spyOn(classToTest, "loadForecastWeather");
+        spyOn(classToTest, "loadUvIndex");
 
         classToTest.city().subscribe(value => {
             if (value) {

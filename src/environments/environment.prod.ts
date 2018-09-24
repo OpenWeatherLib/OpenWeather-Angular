@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  version: "0.3.0.180923",
+  version: "0.4.0.180924",
   openWeatherApiKey: "",
   unsplashAccessKey: ""
 };

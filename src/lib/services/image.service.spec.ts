@@ -48,13 +48,15 @@ describe("ImageService", () => {
         classToTest["accessKey"] = "MyAccessKey";
         apiServiceMock.get.and.returnValue(of({ total: 1, results: [{ urls: { small: "Just an url" } }] }));
 
+        classToTest.cityPictureUrl().subscribe(url => {
+            if (url) {
+                // Assert
+                expect(url).toBe("Just an url");
+                done();
+            }
+        });
+
         // Act
-        classToTest.receiveImagePictureUrl("Nuremberg")
-            .subscribe(url => {
-                if (url) {
-                    expect(url).toBe("Just an url");
-                    done();
-                }
-            });
+        classToTest.receiveImagePictureUrl("Nuremberg");
     });
 });

@@ -14,6 +14,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
+import { LibModule } from "@lib/lib.module";
 import { ApiService, ImageService, OpenWeatherService } from "@lib/services";
 
 import { AppComponent } from "./app.component";
@@ -23,6 +24,7 @@ import { AppComponent } from "./app.component";
     AppComponent
   ],
   imports: [
+    LibModule,
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,

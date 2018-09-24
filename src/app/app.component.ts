@@ -1,105 +1,55 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material";
 import { DomSanitizer } from "@angular/platform-browser";
-import { Subscription } from "rxjs";
-import { take } from "rxjs/operators";
 
 import { ApiCallState } from "@lib/enums";
-import { mostWeatherCondition } from "@lib/extensions/weather-forecast.extension";
-import { City, WeatherCurrent, WeatherForecast, UvIndex, WeatherForecastPart } from "@lib/models";
-import { ImageService, OpenWeatherService } from "@lib/services";
-import WeatherCondition from "@lib/enums/weather-condition.enum";
+import { City } from "@lib/models";
+import { OpenWeatherService } from "@lib/services";
+import { BaseComponent } from "@lib/components";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent extends BaseComponent implements OnInit {
 
   opened: boolean = false;
 
   city: City = { name: "Nuremberg" } as City;
   newCityName: string = "Nuremberg";
-  cityPictureUrl: string = "";
+
   updatingCity: boolean = true;
-
-  currentWeather: WeatherCurrent = null;
   updatingCurrentWeather: boolean = false;
-
-  forecastWeather: WeatherForecast = null;
   updatingForecastWeather: boolean = false;
-  mostWeatherCondition: WeatherCondition = WeatherCondition.null;
-  forecastWeatherList: WeatherForecastPart[] = [];
-  forecastWeatherSearch: string = "";
-
-  uvIndex: UvIndex = null;
   updatingUvIndex: boolean = false;
 
-  private subscriptions: Subscription[] = [];
-
   constructor(
-    private readonly imageService: ImageService,
     private readonly openWeatherService: OpenWeatherService,
     private readonly iconRegistry: MatIconRegistry,
     private readonly sanitizer: DomSanitizer) {
+    super();
     this.registerIcons();
   }
 
-  ngOnInit() {
-    this.openWeatherService.loadCityData(this.city.name);
-
-    this.subscriptions.push(
+  ngOnInit(): void {
+    this.registerSubscription(
       this.openWeatherService.city()
         .subscribe(city => {
           this.updatingCity = false;
-
           if (city) {
             this.city = city;
-
-            this.receiveImagePictureUrl();
-
-            this.loadCurrentWeather();
-            this.loadForecastWeather();
-            this.loadUvIndex();
-          }
-        }));
-
-    this.subscriptions.push(
-      this.openWeatherService.currentWeather()
-        .subscribe(currentWeather => {
-          this.updatingCurrentWeather = false;
-
-          if (currentWeather) {
-            this.currentWeather = currentWeather;
-          }
-        }));
-
-    this.subscriptions.push(
-      this.openWeatherService.forecastWeather()
-        .subscribe(forecastWeather => {
-          this.updatingForecastWeather = false;
-
-          if (forecastWeather) {
-            this.forecastWeather = forecastWeather;
-            this.forecastWeatherList = this.forecastWeather.list;
-            this.mostWeatherCondition = mostWeatherCondition(this.forecastWeatherList);
-          }
-        }));
-
-    this.subscriptions.push(
-      this.openWeatherService.uvIndex()
-        .subscribe(uvIndex => {
-          this.updatingUvIndex = false;
-
-          if (uvIndex) {
-            this.uvIndex = uvIndex;
           }
         }));
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach(x => x.unsubscribe());
+  updateCity(): void {
+    if (this.updatingCity) {
+      return;
+    }
+
+    this.updatingCity = true;
+    this.openWeatherService.loadCityData(this.newCityName);
   }
 
   loadCurrentWeather(): void {
@@ -141,39 +91,11 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateCity(): void {
-    if (this.updatingCity) {
-      return;
-    }
-
-    this.updatingCity = true;
-    this.openWeatherService.loadCityData(this.newCityName);
-  }
-
-  searchForecastWeather(): void {
-    if (this.forecastWeatherSearch) {
-      this.forecastWeatherList = this.forecastWeather.list.filter(x => JSON.stringify(x).includes(this.forecastWeatherSearch));
-    } else {
-      this.forecastWeatherList = this.forecastWeather.list;
-    }
-    this.mostWeatherCondition = mostWeatherCondition(this.forecastWeatherList);
-  }
-
   private registerIcons(): void {
     // Icon-Source https://material.io/tools/icons/?style=baseline
     this.iconRegistry.addSvgIcon("city", this.sanitizer.bypassSecurityTrustResourceUrl("assets/city.svg"));
     this.iconRegistry.addSvgIcon("close", this.sanitizer.bypassSecurityTrustResourceUrl("assets/close.svg"));
     this.iconRegistry.addSvgIcon("menu", this.sanitizer.bypassSecurityTrustResourceUrl("assets/menu.svg"));
     this.iconRegistry.addSvgIcon("save", this.sanitizer.bypassSecurityTrustResourceUrl("assets/save.svg"));
-  }
-
-  private receiveImagePictureUrl(): void {
-    this.imageService.receiveImagePictureUrl(this.city.name)
-      .pipe(take(1))
-      .subscribe(url => {
-        if (url) {
-          this.cityPictureUrl = url;
-        }
-      });
   }
 }

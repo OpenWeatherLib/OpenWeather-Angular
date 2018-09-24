@@ -47,7 +47,9 @@ export class OpenWeatherService {
 
     @validate(null)
     loadCityData(@required(ValidationRequiredType.String) cityName: string): void {
-        this.apiService.get<any>(String().format(this.geoCodeForCityUrl, cityName), true)
+        const url = String().format(this.geoCodeForCityUrl, cityName);
+
+        this.apiService.get<any>(url, true)
             .pipe(take(1))
             .subscribe(response => {
                 if (response && response.status && response.status === "OK" && response.results && response.results.length > 0) {
@@ -59,6 +61,10 @@ export class OpenWeatherService {
                     city.coord = { lat: city2.geometry.location.lat, lon: city2.geometry.location.lng };
 
                     this.city$.next(city);
+
+                    this.loadCurrentWeather();
+                    this.loadForecastWeather();
+                    this.loadUvIndex();
                 }
             });
     }
@@ -81,6 +87,7 @@ export class OpenWeatherService {
                 if (response) {
                     response.weatherCondition = WeatherCondition.getByDescription(response.weather[0].description);
                     this.currentWeather$.next(response);
+                    this.updateCity(null, response.coord.lat, response.coord.lon);
                 }
             });
 
@@ -105,6 +112,7 @@ export class OpenWeatherService {
                 if (response) {
                     response.list.forEach(x => x.weatherCondition = WeatherCondition.getByDescription(x.weather[0].description));
                     this.forecastWeather$.next(response);
+                    this.updateCity(response.city.population, response.city.coord.lat, response.city.coord.lon);
                 }
             });
 
@@ -128,6 +136,7 @@ export class OpenWeatherService {
             .subscribe(response => {
                 if (response) {
                     this.uvIndex$.next(response);
+                    this.updateCity(null, response.lat, response.lon);
                 }
             });
 
@@ -151,5 +160,19 @@ export class OpenWeatherService {
             list: list,
             city: value.city
         };
+    }
+
+    private updateCity(population?: number, lat?: number, lon?: number): void {
+        const city = this.city$.value;
+        if (population) {
+            city.population = population;
+        }
+        if (lat) {
+            city.coord.lat = lat;
+        }
+        if (lon) {
+            city.coord.lon = lon;
+        }
+        this.city$.next(city);
     }
 }

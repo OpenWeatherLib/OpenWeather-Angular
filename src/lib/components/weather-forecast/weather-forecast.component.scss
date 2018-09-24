@@ -1,0 +1,17 @@
+@import "../../../styles/ga-common.scss";
+
+.ga-card-forecast-header {
+  @extend .ga-card;
+  margin-left: 2rem;
+}
+
+.ga-forecast-container {
+  overflow: overlay;
+  height: 90vh;
+  width: 27rem;
+}
+
+// Default height for mat-list-item is 48px, but our cards have another height
+.ga-card-forecast-weather-height-fix {
+  height: 100% !important;
+}
