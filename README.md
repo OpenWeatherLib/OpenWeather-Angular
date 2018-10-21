@@ -13,3 +13,7 @@ library for downloading and handling data from openweather
 ---
 ![alt tag](https://github.com/OpenWeatherLib/OpenWeather-Angular/blob/master/screenshots/img001.png)
 ---
+
+## License
+
+OpenWeather-Angular is distributed under the MIT license. [See LICENSE](https://github.com/OpenWeatherLib/OpenWeather-Angular/blob/develop/LICENSE.md) for details.
