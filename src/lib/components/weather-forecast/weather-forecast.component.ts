@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
 import { BaseComponent } from "@lib/components/base-component/base.component";
-import { ApiCallState } from "@lib/enums";
 import WeatherCondition from "@lib/enums/weather-condition.enum";
 import { mostWeatherCondition } from "@lib/extensions/weather-forecast.extension";
 import { WeatherForecast, WeatherForecastPart } from "@lib/models";
@@ -17,7 +16,7 @@ export class WeatherForecasstComponent extends BaseComponent implements OnInit {
   forecastWeather: WeatherForecast = null;
   mostWeatherCondition: WeatherCondition = WeatherCondition.null;
   forecastWeatherList: WeatherForecastPart[] = [];
-  forecastWeatherSearch: string = "";
+  forecastWeatherSearch: string = String().empty;
 
   constructor(private readonly openWeatherService: OpenWeatherService) {
     super();

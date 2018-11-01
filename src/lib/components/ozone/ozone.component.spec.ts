@@ -6,10 +6,10 @@ import MockServices from "@lib/mock/services.mock";
 
 import { OpenWeatherService } from "@lib/services";
 
-import { WeatherForecasstComponent } from "./weather-forecast.component";
+import { OzoneComponent } from "./ozone.component";
 
-describe("WeatherForecasstComponent", () => {
-  let classToTest: WeatherForecasstComponent;
+describe("OzoneComponent", () => {
+  let classToTest: OzoneComponent;
 
   const openWeatherServiceMock = MockServices.substitute(OpenWeatherService);
 
@@ -18,18 +18,18 @@ describe("WeatherForecasstComponent", () => {
   ];
 
   beforeEach(() => {
-    openWeatherServiceMock.forecastWeather.and.returnValue(of(null));
+    openWeatherServiceMock.ozone.and.returnValue(of(null));
 
     TestBed.configureTestingModule({
       declarations: [
-        WeatherForecasstComponent
+        OzoneComponent
       ],
       providers: [
         { provide: OpenWeatherService, useValue: openWeatherServiceMock }
       ]
-    }).overrideTemplate(WeatherForecasstComponent, "<div></div>").compileComponents();
+    }).overrideTemplate(OzoneComponent, "<div></div>").compileComponents();
 
-    const fixture = TestBed.createComponent(WeatherForecasstComponent);
+    const fixture = TestBed.createComponent(OzoneComponent);
     classToTest = fixture.debugElement.componentInstance;
   });
 

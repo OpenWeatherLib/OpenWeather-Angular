@@ -11,10 +11,10 @@ import { ImageService, OpenWeatherService } from "@lib/services";
 })
 export class CityComponent extends BaseComponent implements OnInit {
 
-  @Input() initialCityName: string = "";
+  @Input() initialCityName: string = String().empty;
 
   city: City = null;
-  cityPictureUrl: string = "";
+  cityPictureUrl: string = String().empty;
 
   constructor(private readonly imageService: ImageService,
     private readonly openWeatherService: OpenWeatherService) {

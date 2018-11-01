@@ -28,6 +28,12 @@
     </div>
 
     <div class="ga-margin-1-rem">
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadOzone()" [disabled]="updatingOzone">
+        Load Ozone
+      </button>
+    </div>
+
+    <div class="ga-margin-1-rem">
       <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadUvIndex()" [disabled]="updatingUvIndex">
         Load UV Index
       </button>
@@ -56,6 +62,7 @@
       </span>
 
       <span class="ga-display-inline-block">
+        <ga-ozone></ga-ozone>
         <ga-weather-current></ga-weather-current>
         <ga-uv-index></ga-uv-index>
       </span>

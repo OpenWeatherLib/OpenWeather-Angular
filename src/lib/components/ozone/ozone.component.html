@@ -1,0 +1,10 @@
+<mat-card class="ga-card" *ngIf="ozone">
+  <mat-card-header>
+    <img mat-card-avatar class="ga-card-header-image" src="/assets/ozone.png" alt="Ozone pic">
+    <mat-card-title>Ozone</mat-card-title>
+    <mat-card-subtitle>{{ozone?.data}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Coordinates: Lat: {{ozone?.coordinates?.latitude}}, Lon: {{ozone?.coordinates?.longitude}}</p>
+  </mat-card-content>
+</mat-card>

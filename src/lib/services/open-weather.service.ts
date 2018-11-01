@@ -6,11 +6,12 @@ import "@lib/extensions/string.extensions";
 
 import { environment } from "../../environments/environment";
 
-import { ApiCallState, ValidationRequiredType } from "@lib/enums";
-import { City, City2, UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
-import { ApiService } from "@lib/services/api.service";
 import { validate, required } from "@lib/decorator";
+import { AirPollutionType, ApiCallState, ValidationRequiredType } from "@lib/enums";
 import WeatherCondition from "@lib/enums/weather-condition.enum";
+import { any } from "@lib/helper/array-helper";
+import { CarbonMonoxide, City, City2, NitrogenDioxide, Ozone, SulfurDioxide, UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
+import { ApiService } from "@lib/services/api.service";
 
 @Injectable()
 export class OpenWeatherService {
@@ -20,12 +21,20 @@ export class OpenWeatherService {
     private forecastWeather$ = new BehaviorSubject<WeatherForecast>(null);
     private uvIndex$ = new BehaviorSubject<UvIndex>(null);
 
+    private carbonMonoxide$ = new BehaviorSubject<CarbonMonoxide>(null);
+    private nitrogenDioxide$ = new BehaviorSubject<NitrogenDioxide>(null);
+    private ozone$ = new BehaviorSubject<Ozone>(null);
+    private sulfurDioxide$ = new BehaviorSubject<SulfurDioxide>(null);
+
     private apiKey: string = environment.openWeatherApiKey;
 
     private geoCodeForCityUrl: string = "http://www.datasciencetoolkit.org/maps/api/geocode/json?address={0}";
     private currentWeatherUrl: string = "http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&APPID={1}";
     private forecastWeatherUrl: string = "http://api.openweathermap.org/data/2.5/forecast?q={0}&units=metric&APPID={1}";
     private uvIndexUrl: string = "http://api.openweathermap.org/data/2.5/uvi?lat={0}&lon={1}&APPID={2}";
+
+    // e.g. https://samples.openweathermap.org/pollution/v1/co/0.0,10.0/2016-12-25T01:04:08Z.json?appid=b1b15e88fa797225412429c1c50c122a1
+    private airPollutionUrl: string = "http://api.openweathermap.org/pollution/v1/%s/%s/%s.json?appid=%s";
 
     constructor(private readonly apiService: ApiService) { }
 
@@ -45,6 +54,22 @@ export class OpenWeatherService {
         return this.uvIndex$;
     }
 
+    carbonMonoxide(): Observable<CarbonMonoxide> {
+        return this.carbonMonoxide$;
+    }
+
+    nitrogenDioxide(): Observable<NitrogenDioxide> {
+        return this.nitrogenDioxide$;
+    }
+
+    ozone(): Observable<Ozone> {
+        return this.ozone$;
+    }
+
+    sulfurDioxide(): Observable<SulfurDioxide> {
+        return this.sulfurDioxide$;
+    }
+
     @validate(null)
     loadCityData(@required(ValidationRequiredType.String) cityName: string): void {
         const url = String().format(this.geoCodeForCityUrl, cityName);
@@ -52,7 +77,7 @@ export class OpenWeatherService {
         this.apiService.get<any>(url, true)
             .pipe(take(1))
             .subscribe(response => {
-                if (response && response.status && response.status === "OK" && response.results && response.results.length > 0) {
+                if (response && response.status && response.status === "OK" && any(response.results)) {
                     const city2: City2 = response.results[0];
 
                     const city = new City();
@@ -137,6 +162,78 @@ export class OpenWeatherService {
                 if (response) {
                     this.uvIndex$.next(response);
                     this.updateCity(null, response.lat, response.lon);
+                }
+            });
+
+        return ApiCallState.Calling;
+    }
+
+    @validate(ApiCallState.Null)
+    loadCarbonMonoxide(@required(ValidationRequiredType.String) dateTime: string, @required(ValidationRequiredType.Int, [0]) accuracy: number): ApiCallState {
+        return this.loadAirPollution(AirPollutionType.CarbonMonoxide, dateTime, accuracy);
+    }
+
+    @validate(ApiCallState.Null)
+    loadNitrogenDioxide(@required(ValidationRequiredType.String) dateTime: string, @required(ValidationRequiredType.Int, [0]) accuracy: number): ApiCallState {
+        return this.loadAirPollution(AirPollutionType.NitrogenDioxide, dateTime, accuracy);
+    }
+
+    @validate(ApiCallState.Null)
+    loadOzone(@required(ValidationRequiredType.String) dateTime: string, @required(ValidationRequiredType.Int, [0]) accuracy: number): ApiCallState {
+        return this.loadAirPollution(AirPollutionType.Ozone, dateTime, accuracy);
+    }
+
+    @validate(ApiCallState.Null)
+    loadSulfurDioxide(@required(ValidationRequiredType.String) dateTime: string, @required(ValidationRequiredType.Int, [0]) accuracy: number): ApiCallState {
+        return this.loadAirPollution(AirPollutionType.SulfurDioxide, dateTime, accuracy);
+    }
+
+    @validate(ApiCallState.Null)
+    private loadAirPollution<T>(
+        @required(ValidationRequiredType.Enum) airPollutionType: AirPollutionType,
+        @required(ValidationRequiredType.String) dateTime: string,
+        @required(ValidationRequiredType.Int, [0]) accuracy: number): ApiCallState {
+
+        if (!this.city$.value || !this.city$.value.isCoordSet()) {
+            return ApiCallState.CoordNotSet;
+        }
+
+        if (!this.apiKey) {
+            return ApiCallState.NoOpenWeatherApiKey;
+        }
+
+        const city = this.city$.value;
+        const url = String().format(this.airPollutionUrl,
+            airPollutionType.toString(),
+            city.coord.lat.toFixed(accuracy), city.coord.lon.toFixed(accuracy),
+            dateTime,
+            this.apiKey);
+
+        this.apiService.get<T>(url)
+            .pipe(take(1))
+            .subscribe(response => {
+                if (response) {
+                    switch (airPollutionType) {
+                        case AirPollutionType.CarbonMonoxide: {
+                            this.carbonMonoxide$.next(<CarbonMonoxide><any>response);
+                            break;
+                        }
+                        case AirPollutionType.NitrogenDioxide: {
+                            this.nitrogenDioxide$.next(<NitrogenDioxide><any>response);
+                            break;
+                        }
+                        case AirPollutionType.Ozone: {
+                            this.ozone$.next(<Ozone><any>response);
+                            break;
+                        }
+                        case AirPollutionType.SulfurDioxide: {
+                            this.sulfurDioxide$.next(<SulfurDioxide><any>response);
+                            break;
+                        }
+                        default: {
+                            throw Error(`${airPollutionType} is not implemented!`);
+                        }
+                    }
                 }
             });
 

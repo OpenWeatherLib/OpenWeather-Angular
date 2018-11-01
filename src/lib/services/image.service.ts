@@ -27,8 +27,9 @@ export class ImageService {
     }
 
     @validate(of(null))
-    receiveImagePictureUrl(@required(ValidationRequiredType.String) cityName: string,
-        orientation: UnsplashImageOrientation = UnsplashImageOrientation.Squarish): void {
+    receiveImagePictureUrl(
+        @required(ValidationRequiredType.String) cityName: string,
+        @required(ValidationRequiredType.Enum) orientation: UnsplashImageOrientation = UnsplashImageOrientation.Squarish): void {
 
         if (!this.accessKey) {
             return;

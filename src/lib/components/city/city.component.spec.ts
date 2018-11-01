@@ -1,4 +1,5 @@
 import { TestBed, async } from "@angular/core/testing";
+import { of } from "rxjs";
 
 import MockServices from "@lib/mock/services.mock";
 // import MockValues from "@lib/mock/values.mock";
@@ -19,6 +20,9 @@ describe("CityComponent", () => {
   ];
 
   beforeEach(() => {
+    imageServiceMock.cityPictureUrl.and.returnValue(of(null));
+    openWeatherServiceMock.city.and.returnValue(of(null));
+
     TestBed.configureTestingModule({
       declarations: [
         CityComponent
@@ -27,7 +31,7 @@ describe("CityComponent", () => {
         { provide: ImageService, useValue: imageServiceMock },
         { provide: OpenWeatherService, useValue: openWeatherServiceMock }
       ]
-    }).overrideTemplate(CityComponent, "<div>Test</div>").compileComponents();
+    }).overrideTemplate(CityComponent, "<div></div>").compileComponents();
 
     const fixture = TestBed.createComponent(CityComponent);
     classToTest = fixture.debugElement.componentInstance;
