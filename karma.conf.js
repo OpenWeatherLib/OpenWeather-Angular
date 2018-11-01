@@ -22,10 +22,10 @@ module.exports = function (config) {
         dir: require("path").join(__dirname, "coverage"), reports: ["html", "lcovonly"],
         fixWebpackSourcePaths: true,
         thresholds: {
-            statements: 70,
-            lines: 70,
+            statements: 50,
+            lines: 50,
             branches: 30,
-            functions: 70
+            functions: 50
         }
     },
     angularCli: {

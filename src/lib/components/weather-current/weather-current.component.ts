@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 
 import { BaseComponent } from "@lib/components/base-component/base.component";
-import { ApiCallState } from "@lib/enums";
 import { WeatherCurrent } from "@lib/models";
 import { OpenWeatherService } from "@lib/services";
 

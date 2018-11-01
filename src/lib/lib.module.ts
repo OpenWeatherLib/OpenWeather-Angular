@@ -12,7 +12,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
-import { CityComponent, UvIndexComponent, WeatherCurrentComponent, WeatherForecasstComponent } from "@lib/components";
+import { CityComponent, OzoneComponent, UvIndexComponent, WeatherCurrentComponent, WeatherForecasstComponent } from "@lib/components";
 import { ApiInterceptor } from "@lib/interceptor/api.interceptor";
 import { ApiService, ImageService, OpenWeatherService } from "@lib/services";
 
@@ -32,12 +32,14 @@ import { ApiService, ImageService, OpenWeatherService } from "@lib/services";
     ],
     exports: [
         CityComponent,
+        OzoneComponent,
         UvIndexComponent,
         WeatherCurrentComponent,
         WeatherForecasstComponent
     ],
     declarations: [
         CityComponent,
+        OzoneComponent,
         UvIndexComponent,
         WeatherCurrentComponent,
         WeatherForecasstComponent
@@ -54,6 +56,7 @@ import { ApiService, ImageService, OpenWeatherService } from "@lib/services";
     ],
     entryComponents: [
         CityComponent,
+        OzoneComponent,
         UvIndexComponent,
         WeatherCurrentComponent,
         WeatherForecasstComponent

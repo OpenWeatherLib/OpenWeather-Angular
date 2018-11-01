@@ -6,7 +6,7 @@
 
 [![Build](https://img.shields.io/badge/build-passing-green.svg)](https://github.com/OpenWeatherLib/OpenWeather-Angular/tree/master/src/)
 [![UnitTests](https://img.shields.io/badge/UnitTests-passing-green.svg)](https://github.com/OpenWeatherLib/OpenWeather-Angular/tree/master/src/)
-[![Version](https://img.shields.io/badge/version-v0.4.0.180924-green.svg)](https://github.com/OpenWeatherLib/OpenWeather-Angular/tree/master/src/)
+[![Version](https://img.shields.io/badge/version-v0.5.0.181101-green.svg)](https://github.com/OpenWeatherLib/OpenWeather-Angular/tree/master/src/)
 
 library for downloading and handling data from openweather
 

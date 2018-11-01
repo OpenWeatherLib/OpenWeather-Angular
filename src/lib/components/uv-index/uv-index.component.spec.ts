@@ -1,4 +1,5 @@
 import { TestBed, async } from "@angular/core/testing";
+import { of } from "rxjs";
 
 import MockServices from "@lib/mock/services.mock";
 // import MockValues from "@lib/mock/values.mock";
@@ -17,6 +18,8 @@ describe("UvIndexComponent", () => {
   ];
 
   beforeEach(() => {
+    openWeatherServiceMock.uvIndex.and.returnValue(of(null));
+
     TestBed.configureTestingModule({
       declarations: [
         UvIndexComponent
@@ -24,7 +27,7 @@ describe("UvIndexComponent", () => {
       providers: [
         { provide: OpenWeatherService, useValue: openWeatherServiceMock }
       ]
-    }).overrideTemplate(UvIndexComponent, "<div>Test</div>").compileComponents();
+    }).overrideTemplate(UvIndexComponent, "<div></div>").compileComponents();
 
     const fixture = TestBed.createComponent(UvIndexComponent);
     classToTest = fixture.debugElement.componentInstance;

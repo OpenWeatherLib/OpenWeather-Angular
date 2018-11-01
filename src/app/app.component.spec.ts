@@ -27,7 +27,7 @@ describe("AppComponent", () => {
         { provide: ApiService, useValue: apiServiceMock },
         { provide: OpenWeatherService, useValue: openWeatherServiceMock }
       ]
-    }).overrideTemplate(AppComponent, "<div>Test</div>").compileComponents();
+    }).overrideTemplate(AppComponent, "<div></div>").compileComponents();
 
     const fixture = TestBed.createComponent(AppComponent);
     classToTest = fixture.debugElement.componentInstance;

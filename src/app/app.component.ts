@@ -22,6 +22,7 @@ export class AppComponent extends BaseComponent implements OnInit {
   updatingCity: boolean = true;
   updatingCurrentWeather: boolean = false;
   updatingForecastWeather: boolean = false;
+  updatingOzone: boolean = false;
   updatingUvIndex: boolean = false;
 
   constructor(
@@ -40,6 +41,30 @@ export class AppComponent extends BaseComponent implements OnInit {
           if (city) {
             this.city = city;
           }
+        }));
+
+    this.registerSubscription(
+      this.openWeatherService.currentWeather()
+        .subscribe(() => {
+          this.updatingCurrentWeather = false;
+        }));
+
+    this.registerSubscription(
+      this.openWeatherService.forecastWeather()
+        .subscribe(() => {
+          this.updatingForecastWeather = false;
+        }));
+
+    this.registerSubscription(
+      this.openWeatherService.ozone()
+        .subscribe(() => {
+          this.updatingOzone = false;
+        }));
+
+    this.registerSubscription(
+      this.openWeatherService.uvIndex()
+        .subscribe(() => {
+          this.updatingUvIndex = false;
         }));
   }
 
@@ -74,6 +99,19 @@ export class AppComponent extends BaseComponent implements OnInit {
     const apiCallState: ApiCallState = this.openWeatherService.loadForecastWeather();
     if (apiCallState !== ApiCallState.Calling) {
       this.updatingForecastWeather = false;
+      console.warn(`Not downloading: ${apiCallState}`);
+    }
+  }
+
+  loadOzone(): void {
+    if (this.updatingOzone) {
+      return;
+    }
+    this.updatingOzone = true;
+
+    const apiCallState: ApiCallState = this.openWeatherService.loadOzone("2018-11-01", 2);
+    if (apiCallState !== ApiCallState.Calling) {
+      this.updatingOzone = false;
       console.warn(`Not downloading: ${apiCallState}`);
     }
   }
