@@ -205,7 +205,7 @@ export class OpenWeatherService {
         const city = this.city$.value;
         const url = String().format(this.airPollutionUrl,
             airPollutionType.toString(),
-            city.coord.lat.toFixed(accuracy), city.coord.lon.toFixed(accuracy),
+            `${city.coord.lat.toFixed(accuracy)}, ${city.coord.lon.toFixed(accuracy)}`,
             dateTime,
             this.apiKey);
 
