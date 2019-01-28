@@ -6,7 +6,7 @@
 
 [![Build](https://img.shields.io/badge/build-passing-green.svg)](src)
 [![UnitTests](https://img.shields.io/badge/UnitTests-passing-green.svg)](src)
-[![Version](https://img.shields.io/badge/version-v0.5.0.181101-green.svg)](src)
+[![Version](https://img.shields.io/badge/version-v0.6.0.190128-green.svg)](src)
 
 library for downloading and handling data from openweather
 
