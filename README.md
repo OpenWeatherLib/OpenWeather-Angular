@@ -1,4 +1,4 @@
-# OpenWeather-Angular - master branch
+# OpenWeather-Angular
 
 [![Platform](https://img.shields.io/badge/platform-Angular-blue.svg)](https://angular.io/)
 [![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
