@@ -15,6 +15,12 @@ library for downloading and handling data from openweather
 ![alt tag](screenshots/img001.png)
 ---
 
+## Api Keys
+
+Required api keys are 
+- [x] https://unsplash.com/
+- [x] https://openweathermap.org/
+
 ## License
 
 OpenWeather-Angular is distributed under the MIT license. [See LICENSE](LICENSE.md) for details.
