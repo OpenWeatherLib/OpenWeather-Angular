@@ -14,7 +14,7 @@ $widths: "0"0,
 
 @each $width in $widths {
   .ga-width-#{nth($width, 1)}-per {
-    width: nth($width, 2)+%;
+    width: nth($width, 2)+"%";
     left: 0;
     right: 0;
   }
