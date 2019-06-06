@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { Type } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
 
-// import MockServices from "@lib/mock/services.mock";
 import MockValues from "@lib/mock/values.mock";
 
 import { UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
@@ -25,8 +25,8 @@ describe("ApiService", () => {
             ]
         });
 
-        classToTest = TestBed.get(ApiService);
-        httpMock = TestBed.get(HttpTestingController);
+        classToTest = TestBed.get(ApiService as Type<ApiService>);
+        httpMock = TestBed.get(HttpTestingController as Type<HttpTestingController>);
     });
 
     afterEach(() => {
@@ -86,7 +86,6 @@ describe("ApiService", () => {
                 expect(response.main.temp_max).toBe(23);
                 expect(response.visibility).toBe(10000);
                 expect(response.wind.speed).toBe(3.1);
-                expect(response.wind.deg).toBe(90);
                 expect(response.clouds.all).toBe(40);
                 expect(response.dt).toBe(1527326400);
                 expect(response.sys.type).toBe(1);

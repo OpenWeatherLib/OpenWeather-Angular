@@ -18,12 +18,10 @@ export class WeatherCurrentComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.registerSubscription(
-      this.openWeatherService.currentWeather()
-        .subscribe(currentWeather => {
-          if (currentWeather) {
-            this.currentWeather = currentWeather;
-          }
-        }));
+    this.registerSubscription(this.openWeatherService.currentWeather().subscribe(currentWeather => {
+      if (currentWeather) {
+        this.currentWeather = currentWeather;
+      }
+    }));
   }
 }

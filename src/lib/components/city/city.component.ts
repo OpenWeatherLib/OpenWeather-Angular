@@ -24,19 +24,13 @@ export class CityComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.openWeatherService.loadCityData(this.initialCityName);
 
-    this.registerSubscription(
-      this.openWeatherService.city()
-        .subscribe(city => {
-          if (city) {
-            this.city = city;
-            this.imageService.receiveImagePictureUrl(this.city.name);
-          }
-        }));
+    this.registerSubscription(this.openWeatherService.city().subscribe(city => {
+      if (city) {
+        this.city = city;
+        this.imageService.receiveImagePictureUrl(this.city.name);
+      }
+    }));
 
-    this.registerSubscription(
-      this.imageService.cityPictureUrl()
-        .subscribe(url => {
-          this.cityPictureUrl = url;
-        }));
+    this.registerSubscription(this.imageService.cityPictureUrl().subscribe(url => this.cityPictureUrl = url));
   }
 }

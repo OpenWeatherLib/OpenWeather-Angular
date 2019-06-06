@@ -18,12 +18,10 @@ export class UvIndexComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.registerSubscription(
-      this.openWeatherService.uvIndex()
-        .subscribe(uvIndex => {
-          if (uvIndex) {
-            this.uvIndex = uvIndex;
-          }
-        }));
+    this.registerSubscription(this.openWeatherService.uvIndex().subscribe(uvIndex => {
+      if (uvIndex) {
+        this.uvIndex = uvIndex;
+      }
+    }));
   }
 }

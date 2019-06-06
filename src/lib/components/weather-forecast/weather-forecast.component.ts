@@ -23,14 +23,12 @@ export class WeatherForecasstComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.registerSubscription(
-      this.openWeatherService.forecastWeather()
-        .subscribe(forecastWeather => {
-          if (forecastWeather) {
-            this.forecastWeather = forecastWeather;
-            this.searchForecastWeather();
-          }
-        }));
+    this.registerSubscription(this.openWeatherService.forecastWeather().subscribe(forecastWeather => {
+      if (forecastWeather) {
+        this.forecastWeather = forecastWeather;
+        this.searchForecastWeather();
+      }
+    }));
   }
 
   searchForecastWeather(): void {

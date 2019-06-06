@@ -1,7 +1,7 @@
 import WeatherCondition from "@lib/enums/weather-condition.enum";
 import { WeatherForecastPart } from "@lib/models";
 
-export function mostWeatherCondition(list: WeatherForecastPart[]): WeatherCondition {
+export const mostWeatherCondition = (list: WeatherForecastPart[]): WeatherCondition => {
     if (!list) {
         return WeatherCondition.null;
     }
@@ -13,4 +13,4 @@ export function mostWeatherCondition(list: WeatherForecastPart[]): WeatherCondit
     weatherConditionList.forEach(x => x.count = 0);
 
     return foundMostWeatherCondition;
-}
+};

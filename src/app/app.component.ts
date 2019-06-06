@@ -34,98 +34,70 @@ export class AppComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.registerSubscription(
-      this.openWeatherService.city()
-        .subscribe(city => {
-          this.updatingCity = false;
-          if (city) {
-            this.city = city;
-          }
-        }));
-
-    this.registerSubscription(
-      this.openWeatherService.currentWeather()
-        .subscribe(() => {
-          this.updatingCurrentWeather = false;
-        }));
-
-    this.registerSubscription(
-      this.openWeatherService.forecastWeather()
-        .subscribe(() => {
-          this.updatingForecastWeather = false;
-        }));
-
-    this.registerSubscription(
-      this.openWeatherService.ozone()
-        .subscribe(() => {
-          this.updatingOzone = false;
-        }));
-
-    this.registerSubscription(
-      this.openWeatherService.uvIndex()
-        .subscribe(() => {
-          this.updatingUvIndex = false;
-        }));
+    this.registerSubscription(this.openWeatherService.city().subscribe(city => {
+      this.updatingCity = false;
+      if (city) {
+        this.city = city;
+      }
+    }));
+    this.registerSubscription(this.openWeatherService.currentWeather().subscribe(() => this.updatingCurrentWeather = false));
+    this.registerSubscription(this.openWeatherService.forecastWeather().subscribe(() => this.updatingForecastWeather = false));
+    this.registerSubscription(this.openWeatherService.ozone().subscribe(() => this.updatingOzone = false));
+    this.registerSubscription(this.openWeatherService.uvIndex().subscribe(() => this.updatingUvIndex = false));
   }
 
   updateCity(): void {
-    if (this.updatingCity) {
-      return;
+    if (!this.updatingCity) {
+      this.updatingCity = true;
+      this.openWeatherService.loadCityData(this.newCityName);
     }
-
-    this.updatingCity = true;
-    this.openWeatherService.loadCityData(this.newCityName);
   }
 
   loadCurrentWeather(): void {
-    if (this.updatingCurrentWeather) {
-      return;
-    }
-    this.updatingCurrentWeather = true;
+    if (!this.updatingCurrentWeather) {
+      this.updatingCurrentWeather = true;
 
-    const apiCallState: ApiCallState = this.openWeatherService.loadCurrentWeather();
-    if (apiCallState !== ApiCallState.Calling) {
-      this.updatingCurrentWeather = false;
-      console.warn(`Not downloading: ${apiCallState}`);
+      const apiCallState: ApiCallState = this.openWeatherService.loadCurrentWeather();
+      if (apiCallState !== ApiCallState.Calling) {
+        this.updatingCurrentWeather = false;
+        console.warn(`Not downloading: ${apiCallState}`);
+      }
     }
   }
 
   loadForecastWeather(): void {
-    if (this.updatingForecastWeather) {
-      return;
-    }
-    this.updatingForecastWeather = true;
+    if (!this.updatingForecastWeather) {
+      this.updatingForecastWeather = true;
 
-    const apiCallState: ApiCallState = this.openWeatherService.loadForecastWeather();
-    if (apiCallState !== ApiCallState.Calling) {
-      this.updatingForecastWeather = false;
-      console.warn(`Not downloading: ${apiCallState}`);
+      const apiCallState: ApiCallState = this.openWeatherService.loadForecastWeather();
+      if (apiCallState !== ApiCallState.Calling) {
+        this.updatingForecastWeather = false;
+        console.warn(`Not downloading: ${apiCallState}`);
+      }
     }
   }
 
   loadOzone(): void {
-    if (this.updatingOzone) {
-      return;
-    }
-    this.updatingOzone = true;
+    if (!this.updatingOzone) {
+      this.updatingOzone = true;
 
-    const apiCallState: ApiCallState = this.openWeatherService.loadOzone("2018-11-01", 2);
-    if (apiCallState !== ApiCallState.Calling) {
-      this.updatingOzone = false;
-      console.warn(`Not downloading: ${apiCallState}`);
+      const apiCallState: ApiCallState = this.openWeatherService.loadOzone("2018-11-01", 2);
+      if (apiCallState !== ApiCallState.Calling) {
+        this.updatingOzone = false;
+        console.warn(`Not downloading: ${apiCallState}`);
+      }
     }
   }
 
   loadUvIndex(): void {
-    if (this.updatingUvIndex) {
-      return;
-    }
-    this.updatingUvIndex = true;
+    if (!this.updatingUvIndex) {
+      this.updatingUvIndex = true;
 
-    const apiCallState: ApiCallState = this.openWeatherService.loadUvIndex();
-    if (apiCallState !== ApiCallState.Calling) {
-      this.updatingUvIndex = false;
-      console.warn(`Not downloading: ${apiCallState}`);
+      const apiCallState: ApiCallState = this.openWeatherService.loadUvIndex();
+      if (apiCallState !== ApiCallState.Calling) {
+        this.updatingUvIndex = false;
+        console.warn(`Not downloading: ${apiCallState}`);
+      }
     }
   }
 

@@ -1,7 +1,6 @@
 import { TestBed, async } from "@angular/core/testing";
 
-import MockServices from "@lib/mock/services.mock";
-// import MockValues from "@lib/mock/values.mock";
+import { substitute } from "@lib/mock";
 
 import { ApiService, OpenWeatherService } from "@lib/services";
 
@@ -10,8 +9,8 @@ import { AppComponent } from "./app.component";
 describe("AppComponent", () => {
   let classToTest: AppComponent;
 
-  const apiServiceMock = MockServices.substitute(ApiService);
-  const openWeatherServiceMock = MockServices.substitute(OpenWeatherService);
+  const apiServiceMock = substitute(ApiService);
+  const openWeatherServiceMock = substitute(OpenWeatherService);
 
   const serviceMockList: any[] = [
     apiServiceMock,

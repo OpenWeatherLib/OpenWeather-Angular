@@ -1,3 +1,1 @@
-export function any(array: any[]): boolean {
-    return !!array && array.length > 0;
-}
+export const any = (array: any[]): boolean => !!array && array.length > 0;

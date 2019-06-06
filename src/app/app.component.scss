@@ -16,11 +16,11 @@
 // Sidenav Content
 
 .ga-sidenav-container {
-  position: absolute;
-  top: $toolbar-height;
   bottom: 0;
   left: 0;
+  position: absolute;
   right: 0;
+  top: $toolbar-height;
 }
 
 // Cards

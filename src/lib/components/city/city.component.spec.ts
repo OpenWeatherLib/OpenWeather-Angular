@@ -1,8 +1,7 @@
 import { TestBed, async } from "@angular/core/testing";
 import { of } from "rxjs";
 
-import MockServices from "@lib/mock/services.mock";
-// import MockValues from "@lib/mock/values.mock";
+import { substitute } from "@lib/mock";
 
 import { ImageService, OpenWeatherService } from "@lib/services";
 
@@ -11,8 +10,8 @@ import { CityComponent } from "./city.component";
 describe("CityComponent", () => {
   let classToTest: CityComponent;
 
-  const imageServiceMock = MockServices.substitute(ImageService);
-  const openWeatherServiceMock = MockServices.substitute(OpenWeatherService);
+  const imageServiceMock = substitute(ImageService);
+  const openWeatherServiceMock = substitute(OpenWeatherService);
 
   const serviceMockList: any[] = [
     imageServiceMock,

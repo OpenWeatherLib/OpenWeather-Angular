@@ -22,36 +22,31 @@ export class ImageService {
 
     constructor(private readonly apiService: ApiService) { }
 
-    cityPictureUrl(): Observable<string> {
-        return this.cityPictureUrl$;
-    }
+    readonly cityPictureUrl = (): Observable<string> => this.cityPictureUrl$;
 
     @validate(of(null))
     receiveImagePictureUrl(
         @required(ValidationRequiredType.String) cityName: string,
         @required(ValidationRequiredType.Enum) orientation: UnsplashImageOrientation = UnsplashImageOrientation.Squarish): void {
-
-        if (!this.accessKey) {
-            return;
-        }
-
-        this.apiService.get<UnsplashImageResponse>(String().format(this.imageApiUrl, this.accessKey, orientation, cityName))
-            .pipe(
-                take(1),
-                map(response => {
-                    if (response && response.total && response.results) {
-                        return response.results[0].urls.small;
+        if (this.accessKey) {
+            this.apiService.get<UnsplashImageResponse>(String().format(this.imageApiUrl, this.accessKey, orientation, cityName))
+                .pipe(
+                    take(1),
+                    map(response => {
+                        if (response && response.total && response.results) {
+                            return response.results[0].urls.small;
+                        }
+                        return null;
+                    }),
+                    catchError(error => {
+                        console.error(error.toString());
+                        return null;
+                    }))
+                .subscribe(response => {
+                    if (response) {
+                        this.cityPictureUrl$.next(response);
                     }
-                    return null;
-                }),
-                catchError(error => {
-                    console.error(error.toString());
-                    return null;
-                }))
-            .subscribe(response => {
-                if (response) {
-                    this.cityPictureUrl$.next(response);
-                }
-            });
+                });
+        }
     }
 }

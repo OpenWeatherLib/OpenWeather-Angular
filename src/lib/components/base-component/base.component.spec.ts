@@ -8,8 +8,7 @@ import { BaseComponent } from "./base.component";
 describe("BaseComponent", () => {
   let classToTest: BaseComponent;
 
-  const serviceMockList: any[] = [
-  ];
+  const serviceMockList: any[] = [];
 
   beforeEach(() => {
     TestBed.configureTestingModule({

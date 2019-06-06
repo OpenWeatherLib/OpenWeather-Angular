@@ -16,15 +16,14 @@ import { ApiService } from "@lib/services/api.service";
 @Injectable()
 export class OpenWeatherService {
 
+    private carbonMonoxide$ = new BehaviorSubject<CarbonMonoxide>(null);
     private city$ = new BehaviorSubject<City>(null);
     private currentWeather$ = new BehaviorSubject<WeatherCurrent>(null);
     private forecastWeather$ = new BehaviorSubject<WeatherForecast>(null);
-    private uvIndex$ = new BehaviorSubject<UvIndex>(null);
-
-    private carbonMonoxide$ = new BehaviorSubject<CarbonMonoxide>(null);
     private nitrogenDioxide$ = new BehaviorSubject<NitrogenDioxide>(null);
     private ozone$ = new BehaviorSubject<Ozone>(null);
     private sulfurDioxide$ = new BehaviorSubject<SulfurDioxide>(null);
+    private uvIndex$ = new BehaviorSubject<UvIndex>(null);
 
     private apiKey: string = environment.openWeatherApiKey;
 
@@ -38,37 +37,21 @@ export class OpenWeatherService {
 
     constructor(private readonly apiService: ApiService) { }
 
-    city(): Observable<City> {
-        return this.city$;
-    }
+    readonly carbonMonoxide = (): Observable<CarbonMonoxide> => this.carbonMonoxide$;
 
-    currentWeather(): Observable<WeatherCurrent> {
-        return this.currentWeather$;
-    }
+    readonly city = (): Observable<City> => this.city$;
 
-    forecastWeather(): Observable<WeatherForecast> {
-        return this.forecastWeather$;
-    }
+    readonly currentWeather = (): Observable<WeatherCurrent> => this.currentWeather$;
 
-    uvIndex(): Observable<UvIndex> {
-        return this.uvIndex$;
-    }
+    readonly forecastWeather = (): Observable<WeatherForecast> => this.forecastWeather$;
 
-    carbonMonoxide(): Observable<CarbonMonoxide> {
-        return this.carbonMonoxide$;
-    }
+    readonly nitrogenDioxide = (): Observable<NitrogenDioxide> => this.nitrogenDioxide$;
 
-    nitrogenDioxide(): Observable<NitrogenDioxide> {
-        return this.nitrogenDioxide$;
-    }
+    readonly ozone = (): Observable<Ozone> => this.ozone$;
 
-    ozone(): Observable<Ozone> {
-        return this.ozone$;
-    }
+    readonly sulfurDioxide = (): Observable<SulfurDioxide> => this.sulfurDioxide$;
 
-    sulfurDioxide(): Observable<SulfurDioxide> {
-        return this.sulfurDioxide$;
-    }
+    readonly uvIndex = (): Observable<UvIndex> => this.uvIndex$;
 
     @validate(null)
     loadCityData(@required(ValidationRequiredType.String) cityName: string): void {

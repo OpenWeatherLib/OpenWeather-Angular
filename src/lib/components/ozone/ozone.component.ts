@@ -18,12 +18,10 @@ export class OzoneComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.registerSubscription(
-      this.openWeatherService.ozone()
-        .subscribe(ozone => {
-          if (ozone) {
-            this.ozone = ozone;
-          }
-        }));
+    this.registerSubscription(this.openWeatherService.ozone().subscribe(ozone => {
+      if (ozone) {
+        this.ozone = ozone;
+      }
+    }));
   }
 }

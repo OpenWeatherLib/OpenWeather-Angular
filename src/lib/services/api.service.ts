@@ -41,6 +41,7 @@ export class ApiService {
           return value;
         }),
         catchError(error => {
+          console.error(error);
           return of(null);
         }));
   }

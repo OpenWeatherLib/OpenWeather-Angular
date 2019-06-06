@@ -5,11 +5,9 @@ export class BaseComponent implements OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  registerSubscription(subscription: Subscription): void {
-    this.subscriptions.push(subscription);
-  }
+  readonly registerSubscription = (subscription: Subscription): number => this.subscriptions.push(subscription);
 
-  removeSubscription(subscription: Subscription): void {
+  readonly removeSubscription = (subscription: Subscription): void => {
     const subscriptionIndex = this.subscriptions.findIndex(x => x === subscription);
     if (subscriptionIndex > -1) {
       this.subscriptions.splice(subscriptionIndex, 1);
