@@ -5,21 +5,25 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-[![Version](https://img.shields.io/badge/version-v0.7.0-green.svg)](src)
-[![Build](https://img.shields.io/badge/build-failing-red.svg)](src)
+[![Version](https://img.shields.io/badge/version-v0.7.1-green.svg)](src)
+[![Build](https://img.shields.io/badge/build-successful-green.svg)](src)
 [![UnitTests](https://img.shields.io/badge/UnitTests-failing-red.svg)](src)
+[![UnitTests](https://img.shields.io/badge/Coverage-30%-red.svg)](src)
 
 Angular 8 library for downloading and handling data from openweather
 
 ---
+
 ![alt tag](screenshots/img001.png)
+
 ---
 
 ## Api Keys
 
-Required api keys are 
-- [x] https://unsplash.com/
-- [x] https://openweathermap.org/
+Required api keys are
+
+- [x] [Unsplash](https://unsplash.com/)
+- [x] [openweathermap](https://openweathermap.org/)
 
 ## License
 

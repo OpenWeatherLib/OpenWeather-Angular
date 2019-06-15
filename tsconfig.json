@@ -1,40 +1,32 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
     "types": [
-      "jasmine"
+      "jest"
     ],
     "lib": [
-      "es2017",
-      "dom",
-      "scripthost"
+      "es2018",
+      "dom"
     ],
-    "baseUrl": "src", // This must be specified if "paths" is.
     "paths": {
       "@lib/*": [
         "lib/*"
       ],
       "@app/*": [
         "app/*"
-      ],
-      "core-js/es7/reflect": [
-        "node_modules/core-js/proposals/reflect-metadata"
-      ],
-      "core-js/es6/*": [
-        "node_modules/core-js/es"
-      ],
-      "core-js/es7/*": [
-        "node_modules/core-js/es"
       ]
     }
   }

@@ -1,6 +1,10 @@
-declare var jasmine;
+export const substitute = <T>(type: new (...x: any) => T): any => {
+    const mockObj = {};
+    const obj = type.prototype;
+    Object
+        .getOwnPropertyNames(obj)
+        .filter(key => typeof obj[key] === "function")
+        .forEach(x => mockObj[x] = jest.fn());
 
-export const substitute = <T>(type: new (...x: any[]) => T): jasmine.SpyObj<T> =>
-    jasmine.createSpyObj(
-        type.prototype.constructor.name,
-        Object.getOwnPropertyNames(type.prototype).filter(key => typeof type.prototype[key] === "function"));
+    return mockObj;
+};

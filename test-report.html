@@ -1,0 +1,161 @@
+<html><head><meta charset="utf-8"/><title>Test Report</title><style type="text/css">html, body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1rem;
+	margin: 0;
+	padding: 0;
+	color: #333;
+}
+body {
+	padding: 1rem;
+	font-size: 0.85rem;
+}
+header {
+	display: flex;
+	align-items: center;
+}
+#title {
+	margin: 0;
+	flex-grow: 1;
+}
+#logo {
+	height: 4rem;
+}
+#timestamp {
+	font-weight: bold;
+	color: #666;
+	margin-bottom: 0.5rem;
+}
+#summary {
+	color: #999;
+	margin-bottom: 1rem;
+}
+.suite-info {
+	padding: 1rem;
+	background-color: #eee;
+	border-bottom: 2px solid #999;
+	color: #999;
+	display: flex;
+	align-items: center;
+}
+.suite-info .suite-path {
+	font-weight: bold;
+	word-break: break-all;
+	flex-grow: 1;
+}
+.suite-info .suite-time {
+	margin-left: 0.5rem;
+	padding: 0.2rem 0.3rem;
+	font-size: 0.75rem;
+}
+.suite-info .suite-time.warn {
+	background-color: #D8000C;
+	color: #fff;
+}
+.suite-table {
+	width: 100%;
+	font-size: 0.85rem;
+	margin-bottom: 1em;
+}
+.suite-table td {
+	padding: 0.5rem;
+}
+.suite-table tr.passed {
+	background-color: #DFF2BF;
+	color: #4F8A10;
+}
+.suite-table tr.pending {
+	background-color: #FEEFB3;
+	color: #9F6000;
+}
+.suite-table tr.failed {
+	background-color: #FFBABA;
+	color: #D8000C;
+}
+.suite-table td {
+	font-size: 0.85rem;
+	border-bottom: 1px solid #aaa;
+	vertical-align: top;
+}
+.suite-table td.suite {
+	font-weight: bold;
+	width: 20%;
+}
+.suite-table td.test {
+	font-style: italic;
+	width: 60%;
+}
+.suite-table td.test .failureMsg {
+	font-size: 1rem;
+	white-space: pre-wrap;
+	white-space: -moz-pre-wrap;
+	white-space: -pre-wrap;
+	white-space: -o-pre-wrap;
+	word-wrap: break-word;
+}
+.suite-table td.result {
+	width: 20%;
+	text-align: right;
+}
+
+/* CONSOLE LOGS */
+.suite-consolelog {
+	margin-bottom: 2rem;
+	padding: 1rem;
+	background-color: #efefef;
+}
+.suite-consolelog-header {
+	font-weight: bold;
+}
+.suite-consolelog-item {
+	padding: 0.5rem;
+}
+.suite-consolelog-item pre {
+	margin: 0;
+}
+.suite-consolelog-item-origin {
+	color: #777;
+	font-weight: bold;
+}
+.suite-consolelog-item-message {
+	color: #000;
+	font-size: 1rem;
+	padding: 0 0.5rem;
+}
+</style></head><body><div id="jesthtml-content"><header><h1 id="title">Test Report</h1></header><div id="metadata-container"><div id="timestamp">Start: 2019-06-15 22:05:23</div><div id="summary">19 tests -- 16 passed / 3 failed / 0 pending</div></div><div class="suite-info"><div class="suite-path">C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\models\city.spec.ts</div><div class="suite-time">1.741s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">City</td><td class="test">should be created<div class="failureMessages"/></td><td class="result">passed in 0.003s</td></tr><tr class="failed"><td class="suite">City</td><td class="test">isNameSet should return false<div class="failureMessages"><pre class="failureMsg">TypeError: Cannot read property 'isNullOrEmpty' of undefined
+    at City.isNameSet (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\models\city.ts:411:23)
+    at C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\models\city.spec.ts:43:32
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:391:26)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\proxy.js:129:39)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:390:52)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:150:43)
+    at Object.testBody.length (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-preset-angular\zone-patch\index.js:52:27)
+    at Object.asyncJestTest (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:102:37)
+    at resolve (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:43:12)
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:26:19)
+    at promise.then (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:73:41)</pre></div></td><td class="result">failed</td></tr><tr class="failed"><td class="suite">City</td><td class="test">isNameSet should return true<div class="failureMessages"><pre class="failureMsg">TypeError: this.name.isNullOrEmpty is not a function
+    at City.isNameSet (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\models\city.ts:411:23)
+    at C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\models\city.spec.ts:55:32
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:391:26)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\proxy.js:129:39)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:390:52)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:150:43)
+    at Object.testBody.length (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-preset-angular\zone-patch\index.js:52:27)
+    at Object.asyncJestTest (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:102:37)
+    at resolve (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:43:12)
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:26:19)
+    at promise.then (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:73:41)</pre></div></td><td class="result">failed</td></tr><tr class="passed"><td class="suite">City</td><td class="test">isCoordSet should return false<div class="failureMessages"/></td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">City</td><td class="test">isCoordSet should return true<div class="failureMessages"/></td><td class="result">passed in 0.001s</td></tr></table><div class="suite-info"><div class="suite-path">C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\extensions\string.extension.spec.ts</div><div class="suite-time">0.151s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="failed"><td class="suite">StringExtension</td><td class="test">isNullOrEmpty should return true if string is empty<div class="failureMessages"><pre class="failureMsg">Error: expect(received).toBeTruthy()
+
+Received: false
+    at C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\extensions\string.extension.spec.ts:12:31
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:391:26)
+    at ProxyZoneSpec.Object.&lt;anonymous&gt;.ProxyZoneSpec.onInvoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\proxy.js:129:39)
+    at ZoneDelegate.Object.&lt;anonymous&gt;.ZoneDelegate.invoke (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:390:52)
+    at Zone.Object.&lt;anonymous&gt;.Zone.run (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\zone.js\dist\zone.js:150:43)
+    at Object.testBody.length (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-preset-angular\zone-patch\index.js:52:27)
+    at Object.asyncJestTest (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:102:37)
+    at resolve (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:43:12)
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:26:19)
+    at promise.then (C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\node_modules\jest-jasmine2\build\queueRunner.js:73:41)</pre></div></td><td class="result">failed</td></tr><tr class="passed"><td class="suite">StringExtension</td><td class="test">isNullOrEmpty should return false if string has value<div class="failureMessages"/></td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">StringExtension</td><td class="test">format should return value as expected<div class="failureMessages"/></td><td class="result">passed in 0.001s</td></tr></table><div class="suite-info"><div class="suite-path">C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\services\api.service.spec.ts</div><div class="suite-time">0.232s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">ApiService</td><td class="test">should be created<div class="failureMessages"/></td><td class="result">passed in 0.022s</td></tr><tr class="passed"><td class="suite">ApiService</td><td class="test">currentWeather should return expected json<div class="failureMessages"/></td><td class="result">passed in 0.019s</td></tr><tr class="passed"><td class="suite">ApiService</td><td class="test">forecastWeather should return expected json<div class="failureMessages"/></td><td class="result">passed in 0.007s</td></tr><tr class="passed"><td class="suite">ApiService</td><td class="test">uvIndex should return expected json<div class="failureMessages"/></td><td class="result">passed in 0.006s</td></tr></table><div class="suite-info"><div class="suite-path">C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\components\base-component\base.component.spec.ts</div><div class="suite-time">0.139s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">BaseComponent</td><td class="test">should create the app<div class="failureMessages"/></td><td class="result">passed in 0.002s</td></tr></table><div class="suite-info"><div class="suite-path">C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\interceptor\api.interceptor.spec.ts</div><div class="suite-time">0.185s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">ApiInterceptor</td><td class="test">should be created<div class="failureMessages"/></td><td class="result">passed in 0.01s</td></tr></table><div class="suite-info"><div class="suite-path">C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\helper\array-helper.spec.ts</div><div class="suite-time">0.13s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">any</td><td class="test">should return true if one or more entries in array<div class="failureMessages"/></td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">any</td><td class="test">should return false if no entry is in array<div class="failureMessages"/></td><td class="result">passed in 0s</td></tr><tr class="passed"><td class="suite">any</td><td class="test">should return false for null<div class="failureMessages"/></td><td class="result">passed in 0.001s</td></tr></table><div class="suite-info"><div class="suite-path">C:\Users\Jonas\Documents\GitHub\OpenWeather-Angular\src\lib\extensions\weather-forecast.extension.spec.ts</div><div class="suite-time">0.127s</div></div><table class="suite-table" cellspacing="0" cellpadding="0"><tr class="passed"><td class="suite">WeatherForecastExtension</td><td class="test">mostWeatherCondition should return null if list is empty<div class="failureMessages"/></td><td class="result">passed in 0.001s</td></tr><tr class="passed"><td class="suite">WeatherForecastExtension</td><td class="test">mostWeatherCondition should return expected value if list is not empty<div class="failureMessages"/></td><td class="result">passed in 0s</td></tr></table></div></body></html>
