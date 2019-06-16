@@ -16,7 +16,8 @@ export class CityComponent extends BaseComponent implements OnInit {
   city: City = null;
   cityPictureUrl: string = String().empty;
 
-  constructor(private readonly imageService: ImageService,
+  constructor(
+    private readonly imageService: ImageService,
     private readonly openWeatherService: OpenWeatherService) {
     super();
   }

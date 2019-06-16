@@ -5,6 +5,8 @@ export class BaseComponent implements OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
+  readonly ngOnDestroy = () => this.subscriptions.forEach(x => x.unsubscribe());
+
   readonly registerSubscription = (subscription: Subscription): number => this.subscriptions.push(subscription);
 
   readonly removeSubscription = (subscription: Subscription): void => {
@@ -12,9 +14,5 @@ export class BaseComponent implements OnDestroy {
     if (subscriptionIndex > -1) {
       this.subscriptions.splice(subscriptionIndex, 1);
     }
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(x => x.unsubscribe());
   }
 }

@@ -23,9 +23,7 @@ export default class WeatherCondition {
         const weatherCondition = WeatherCondition.values
             .find(x => x.description.toUpperCase().includes(description.toUpperCase())
                 || description.toUpperCase().includes(x.description.toUpperCase()));
-        if (!weatherCondition) {
-            return WeatherCondition.null;
-        }
-        return weatherCondition;
+
+        return !!weatherCondition ? weatherCondition : WeatherCondition.null;
     }
 }

@@ -1,8 +1,5 @@
 import { TestBed, async } from "@angular/core/testing";
 
-// import MockServices from "@lib/mock/services.mock";
-// import MockValues from "@lib/mock/values.mock";
-
 import { BaseComponent } from "./base.component";
 
 describe("BaseComponent", () => {
