@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ozone Reducer Tests State Changes should load city on success of loading 1`] = `
+Object {
+  "accuracy": 2,
+  "dateTime": "2019-07-12",
+  "error": undefined,
+  "isLoading": false,
+  "ozone": Object {},
+}
+`;
+
+exports[`Ozone Reducer Tests State Changes should set error on error of loading 1`] = `
+Object {
+  "accuracy": 2,
+  "dateTime": "2019-07-12",
+  "error": "Error",
+  "isLoading": false,
+  "ozone": undefined,
+}
+`;

@@ -1,49 +1,37 @@
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { TestBed, async } from "@angular/core/testing";
+import { combineReducers, Store, StoreModule } from "@ngrx/store";
 import { of } from "rxjs";
 
-import { substitute } from "@lib/mock";
-
-import { OpenWeatherService } from "@lib/services";
-
+import { ozoneReducer } from "@lib/store/ozone-store";
+import { RootState } from "@lib/store/root-state";
 import { OzoneComponent } from "./ozone.component";
 
 describe("OzoneComponent", () => {
   let classToTest: OzoneComponent;
-
-  const openWeatherServiceMock = substitute(OpenWeatherService);
-
-  const serviceMockList: any[] = [
-    openWeatherServiceMock
-  ];
+  let store$: Store<RootState>;
 
   beforeEach(() => {
-    openWeatherServiceMock.ozone.and.returnValue(of(null));
-
     TestBed.configureTestingModule({
       declarations: [
         OzoneComponent
       ],
-      providers: [
-        { provide: OpenWeatherService, useValue: openWeatherServiceMock }
-      ]
-    }).overrideTemplate(OzoneComponent, "<div></div>").compileComponents();
+      imports: [
+        StoreModule.forRoot({ ozone: combineReducers(ozoneReducer) })
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
+
+    store$ = TestBed.get(Store);
+    store$.select = jest.fn()
+      .mockReturnValueOnce(() => of(false))
+      .mockReturnValueOnce(() => of(undefined));
 
     const fixture = TestBed.createComponent(OzoneComponent);
     classToTest = fixture.debugElement.componentInstance;
   });
 
-  afterEach(() => {
-    serviceMockList.forEach(serviceMock => {
-      for (const propertyName in serviceMock) {
-        if (serviceMock.hasOwnProperty(propertyName)) {
-          serviceMock[propertyName].calls.reset();
-          serviceMock[propertyName].and.stub();
-        }
-      }
-    });
-  });
-
-  it("should create the app", async(() => {
+  test("should create the app", async(() => {
     // Assert
     expect(classToTest).toBeTruthy();
   }));

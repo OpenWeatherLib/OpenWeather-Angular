@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeatherForecast Reducer Tests State Changes should load city on success of loading 1`] = `
+Object {
+  "error": undefined,
+  "filter": undefined,
+  "isLoading": false,
+  "mostWeatherCondition": Object {
+    "count": 0,
+    "description": "Null",
+    "icon": "/assets/weather_dummy.png",
+    "id": 0,
+    "wallpaper": "/assets/weather_wallpaper_dummy.png",
+  },
+  "weatherForecast": Object {},
+  "weatherForecastList": undefined,
+}
+`;
+
+exports[`WeatherForecast Reducer Tests State Changes should set error on error of loading 1`] = `
+Object {
+  "city": undefined,
+  "error": "Error",
+  "filter": undefined,
+  "isLoading": false,
+  "mostWeatherCondition": Object {
+    "count": 0,
+    "description": "Null",
+    "icon": "/assets/weather_dummy.png",
+    "id": 0,
+    "wallpaper": "/assets/weather_wallpaper_dummy.png",
+  },
+  "weatherForecast": undefined,
+  "weatherForecastList": Array [],
+}
+`;

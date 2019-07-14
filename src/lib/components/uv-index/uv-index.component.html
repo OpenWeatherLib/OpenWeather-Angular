@@ -1,10 +1,11 @@
-<mat-card class="ga-card" *ngIf="uvIndex">
+<mat-progress-bar *ngIf="(isLoading$ | async)" mode="indeterminate"></mat-progress-bar>
+<mat-card class="ga-card" *ngIf="(uvIndex$ | async) && !(isLoading$ | async)">
   <mat-card-header>
     <img mat-card-avatar class="ga-card-header-image" src="/assets/uv_index.png" alt="UvIndex pic">
     <mat-card-title>UvIndex</mat-card-title>
-    <mat-card-subtitle>{{uvIndex?.value}}</mat-card-subtitle>
+    <mat-card-subtitle>{{(uvIndex$ | async)?.value}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>Coordinates: Lat: {{uvIndex?.lat}}, Lon: {{uvIndex?.lon}}</p>
+    <p>Coordinates: Lat: {{(uvIndex$ | async)?.lat}}, Lon: {{(uvIndex$ | async)?.lon}}</p>
   </mat-card-content>
 </mat-card>

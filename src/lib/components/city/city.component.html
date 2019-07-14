@@ -1,13 +1,14 @@
-<mat-card class="ga-card" *ngIf="city">
+<mat-progress-bar *ngIf="(isLoading$ | async)" mode="indeterminate"></mat-progress-bar>
+<mat-card class="ga-card" *ngIf="(city$ | async) && !(isLoading$ | async)">
   <mat-card-header>
-    <img mat-card-avatar class="ga-card-header-image" src="{{cityPictureUrl}}" alt="City pic">
+    <img mat-card-avatar class="ga-card-header-image" src="{{ cityPictureUrl$ | async }}" alt="City pic">
     <mat-card-title>City</mat-card-title>
-    <mat-card-subtitle>{{city?.name}}</mat-card-subtitle>
+    <mat-card-subtitle>{{(city$ | async)?.name}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="{{cityPictureUrl}}" alt="City pic">
+  <img mat-card-image src="{{ cityPictureUrl$ | async }}" alt="City pic">
   <mat-card-content>
-    <p>Country: {{city?.country}}</p>
-    <p>Population: {{city?.population}}</p>
-    <p>Coordinates: Lat: {{city?.coord?.lat}}, Lon: {{city?.coord?.lon}}</p>
+    <p>Country: {{(city$ | async)?.country}}</p>
+    <p>Population: {{(city$ | async)?.population}}</p>
+    <p>Coordinates: Lat: {{(city$ | async)?.coord?.lat}}, Lon: {{(city$ | async)?.coord?.lon}}</p>
   </mat-card-content>
 </mat-card>

@@ -4,7 +4,5 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req);
-    }
+    intercept = (httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> => next.handle(httpRequest);
 }

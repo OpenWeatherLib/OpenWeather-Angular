@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UvIndex Reducer Tests State Changes should load city on success of loading 1`] = `
+Object {
+  "error": undefined,
+  "isLoading": false,
+  "uvIndex": Object {},
+}
+`;
+
+exports[`UvIndex Reducer Tests State Changes should set error on error of loading 1`] = `
+Object {
+  "error": "Error",
+  "isLoading": false,
+  "uvIndex": undefined,
+}
+`;

@@ -5,8 +5,8 @@
       OpenWeather - Angular - Example
       <div class="ga-toolbar-city">
         <mat-icon svgIcon="city"></mat-icon>
-        <span [ngClass]="{'ga-action-indicator-black':updatingCity}">
-          {{city?.name}}
+        <span [ngClass]="{'ga-action-indicator-black':(cityIsLoading$ | async)}">
+          {{(city$ | async)?.name}}
         </span>
       </div>
     </div>
@@ -16,25 +16,25 @@
 <mat-sidenav-container class="ga-sidenav-container">
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadCurrentWeather()" [disabled]="updatingCurrentWeather">
-        Load Current Weather
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadWeatherCurrent()" [disabled]="(weatherCurrentIsLoading$ | async)">
+        Load Weather Current
       </button>
     </div>
 
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadForecastWeather()" [disabled]="updatingForecastWeather">
-        Load Forecast Weather
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadWeatherForecast()" [disabled]="(weatherForecastIsLoading$ | async)">
+        Load Weather Forecast
       </button>
     </div>
 
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadOzone()" [disabled]="updatingOzone">
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadOzone()" [disabled]="(ozoneIsLoading$ | async)">
         Load Ozone
       </button>
     </div>
 
     <div class="ga-margin-1-rem">
-      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadUvIndex()" [disabled]="updatingUvIndex">
+      <button mat-raised-button class="ga-width-100-per" color="primary" (click)="loadUvIndex()" [disabled]="(uvIndexIsLoading$ | async)">
         Load UV Index
       </button>
     </div>
@@ -43,12 +43,11 @@
       <mat-form-field class="ga-width-100-per">
         <input matInput placeholder="Enter new city" [(ngModel)]="newCityName" [ngModelOptions]="{standalone: true}">
 
-        <button mat-button *ngIf="newCityName && newCityName !== city?.name && !updatingCity" matSuffix mat-icon-button
-          aria-label="Save" (click)="updateCity()">
+        <button mat-button *ngIf="newCityName && newCityName !== (city$ | async)?.name && !(cityIsLoading$ | async)" matSuffix mat-icon-button aria-label="Save" (click)="updateCity()">
           <mat-icon svgIcon="save"></mat-icon>
         </button>
 
-        <button mat-button *ngIf="newCityName" matSuffix mat-icon-button aria-label="Clear" (click)="newCityName=''">
+        <button mat-button *ngIf="newCityName" matSuffix mat-icon-button aria-label="Clear" (click)="newCityName='';updateCity();">
           <mat-icon svgIcon="close"></mat-icon>
         </button>
       </mat-form-field>
@@ -58,7 +57,7 @@
   <mat-sidenav-content>
     <div class="ga-card-position">
       <span class="ga-display-inline-block">
-        <ga-city [initialCityName]="city?.name"></ga-city>
+        <ga-city></ga-city>
       </span>
 
       <span class="ga-display-inline-block">

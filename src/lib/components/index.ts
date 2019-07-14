@@ -1,4 +1,3 @@
-export * from "./base-component/base.component";
 export * from "./city/city.component";
 export * from "./ozone/ozone.component";
 export * from "./uv-index/uv-index.component";

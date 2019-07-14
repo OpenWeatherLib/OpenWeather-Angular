@@ -2,19 +2,15 @@ import { TestBed } from "@angular/core/testing";
 import { of } from "rxjs";
 
 import { substitute } from "@lib/mock";
-
+import { UnsplashImageOrientation } from "@lib/enums";
+import { UnsplashImageResponse } from "@lib/models";
 import { ApiService } from "@lib/services/api.service";
-
 import { ImageService } from "./image.service";
 
 describe("ImageService", () => {
     let classToTest: ImageService;
 
     const apiServiceMock = substitute(ApiService);
-
-    const serviceMockList: any[] = [
-        apiServiceMock
-    ];
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -26,36 +22,23 @@ describe("ImageService", () => {
         classToTest = new ImageService(apiServiceMock);
     });
 
-    afterEach(() => {
-        serviceMockList.forEach(serviceMock => {
-            for (const propertyName in serviceMock) {
-                if (serviceMock.hasOwnProperty(propertyName)) {
-                    serviceMock[propertyName].calls.reset();
-                    serviceMock[propertyName].and.stub();
-                }
-            }
-        });
-    });
-
-    it("should be created", () => {
+    test("should be created", () => {
         // Assert
         expect(classToTest).toBeTruthy();
     });
 
-    it("receiveImagePictureUrl should call apiService and return a url", (done: DoneFn) => {
-        // Arrange
-        classToTest["accessKey"] = "MyAccessKey";
-        apiServiceMock.get.and.returnValue(of({ total: 1, results: [{ urls: { small: "Just an url" } }] }));
+    describe("loadImagePictureUrl", () => {
+        test("should call apiService and return a url", (done) => {
+            // Arrange
+            apiServiceMock.get.mockReturnValue(of({ total: 1, results: [{ urls: { small: "Just an url" } }] } as UnsplashImageResponse));
 
-        classToTest.cityPictureUrl().subscribe(url => {
-            if (url) {
+            // Act
+            classToTest.loadImagePictureUrl("Nuremberg", UnsplashImageOrientation.Squarish).subscribe((url: string) => {
                 // Assert
+                expect(url).toBeDefined();
                 expect(url).toBe("Just an url");
                 done();
-            }
+            });
         });
-
-        // Act
-        classToTest.receiveImagePictureUrl("Nuremberg");
     });
 });

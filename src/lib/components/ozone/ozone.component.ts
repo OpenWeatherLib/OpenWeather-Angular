@@ -1,27 +1,27 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 
-import { BaseComponent } from "@lib/components/base-component/base.component";
 import { Ozone } from "@lib/models";
-import { OpenWeatherService } from "@lib/services";
+import { selectIsLoading, selectOzone } from "@lib/store/ozone-store";
+import { RootState } from "@lib/store/root-state";
 
 @Component({
   selector: "ga-ozone",
   templateUrl: "./ozone.component.html",
   styleUrls: ["./ozone.component.scss"]
 })
-export class OzoneComponent extends BaseComponent implements OnInit {
+export class OzoneComponent implements OnInit {
 
-  ozone: Ozone = null;
+  isLoading$: Observable<boolean>;
 
-  constructor(private readonly openWeatherService: OpenWeatherService) {
-    super();
-  }
+  ozone$: Observable<Ozone>;
+
+  constructor(private readonly store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.registerSubscription(this.openWeatherService.ozone().subscribe(ozone => {
-      if (ozone) {
-        this.ozone = ozone;
-      }
-    }));
+    this.isLoading$ = this.store$.select(selectIsLoading);
+
+    this.ozone$ = this.store$.select(selectOzone);
   }
 }

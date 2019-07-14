@@ -22,11 +22,14 @@
       "dom"
     ],
     "paths": {
-      "@lib/*": [
-        "lib/*"
-      ],
       "@app/*": [
         "app/*"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ],
+      "@lib/*": [
+        "lib/*"
       ]
     }
   }

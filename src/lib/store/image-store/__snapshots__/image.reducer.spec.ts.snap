@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image Reducer Tests State Changes should load url on success of loading 1`] = `
+Object {
+  "error": undefined,
+  "isLoading": false,
+  "url": "New URL",
+}
+`;
+
+exports[`Image Reducer Tests State Changes should set error on error of loading 1`] = `
+Object {
+  "error": "Error",
+  "isLoading": false,
+  "url": undefined,
+}
+`;

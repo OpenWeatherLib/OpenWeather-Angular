@@ -4,7 +4,7 @@ import { mostWeatherCondition } from "./weather-forecast.extension";
 import { WeatherForecastPart, WeatherPart } from "@lib/models";
 
 describe("WeatherForecastExtension", () => {
-    it("mostWeatherCondition should return null if list is empty", () => {
+    test("mostWeatherCondition should return null if list is empty", () => {
         // Arrange + Act
         const actual = mostWeatherCondition(null);
 
@@ -12,7 +12,7 @@ describe("WeatherForecastExtension", () => {
         expect(actual).toBe(WeatherCondition.null);
     });
 
-    it("mostWeatherCondition should return expected value if list is not empty", () => {
+    test("mostWeatherCondition should return expected value if list is not empty", () => {
         // Arrange
         const list: WeatherForecastPart[] = [
             { weather: [{ description: "snow" } as WeatherPart] } as WeatherForecastPart,

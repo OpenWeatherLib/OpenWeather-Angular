@@ -1,42 +1,38 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 
-import { BaseComponent } from "@lib/components/base-component/base.component";
 import WeatherCondition from "@lib/enums/weather-condition.enum";
-import { mostWeatherCondition } from "@lib/extensions/weather-forecast.extension";
-import { WeatherForecast, WeatherForecastPart } from "@lib/models";
-import { OpenWeatherService } from "@lib/services";
+import { WeatherForecastPart } from "@lib/models";
+import { selectIsLoading, selectMostWeatherCondition, selectWeatherForecastList, setFilterRequestAction } from "@lib/store/weather-forecast-store";
+import { RootState } from "@lib/store/root-state";
 
 @Component({
   selector: "ga-weather-forecast",
   templateUrl: "./weather-forecast.component.html",
   styleUrls: ["./weather-forecast.component.scss"]
 })
-export class WeatherForecasstComponent extends BaseComponent implements OnInit {
+export class WeatherForecastComponent implements OnInit {
 
-  forecastWeather: WeatherForecast = null;
-  mostWeatherCondition: WeatherCondition = WeatherCondition.null;
-  forecastWeatherList: WeatherForecastPart[] = [];
-  forecastWeatherSearch: string = String().empty;
+  isLoading$: Observable<boolean>;
 
-  constructor(private readonly openWeatherService: OpenWeatherService) {
-    super();
-  }
+  mostWeatherCondition$: Observable<WeatherCondition>;
+
+  weatherForecastList$: Observable<WeatherForecastPart[]>;
+
+  weatherForecastSearch: string = "";
+
+  readonly filterWeatherForecast = (): void => this.store$.dispatch(setFilterRequestAction({ filter: this.weatherForecastSearch }));
+
+  readonly trackByIndex = (index: number, _: WeatherForecastPart) => index;
+
+  constructor(private readonly store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.registerSubscription(this.openWeatherService.forecastWeather().subscribe(forecastWeather => {
-      if (forecastWeather) {
-        this.forecastWeather = forecastWeather;
-        this.searchForecastWeather();
-      }
-    }));
-  }
+    this.isLoading$ = this.store$.select(selectIsLoading);
 
-  searchForecastWeather(): void {
-    if (this.forecastWeatherSearch) {
-      this.forecastWeatherList = this.forecastWeather.list.filter(x => JSON.stringify(x).includes(this.forecastWeatherSearch));
-    } else {
-      this.forecastWeatherList = this.forecastWeather.list;
-    }
-    this.mostWeatherCondition = mostWeatherCondition(this.forecastWeatherList);
+    this.mostWeatherCondition$ = this.store$.select(selectMostWeatherCondition);
+
+    this.weatherForecastList$ = this.store$.select(selectWeatherForecastList);
   }
 }

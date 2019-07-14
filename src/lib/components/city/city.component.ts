@@ -1,37 +1,32 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 
-import { BaseComponent } from "@lib/components/base-component/base.component";
 import { City } from "@lib/models";
-import { ImageService, OpenWeatherService } from "@lib/services";
+import { selectCity } from "@lib/store/city-store";
+import { selectIsLoading, selectUrl } from "@lib/store/image-store";
+import { RootState } from "@lib/store/root-state";
 
 @Component({
   selector: "ga-city",
   templateUrl: "./city.component.html",
   styleUrls: ["./city.component.scss"]
 })
-export class CityComponent extends BaseComponent implements OnInit {
+export class CityComponent implements OnInit {
 
-  @Input() initialCityName: string = String().empty;
+  city$: Observable<City>;
 
-  city: City = null;
-  cityPictureUrl: string = String().empty;
+  cityPictureUrl$: Observable<string>;
 
-  constructor(
-    private readonly imageService: ImageService,
-    private readonly openWeatherService: OpenWeatherService) {
-    super();
-  }
+  isLoading$: Observable<boolean>;
+
+  constructor(private readonly store$: Store<RootState>) { }
 
   ngOnInit() {
-    this.openWeatherService.loadCityData(this.initialCityName);
+    this.cityPictureUrl$ = this.store$.select(selectUrl);
 
-    this.registerSubscription(this.openWeatherService.city().subscribe(city => {
-      if (city) {
-        this.city = city;
-        this.imageService.receiveImagePictureUrl(this.city.name);
-      }
-    }));
+    this.city$ = this.store$.select(selectCity);
 
-    this.registerSubscription(this.imageService.cityPictureUrl().subscribe(url => this.cityPictureUrl = url));
+    this.isLoading$ = this.store$.select(selectIsLoading);
   }
 }

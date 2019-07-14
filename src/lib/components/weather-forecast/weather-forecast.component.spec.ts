@@ -1,50 +1,64 @@
-import { TestBed, async } from "@angular/core/testing";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { TestBed } from "@angular/core/testing";
+import { combineReducers, Store, StoreModule } from "@ngrx/store";
 import { of } from "rxjs";
 
-import { substitute } from "@lib/mock";
+import { weatherForecastReducer, setFilterRequestAction } from "@lib/store/weather-forecast-store";
+import { RootState } from "@lib/store/root-state";
+import { WeatherForecastComponent } from "./weather-forecast.component";
 
-import { OpenWeatherService } from "@lib/services";
-
-import { WeatherForecasstComponent } from "./weather-forecast.component";
-
-describe("WeatherForecasstComponent", () => {
-  let classToTest: WeatherForecasstComponent;
-
-  const openWeatherServiceMock = substitute(OpenWeatherService);
-
-  const serviceMockList: any[] = [
-    openWeatherServiceMock
-  ];
+describe("WeatherForecastComponent", () => {
+  let classToTest: WeatherForecastComponent;
+  let store$: Store<RootState>;
 
   beforeEach(() => {
-    openWeatherServiceMock.forecastWeather.and.returnValue(of(null));
-
     TestBed.configureTestingModule({
       declarations: [
-        WeatherForecasstComponent
+        WeatherForecastComponent
       ],
-      providers: [
-        { provide: OpenWeatherService, useValue: openWeatherServiceMock }
-      ]
-    }).overrideTemplate(WeatherForecasstComponent, "<div></div>").compileComponents();
+      imports: [
+        StoreModule.forRoot({ weatherForecast: combineReducers(weatherForecastReducer) })
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
 
-    const fixture = TestBed.createComponent(WeatherForecasstComponent);
+    store$ = TestBed.get(Store);
+    store$.dispatch = jest.fn();
+    store$.select = jest.fn()
+      .mockReturnValueOnce(() => of(false))
+      .mockReturnValueOnce(() => of(undefined))
+      .mockReturnValueOnce(() => of([]));
+
+    const fixture = TestBed.createComponent(WeatherForecastComponent);
     classToTest = fixture.debugElement.componentInstance;
   });
 
-  afterEach(() => {
-    serviceMockList.forEach(serviceMock => {
-      for (const propertyName in serviceMock) {
-        if (serviceMock.hasOwnProperty(propertyName)) {
-          serviceMock[propertyName].calls.reset();
-          serviceMock[propertyName].and.stub();
-        }
-      }
+  test("should create the app", () => {
+    // Assert
+    expect(classToTest).toBeTruthy();
+  });
+
+  describe("filterWeatherForecast", () => {
+    test("should dispatch action", () => {
+      // Arrange
+      classToTest.weatherForecastSearch = "Filter";
+
+      // Act
+      classToTest.filterWeatherForecast();
+
+      // Assert
+      expect(store$.dispatch).toHaveBeenCalledTimes(1);
+      expect(store$.dispatch).toHaveBeenCalledWith(setFilterRequestAction({ filter: "Filter" }));
     });
   });
 
-  it("should create the app", async(() => {
-    // Assert
-    expect(classToTest).toBeTruthy();
-  }));
+  describe("trackByIndex", () => {
+    test("should return expected value", () => {
+      // Arrange & Act
+      const actual = classToTest.trackByIndex(42, undefined);
+
+      // Assert
+      expect(actual).toBe(42);
+    });
+  });
 });

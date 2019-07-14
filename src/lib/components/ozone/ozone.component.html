@@ -1,10 +1,11 @@
-<mat-card class="ga-card" *ngIf="ozone">
+<mat-progress-bar *ngIf="(isLoading$ | async)" mode="indeterminate"></mat-progress-bar>
+<mat-card class="ga-card" *ngIf="(ozone$ | async) && !(isLoading$ | async)">
   <mat-card-header>
     <img mat-card-avatar class="ga-card-header-image" src="/assets/ozone.png" alt="Ozone pic">
     <mat-card-title>Ozone</mat-card-title>
-    <mat-card-subtitle>{{ozone?.data}}</mat-card-subtitle>
+    <mat-card-subtitle>{{(ozone$ | async)?.data}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>Coordinates: Lat: {{ozone?.coordinates?.latitude}}, Lon: {{ozone?.coordinates?.longitude}}</p>
+    <p>Coordinates: Lat: {{(ozone$ | async)?.coordinates?.latitude}}, Lon: {{(ozone$ | async)?.coordinates?.longitude}}</p>
   </mat-card-content>
 </mat-card>

@@ -1,7 +1,7 @@
 import { any } from "./array-helper";
 
 describe("any", () => {
-    it("should return true if one or more entries in array", () => {
+    test("should return true if one or more entries in array", () => {
         // Arrange
         const testArray = [0, 1, 2, 3, 4];
 
@@ -12,7 +12,7 @@ describe("any", () => {
         expect(actual).toBeTruthy();
     });
 
-    it("should return false if no entry is in array", () => {
+    test("should return false if no entry is in array", () => {
         // Arrange
         const testArray = [];
 
@@ -23,7 +23,7 @@ describe("any", () => {
         expect(actual).toBeFalsy();
     });
 
-    it("should return false for null", () => {
+    test("should return false for null", () => {
         // Arrange + Act
         const actual = any(null);
 

@@ -1,104 +1,71 @@
 import { Component, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material";
 import { DomSanitizer } from "@angular/platform-browser";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 
-import { ApiCallState } from "@lib/enums";
 import { City } from "@lib/models";
-import { OpenWeatherService } from "@lib/services";
-import { BaseComponent } from "@lib/components";
+import { selectCity, selectIsLoading as selectCityIsLoading, loadCityRequestAction } from "@lib/store/city-store";
+import { selectIsLoading as selectOzoneIsLoading, loadOzoneRequestAction } from "@lib/store/ozone-store";
+import { RootState } from "@lib/store/root-state";
+import { selectIsLoading as selectUvIndexIsLoading, loadUvIndexRequestAction } from "@lib/store/uv-index-store";
+import { selectIsLoading as selectWeatherCurrentIsLoading, loadWeatherCurrentRequestAction } from "@lib/store/weather-current-store";
+import { selectIsLoading as selectWeatherForecastIsLoading, loadWeatherForecastRequestAction } from "@lib/store/weather-forecast-store";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"]
 })
-export class AppComponent extends BaseComponent implements OnInit {
+export class AppComponent implements OnInit {
+
+  newCityName: string = "Nuremberg";
 
   opened: boolean = false;
 
-  city: City = { name: "Nuremberg" } as City;
-  newCityName: string = "Nuremberg";
+  city$: Observable<City>;
 
-  updatingCity: boolean = true;
-  updatingCurrentWeather: boolean = false;
-  updatingForecastWeather: boolean = false;
-  updatingOzone: boolean = false;
-  updatingUvIndex: boolean = false;
+  cityIsLoading$: Observable<boolean>;
+
+  ozoneIsLoading$: Observable<boolean>;
+
+  uvIndexIsLoading$: Observable<boolean>;
+
+  weatherCurrentIsLoading$: Observable<boolean>;
+
+  weatherForecastIsLoading$: Observable<boolean>;
+
+  readonly loadOzone = (): void => this.store$.dispatch(loadOzoneRequestAction({ city: undefined }));
+
+  readonly loadUvIndex = (): void => this.store$.dispatch(loadUvIndexRequestAction({ city: undefined }));
+
+  readonly loadWeatherCurrent = (): void => this.store$.dispatch(loadWeatherCurrentRequestAction({ city: undefined }));
+
+  readonly loadWeatherForecast = (): void => this.store$.dispatch(loadWeatherForecastRequestAction({ city: undefined }));
+
+  readonly updateCity = (): void => this.store$.dispatch(loadCityRequestAction({ cityName: this.newCityName }));
 
   constructor(
-    private readonly openWeatherService: OpenWeatherService,
+    private readonly store$: Store<RootState>,
     private readonly iconRegistry: MatIconRegistry,
     private readonly sanitizer: DomSanitizer) {
-    super();
     this.registerIcons();
   }
 
   ngOnInit(): void {
-    this.registerSubscription(this.openWeatherService.city().subscribe(city => {
-      this.updatingCity = false;
-      if (city) {
-        this.city = city;
-      }
-    }));
-    this.registerSubscription(this.openWeatherService.currentWeather().subscribe(() => this.updatingCurrentWeather = false));
-    this.registerSubscription(this.openWeatherService.forecastWeather().subscribe(() => this.updatingForecastWeather = false));
-    this.registerSubscription(this.openWeatherService.ozone().subscribe(() => this.updatingOzone = false));
-    this.registerSubscription(this.openWeatherService.uvIndex().subscribe(() => this.updatingUvIndex = false));
-  }
+    this.city$ = this.store$.select(selectCity);
 
-  updateCity(): void {
-    if (!this.updatingCity) {
-      this.updatingCity = true;
-      this.openWeatherService.loadCityData(this.newCityName);
-    }
-  }
+    this.cityIsLoading$ = this.store$.select(selectCityIsLoading);
 
-  loadCurrentWeather(): void {
-    if (!this.updatingCurrentWeather) {
-      this.updatingCurrentWeather = true;
+    this.ozoneIsLoading$ = this.store$.select(selectOzoneIsLoading);
 
-      const apiCallState: ApiCallState = this.openWeatherService.loadCurrentWeather();
-      if (apiCallState !== ApiCallState.Calling) {
-        this.updatingCurrentWeather = false;
-        console.warn(`Not downloading: ${apiCallState}`);
-      }
-    }
-  }
+    this.uvIndexIsLoading$ = this.store$.select(selectUvIndexIsLoading);
 
-  loadForecastWeather(): void {
-    if (!this.updatingForecastWeather) {
-      this.updatingForecastWeather = true;
+    this.weatherCurrentIsLoading$ = this.store$.select(selectWeatherCurrentIsLoading);
 
-      const apiCallState: ApiCallState = this.openWeatherService.loadForecastWeather();
-      if (apiCallState !== ApiCallState.Calling) {
-        this.updatingForecastWeather = false;
-        console.warn(`Not downloading: ${apiCallState}`);
-      }
-    }
-  }
+    this.weatherForecastIsLoading$ = this.store$.select(selectWeatherForecastIsLoading);
 
-  loadOzone(): void {
-    if (!this.updatingOzone) {
-      this.updatingOzone = true;
-
-      const apiCallState: ApiCallState = this.openWeatherService.loadOzone("2018-11-01", 2);
-      if (apiCallState !== ApiCallState.Calling) {
-        this.updatingOzone = false;
-        console.warn(`Not downloading: ${apiCallState}`);
-      }
-    }
-  }
-
-  loadUvIndex(): void {
-    if (!this.updatingUvIndex) {
-      this.updatingUvIndex = true;
-
-      const apiCallState: ApiCallState = this.openWeatherService.loadUvIndex();
-      if (apiCallState !== ApiCallState.Calling) {
-        this.updatingUvIndex = false;
-        console.warn(`Not downloading: ${apiCallState}`);
-      }
-    }
+    this.store$.dispatch(loadCityRequestAction({ cityName: this.newCityName }));
   }
 
   private registerIcons(): void {

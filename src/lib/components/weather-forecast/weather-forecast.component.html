@@ -1,39 +1,40 @@
+<mat-progress-bar *ngIf="(isLoading$ | async)" mode="indeterminate"></mat-progress-bar>
+
 <span class="ga-display-inline-block">
-  <mat-card class="ga-card-forecast-header" *ngIf="forecastWeather">
+  <mat-card class="ga-card-forecast-header" *ngIf="(mostWeatherCondition$ | async) && !(isLoading$ | async)">
     <mat-card-header>
-      <img mat-card-avatar class="ga-card-header-image" src="{{mostWeatherCondition?.icon}}" alt="Forecast weather pic">
+      <img mat-card-avatar class="ga-card-header-image" src="{{(mostWeatherCondition$ | async)?.icon}}" alt="Weather forecast icon">
       <mat-card-title>Forecast Weather</mat-card-title>
-      <mat-card-subtitle>{{mostWeatherCondition?.description}}</mat-card-subtitle>
+      <mat-card-subtitle>{{(mostWeatherCondition$ | async)?.description}}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="{{mostWeatherCondition?.wallpaper}}" alt="Forecast weather pic">
+    <img mat-card-image src="{{(mostWeatherCondition$ | async)?.wallpaper}}" alt="Weather forecast wallpaper">
   </mat-card>
 </span>
 
 <span class="ga-display-inline-block">
-  <div class="ga-forecast-container" *ngIf="forecastWeather">
+  <div class="ga-forecast-container" *ngIf="!(isLoading$ | async) && (weatherForecastList$ | async)">
     <form class="ga-margin-1-rem">
       <mat-form-field class="ga-width-100-per">
-        <input matInput placeholder="Search" [(ngModel)]="forecastWeatherSearch" [ngModelOptions]="{standalone: true}"
-          (keyup)="searchForecastWeather()">
-        <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="forecastWeatherSearch='';searchForecastWeather();">
+        <input matInput placeholder="Search" [(ngModel)]="weatherForecastSearch" [ngModelOptions]="{standalone: true}" (keyup)="filterWeatherForecast()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="weatherForecastSearch='';filterWeatherForecast();">
           <mat-icon svgIcon="close"></mat-icon>
         </button>
       </mat-form-field>
     </form>
 
-    <mat-list>
-      <mat-list-item *ngFor="let forecastPart of forecastWeatherList" class="ga-card-forecast-weather-height-fix">
+    <mat-list *ngIf="(weatherForecastList$ | async)">
+      <mat-list-item *ngFor="let weatherForecastPart of (weatherForecastList$ | async); trackBy: trackByIndex" class="ga-card-forecast-weather-height-fix">
         <mat-card class="ga-card">
           <mat-card-header>
-            <img mat-card-avatar class="ga-card-header-image" src="{{forecastPart?.weatherCondition?.icon}}" alt="Forecast weather pic">
-            <mat-card-title>{{forecastPart?.dt_txt}}</mat-card-title>
-            <mat-card-subtitle>{{forecastPart?.weatherCondition?.description}}</mat-card-subtitle>
+            <img mat-card-avatar class="ga-card-header-image" src="{{weatherForecastPart?.weatherCondition?.icon}}" alt="Weather forecast part pic">
+            <mat-card-title>{{weatherForecastPart?.dt_txt}}</mat-card-title>
+            <mat-card-subtitle>{{weatherForecastPart?.weatherCondition?.description}}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <p>Temperature: {{forecastPart?.main?.temp}}°C
-              ({{forecastPart?.main?.temp_min}}°C-{{forecastPart?.main?.temp_max}}°C)</p>
-            <p>Pressure: {{forecastPart?.main?.pressure}} mBar</p>
-            <p>Humidity: {{forecastPart?.main?.humidity}} %</p>
+            <p>Temperature: {{weatherForecastPart?.main?.temp}}°C
+              ({{weatherForecastPart?.main?.temp_min}}°C-{{weatherForecastPart?.main?.temp_max}}°C)</p>
+            <p>Pressure: {{weatherForecastPart?.main?.pressure}} mBar</p>
+            <p>Humidity: {{weatherForecastPart?.main?.humidity}} %</p>
           </mat-card-content>
         </mat-card>
       </mat-list-item>

@@ -15,7 +15,6 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 
 import { LibModule } from "@lib/lib.module";
-import { ApiService, ImageService, OpenWeatherService } from "@lib/services";
 
 import { AppComponent } from "./app.component";
 
@@ -38,11 +37,6 @@ import { AppComponent } from "./app.component";
     MatListModule,
     MatSidenavModule,
     MatToolbarModule
-  ],
-  providers: [
-    ApiService,
-    ImageService,
-    OpenWeatherService
   ],
   bootstrap: [
     AppComponent

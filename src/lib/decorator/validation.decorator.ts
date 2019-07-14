@@ -40,7 +40,7 @@ export const validate = <T>(defaultReturnValue: T): any => (target: any, propert
                         } else if (type === ValidationRequiredType.Int && prohibitedValues.some(x => x === argumentValue)) {
                             console.error(`Missing or invalid required argument for int at ${propertyName} with parameter ${JSON.stringify(parameter)}.`);
                             return defaultReturnValue;
-                        } else if (type === ValidationRequiredType.String && (argumentValue === String().empty || prohibitedValues.some(x => x === argumentValue))) {
+                        } else if (type === ValidationRequiredType.String && (argumentValue === "" || prohibitedValues.some(x => x === argumentValue))) {
                             console.error(`Missing or invalid required argument for string at ${propertyName} with parameter ${JSON.stringify(parameter)}.`);
                             return defaultReturnValue;
                         }

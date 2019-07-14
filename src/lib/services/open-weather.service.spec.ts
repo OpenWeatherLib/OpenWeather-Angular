@@ -1,21 +1,15 @@
 import { TestBed } from "@angular/core/testing";
-import { of, BehaviorSubject } from "rxjs";
+import { of } from "rxjs";
 
 import { substitute } from "@lib/mock";
-import MockValues from "@lib/mock/values.mock";
-
+import { CarbonMonoxide, City, NitrogenDioxide, Ozone, SulfurDioxide, UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
 import { ApiService } from "@lib/services/api.service";
-
 import { OpenWeatherService } from "./open-weather.service";
 
 describe("OpenWeatherService", () => {
     let classToTest: OpenWeatherService;
 
     const apiServiceMock = substitute(ApiService);
-
-    const serviceMockList: any[] = [
-        apiServiceMock
-    ];
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -27,117 +21,113 @@ describe("OpenWeatherService", () => {
         classToTest = new OpenWeatherService(apiServiceMock);
     });
 
-    afterEach(() => {
-        serviceMockList.forEach(serviceMock => {
-            for (const propertyName in serviceMock) {
-                if (serviceMock.hasOwnProperty(propertyName)) {
-                    serviceMock[propertyName].calls.reset();
-                    serviceMock[propertyName].and.stub();
-                }
-            }
-        });
-    });
-
-    it("should be created", () => {
+    test("should be created", () => {
         // Assert
         expect(classToTest).toBeTruthy();
     });
 
-    it("loadCityData should call apiService and set city", (done: DoneFn) => {
-        // Arrange
-        apiServiceMock.get.and.returnValue(of({ status: "OK", results: [MockValues.city2()] }));
-        spyOn(classToTest, "loadCurrentWeather");
-        spyOn(classToTest, "loadForecastWeather");
-        spyOn(classToTest, "loadUvIndex");
+    describe("loadCarbonMonoxide", () => {
+        test("should call apiService and return defined data", (done) => {
+            // Arrange
+            apiServiceMock.get.mockReturnValue(of({} as CarbonMonoxide));
 
-        classToTest.city().subscribe(value => {
-            if (value) {
-                expect(value.name).toBe("Nuremberg");
-                expect(value.coord.lat).toBe(49.45421);
-                expect(value.coord.lon).toBe(11.07752);
-                done();
-            }
+            // Act
+            classToTest.loadCarbonMonoxide({ coord: { lat: 12, lon: 34 } } as City, "DateTime", 2)
+                .subscribe((carbonMonoxide: CarbonMonoxide) => {
+                    // Assert
+                    expect(carbonMonoxide).toBeDefined();
+                    done();
+                });
         });
-
-        // Act
-        classToTest.loadCityData("Nuremberg");
     });
 
-    it("loadCurrentWeather should call apiService and set currentWeather", (done: DoneFn) => {
-        // Arrange
-        classToTest["city$"] = new BehaviorSubject(MockValues.city());
-        classToTest["apiKey"] = MockValues.apiKey();
-        const expectedValue = MockValues.weatherCurrent();
-        apiServiceMock.get.and.returnValue(of(expectedValue));
+    describe("loadNitrogenDioxide", () => {
+        test("should call apiService and return defined data", (done) => {
+            // Arrange
+            apiServiceMock.get.mockReturnValue(of({} as NitrogenDioxide));
 
-        classToTest.currentWeather().subscribe(value => {
-            if (value) {
-                expect(value).toBe(expectedValue);
-                done();
-            }
+            // Act
+            classToTest.loadNitrogenDioxide({ coord: { lat: 12, lon: 34 } } as City, "DateTime", 2)
+                .subscribe((nitrogenDioxide: NitrogenDioxide) => {
+                    // Assert
+                    expect(nitrogenDioxide).toBeDefined();
+                    done();
+                });
         });
-
-        // Act
-        classToTest.loadCurrentWeather();
     });
 
-    it("loadForecastWeather should call apiService and set forecastWeather", (done: DoneFn) => {
-        // Arrange
-        classToTest["city$"] = new BehaviorSubject(MockValues.city());
-        classToTest["apiKey"] = MockValues.apiKey();
-        const expectedValue = MockValues.weatherForecast();
-        apiServiceMock.get.and.returnValue(of(expectedValue));
+    describe("loadOzone", () => {
+        test("should call apiService and return defined data", (done) => {
+            // Arrange
+            apiServiceMock.get.mockReturnValue(of({} as Ozone));
 
-        classToTest.forecastWeather().subscribe(value => {
-            if (value) {
-                expect(value).toBe(expectedValue);
-                done();
-            }
+            // Act
+            classToTest.loadOzone({ coord: { lat: 12, lon: 34 } } as City, "DateTime", 2)
+                .subscribe((ozone: Ozone) => {
+                    // Assert
+                    expect(ozone).toBeDefined();
+                    done();
+                });
         });
-
-        // Act
-        classToTest.loadForecastWeather();
     });
 
-    it("loadUvIndex should call apiService and set uvIndex", (done: DoneFn) => {
-        // Arrange
-        classToTest["city$"] = new BehaviorSubject(MockValues.city());
-        classToTest["apiKey"] = MockValues.apiKey();
-        const expectedValue = MockValues.uvIndex();
-        apiServiceMock.get.and.returnValue(of(expectedValue));
+    describe("loadSulfurDioxide", () => {
+        test("should call apiService and return defined data", (done) => {
+            // Arrange
+            apiServiceMock.get.mockReturnValue(of({} as SulfurDioxide));
 
-        classToTest.uvIndex().subscribe(value => {
-            if (value) {
-                expect(value).toBe(expectedValue);
-                done();
-            }
+            // Act
+            classToTest.loadSulfurDioxide({ coord: { lat: 12, lon: 34 } } as City, "DateTime", 2)
+                .subscribe((sulfurDioxide: SulfurDioxide) => {
+                    // Assert
+                    expect(sulfurDioxide).toBeDefined();
+                    done();
+                });
         });
-
-        // Act
-        classToTest.loadUvIndex();
     });
 
-    it("searchForecast should return valid object for rain", () => {
-        // Arrange
-        classToTest["forecastWeather$"] = new BehaviorSubject(MockValues.weatherForecast());
+    describe("loadUvIndex", () => {
+        test("should call apiService and return defined data", (done) => {
+            // Arrange
+            apiServiceMock.get.mockReturnValue(of({} as UvIndex));
 
-        // Act
-        const actual = classToTest.searchForecast("rain");
-
-        // Assert
-        expect(actual).toBeDefined();
-        expect(actual.cnt).toBe(2);
+            // Act
+            classToTest.loadUvIndex({ coord: { lat: 12, lon: 34 } } as City)
+                .subscribe((uvIndex: UvIndex) => {
+                    // Assert
+                    expect(uvIndex).toBeDefined();
+                    done();
+                });
+        });
     });
 
-    it("searchForecast should return valid object for clear", () => {
-        // Arrange
-        classToTest["forecastWeather$"] = new BehaviorSubject(MockValues.weatherForecast());
+    describe("loadWeatherCurrent", () => {
+        test("should call apiService and return defined data", (done) => {
+            // Arrange
+            apiServiceMock.get.mockReturnValue(of({ weather: [{ description: "Sun" }] }));
 
-        // Act
-        const actual = classToTest.searchForecast("clear");
+            // Act
+            classToTest.loadWeatherCurrent({ coord: { lat: 12, lon: 34 } } as City)
+                .subscribe((weatherCurrent: WeatherCurrent) => {
+                    // Assert
+                    expect(weatherCurrent).toBeDefined();
+                    done();
+                });
+        });
+    });
 
-        // Assert
-        expect(actual).toBeDefined();
-        expect(actual.cnt).toBe(1);
+    describe("loadWeatherForecast", () => {
+        test("should call apiService and return defined data", (done) => {
+            // Arrange
+            apiServiceMock.get.mockReturnValue(of({ list: [{ weather: [{ description: "Sun" }] }] }));
+
+            // Act
+            classToTest.loadWeatherForecast({ coord: { lat: 12, lon: 34 } } as City)
+                .subscribe((weatherForecast: WeatherForecast) => {
+                    // Assert
+                    expect(weatherForecast).toBeDefined();
+                    done();
+                });
+        });
     });
 });

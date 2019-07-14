@@ -21,8 +21,8 @@ export default class WeatherCondition {
 
     static getByDescription(description: string): WeatherCondition {
         const weatherCondition = WeatherCondition.values
-            .find(x => x.description.toUpperCase().includes(description.toUpperCase())
-                || description.toUpperCase().includes(x.description.toUpperCase()));
+            .find((condition: any) => condition.description.toUpperCase().indexOf(description.toUpperCase()) !== -1
+                || description.toUpperCase().indexOf(condition.description.toUpperCase()) !== -1);
 
         return !!weatherCondition ? weatherCondition : WeatherCondition.null;
     }
