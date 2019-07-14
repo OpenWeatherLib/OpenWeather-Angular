@@ -10,7 +10,7 @@
 [![Build](https://img.shields.io/badge/lint-successful-green.svg)](src)
 [![Build](https://img.shields.io/badge/sass-lint-successful-green.svg)](src)
 
-[![UnitTests](https://img.shields.io/badge/UnitTests-successful-red.svg)](src)
+[![UnitTests](https://img.shields.io/badge/UnitTests-successful-green.svg)](src)
 
 [![UnitTests](https://img.shields.io/badge/Statements-91-green.svg)](src)
 [![UnitTests](https://img.shields.io/badge/Branch-72-yellow.svg)](src)
