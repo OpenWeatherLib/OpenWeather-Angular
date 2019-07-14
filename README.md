@@ -7,12 +7,15 @@
 
 [![Version](https://img.shields.io/badge/version-v0.8.0-green.svg)](src)
 [![Build](https://img.shields.io/badge/build-successful-green.svg)](src)
+[![Build](https://img.shields.io/badge/lint-successful-green.svg)](src)
+[![Build](https://img.shields.io/badge/sass-lint-successful-green.svg)](src)
+
 [![UnitTests](https://img.shields.io/badge/UnitTests-successful-red.svg)](src)
 
-[![UnitTests](https://img.shields.io/badge/Statements-Coverage-91-green.svg)](src)
-[![UnitTests](https://img.shields.io/badge/Branch-Coverage-72-yellow.svg)](src)
-[![UnitTests](https://img.shields.io/badge/Functions-Coverage-83-green.svg)](src)
-[![UnitTests](https://img.shields.io/badge/Line-Coverage-92-green.svg)](src)
+[![UnitTests](https://img.shields.io/badge/Statements-91-green.svg)](src)
+[![UnitTests](https://img.shields.io/badge/Branch-72-yellow.svg)](src)
+[![UnitTests](https://img.shields.io/badge/Functions-83-green.svg)](src)
+[![UnitTests](https://img.shields.io/badge/Line-92-green.svg)](src)
 
 Angular 8 library for downloading and handling data from openweather
 
