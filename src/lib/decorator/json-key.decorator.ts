@@ -9,7 +9,7 @@ const propJsonKeyMetadataKey = Symbol("propJsonKey");
  * @param parent
  * @param key
  */
-export const propJsonKey = (parent: string, key: string): any => (target: Object, propertyKey: string | symbol, _: number) => {
+export const propJsonKey = (parent: string, key: string): any => (target: object, propertyKey: string | symbol, _: number): void => {
   const existingParameters: {}[] = Reflect.getOwnMetadata(propJsonKeyMetadataKey, target, propertyKey) || [];
   existingParameters.push({ parent: parent, key: key });
   Reflect.defineMetadata(propJsonKeyMetadataKey, existingParameters, target, propertyKey);

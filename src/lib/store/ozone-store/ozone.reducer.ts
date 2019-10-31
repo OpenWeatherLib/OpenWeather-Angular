@@ -1,10 +1,10 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 
 import { loadCitySuccessAction } from "../city-store/city.actions";
 import { loadOzoneRequestAction, loadOzoneSuccessAction, loadOzoneErrorAction, setAccuracy, setDateTime } from "./ozone.actions";
 import { initialState, OzoneState } from "./ozone.state";
 
-const reducer = createReducer(
+const reducer: ActionReducer<OzoneState, Action> = createReducer(
     initialState,
     on(loadCitySuccessAction, (state) => ({
         ...state,
@@ -36,6 +36,6 @@ const reducer = createReducer(
     }))
 );
 
-export function ozoneReducer(state: OzoneState | undefined, action: Action) {
+export function ozoneReducer(state: OzoneState | undefined, action: Action): OzoneState {
     return reducer(state, action);
 }

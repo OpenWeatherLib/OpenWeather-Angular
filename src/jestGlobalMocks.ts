@@ -1,11 +1,11 @@
-const createStorageMock = () => {
+const createStorageMock = (): any => {
   let storage = {};
 
   return {
-    getItem: key => key in storage ? storage[key] : null,
-    setItem: (key, value) => storage[key] = value || "",
-    removeItem: key => delete storage[key],
-    clear: () => storage = {},
+    getItem: (key: any): any => key in storage ? storage[key] : null,
+    setItem: (key: any, value: any): any => storage[key] = value || "",
+    removeItem: (key: any): any => delete storage[key],
+    clear: (): any => storage = {},
   };
 };
 

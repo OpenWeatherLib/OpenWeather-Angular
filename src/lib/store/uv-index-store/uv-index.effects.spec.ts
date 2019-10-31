@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 import { provideMockActions } from "@ngrx/effects/testing";
-import { combineReducers, Store, StoreModule } from "@ngrx/store";
+import { combineReducers, StoreModule } from "@ngrx/store";
 import { cold, hot } from "jasmine-marbles";
 import { Observable } from "rxjs";
 
@@ -8,7 +8,6 @@ import { City, UvIndex } from "@lib/models";
 import { substitute } from "@lib/mock";
 import { OpenWeatherService } from "@lib/services";
 import { loadCitySuccessAction } from "../city-store/city.actions";
-import { RootState } from "../root-state";
 import { loadUvIndexRequestAction, loadUvIndexSuccessAction } from "./uv-index.actions";
 import { UvIndexStoreEffects } from "./uv-index.effects";
 import { uvIndexReducer } from "./uv-index.reducer";
@@ -17,7 +16,6 @@ describe("UvIndex Effects Tests", () => {
 
     let testEffects: UvIndexStoreEffects;
     let actions$: Observable<any>;
-    let store$: Store<RootState>;
 
     const openWeatherServiceMock = substitute(OpenWeatherService);
 
@@ -33,7 +31,6 @@ describe("UvIndex Effects Tests", () => {
             ]
         });
 
-        store$ = TestBed.get(Store);
         testEffects = TestBed.get(UvIndexStoreEffects);
     });
 

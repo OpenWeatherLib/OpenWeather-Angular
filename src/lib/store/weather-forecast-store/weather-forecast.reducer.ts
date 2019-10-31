@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 
 import WeatherCondition from "@lib/enums/weather-condition.enum";
 import { mostWeatherCondition } from "@lib/extensions/weather-forecast.extension";
@@ -7,7 +7,21 @@ import { loadCitySuccessAction } from "../city-store/city.actions";
 import { loadWeatherForecastRequestAction, loadWeatherForecastSuccessAction, loadWeatherForecastErrorAction, setFilterRequestAction, clearFilterRequestAction } from "./weather-forecast.actions";
 import { initialState, WeatherForecastState } from "./weather-forecast.state";
 
-const reducer = createReducer(
+const filterWeatherForecast = (weatherForecastFilter: string, weatherForecast: WeatherForecast): {
+    weatherForecastList: WeatherForecastPart[];
+    mostWeatherCondition: WeatherCondition;
+} => {
+
+    const weatherForecastList = !!weatherForecast
+        ? !!weatherForecastFilter
+            ? weatherForecast.list.filter((weatherForecastPart: WeatherForecastPart) => JSON.stringify(weatherForecastPart).indexOf(weatherForecastFilter) !== -1)
+            : weatherForecast.list
+        : [];
+
+    return { weatherForecastList: weatherForecastList, mostWeatherCondition: mostWeatherCondition(weatherForecastList) };
+};
+
+const reducer: ActionReducer<WeatherForecastState, Action> = createReducer(
     initialState,
     on(loadCitySuccessAction, (state) => ({
         ...state,
@@ -55,18 +69,6 @@ const reducer = createReducer(
     })
 );
 
-const filterWeatherForecast = (weatherForecastFilter: string, weatherForecast: WeatherForecast)
-    : { weatherForecastList: WeatherForecastPart[], mostWeatherCondition: WeatherCondition } => {
-
-    const weatherForecastList = !!weatherForecast
-        ? !!weatherForecastFilter
-            ? weatherForecast.list.filter((weatherForecastPart: WeatherForecastPart) => JSON.stringify(weatherForecastPart).indexOf(weatherForecastFilter) !== -1)
-            : weatherForecast.list
-        : [];
-
-    return { weatherForecastList: weatherForecastList, mostWeatherCondition: mostWeatherCondition(weatherForecastList) };
-};
-
-export function weatherForecastReducer(state: WeatherForecastState | undefined, action: Action) {
+export function weatherForecastReducer(state: WeatherForecastState | undefined, action: Action): WeatherForecastState {
     return reducer(state, action);
 }

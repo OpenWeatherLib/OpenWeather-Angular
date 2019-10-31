@@ -1,10 +1,10 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 
 import { loadCitySuccessAction } from "../city-store/city.actions";
 import { loadNitrogenDioxideRequestAction, loadNitrogenDioxideSuccessAction, loadNitrogenDioxideErrorAction, setAccuracy, setDateTime } from "./nitrogen-dioxide.actions";
 import { initialState, NitrogenDioxideState } from "./nitrogen-dioxide.state";
 
-const reducer = createReducer(
+const reducer: ActionReducer<NitrogenDioxideState, Action> = createReducer(
     initialState,
     on(loadCitySuccessAction, (state) => ({
         ...state,
@@ -36,6 +36,6 @@ const reducer = createReducer(
     }))
 );
 
-export function nitrogenDioxideReducer(state: NitrogenDioxideState | undefined, action: Action) {
+export function nitrogenDioxideReducer(state: NitrogenDioxideState | undefined, action: Action): NitrogenDioxideState {
     return reducer(state, action);
 }

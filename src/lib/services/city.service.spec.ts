@@ -1,3 +1,5 @@
+/*eslint-disable @typescript-eslint/camelcase */
+
 import { TestBed } from "@angular/core/testing";
 import { of } from "rxjs";
 

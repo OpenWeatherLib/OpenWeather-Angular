@@ -1,8 +1,8 @@
 import { TestBed } from "@angular/core/testing";
 import { Actions } from "@ngrx/effects";
 import { provideMockActions } from "@ngrx/effects/testing";
-import { combineReducers, Store, StoreModule } from "@ngrx/store";
-import { MockStore, provideMockStore } from "@ngrx/store/testing";
+import { combineReducers, StoreModule } from "@ngrx/store";
+import { provideMockStore } from "@ngrx/store/testing";
 import { cold, hot } from "jasmine-marbles";
 import { Observable } from "rxjs";
 
@@ -19,7 +19,6 @@ describe("Weather Current Effects Tests", () => {
 
     let testEffects: WeatherCurrentStoreEffects;
     let actions$: Observable<any>;
-    let store$: MockStore<RootState>;
 
     const initialState: RootState = {
         cityState: { city: {} as City }
@@ -42,7 +41,6 @@ describe("Weather Current Effects Tests", () => {
 
         testEffects = TestBed.get(WeatherCurrentStoreEffects);
         actions$ = TestBed.get(Actions);
-        store$ = TestBed.get(Store);
     });
 
     describe("loadWeatherCurrentEffect$", () => {

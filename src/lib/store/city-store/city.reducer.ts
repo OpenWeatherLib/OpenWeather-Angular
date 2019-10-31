@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 
 import { City, WeatherCurrent, WeatherForecast } from "@lib/models";
 import { loadWeatherCurrentSuccessAction } from "../weather-current-store/weather-current.actions";
@@ -6,7 +6,22 @@ import { loadWeatherForecastSuccessAction } from "../weather-forecast-store/weat
 import { loadCityRequestAction, loadCitySuccessAction, loadCityErrorAction } from "./city.actions";
 import { initialState, CityState } from "./city.state";
 
-const reducer = createReducer(
+const updateCityFromWeatherForecast = (state: CityState, weatherForecast: WeatherForecast): City => {
+    const city = state.city;
+    city.population = weatherForecast.city.population;
+    city.coord.lat = weatherForecast.city.coord.lat;
+    city.coord.lon = weatherForecast.city.coord.lon;
+    return city;
+};
+
+const updateCityFromWeatherCurrent = (state: CityState, weatherCurrent: WeatherCurrent): City => {
+    const city = state.city;
+    city.coord.lat = weatherCurrent.coord.lat;
+    city.coord.lon = weatherCurrent.coord.lon;
+    return city;
+};
+
+const reducer: ActionReducer<CityState, Action> = createReducer(
     initialState,
     on(loadCityRequestAction, (state) => ({
         ...state,
@@ -34,21 +49,6 @@ const reducer = createReducer(
     }))
 );
 
-const updateCityFromWeatherForecast = (state: CityState, weatherForecast: WeatherForecast): City => {
-    const city = state.city;
-    city.population = weatherForecast.city.population;
-    city.coord.lat = weatherForecast.city.coord.lat;
-    city.coord.lon = weatherForecast.city.coord.lon;
-    return city;
-};
-
-const updateCityFromWeatherCurrent = (state: CityState, weatherCurrent: WeatherCurrent): City => {
-    const city = state.city;
-    city.coord.lat = weatherCurrent.coord.lat;
-    city.coord.lon = weatherCurrent.coord.lon;
-    return city;
-};
-
-export function cityReducer(state: CityState | undefined, action: Action) {
+export function cityReducer(state: CityState | undefined, action: Action): CityState {
     return reducer(state, action);
 }

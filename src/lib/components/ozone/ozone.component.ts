@@ -19,7 +19,7 @@ export class OzoneComponent implements OnInit {
 
   constructor(private readonly store$: Store<RootState>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoading$ = this.store$.select(selectIsLoading);
 
     this.ozone$ = this.store$.select(selectOzone);

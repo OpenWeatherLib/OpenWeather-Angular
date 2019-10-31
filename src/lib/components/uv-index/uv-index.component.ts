@@ -19,7 +19,7 @@ export class UvIndexComponent implements OnInit {
 
   constructor(private readonly store$: Store<RootState>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoading$ = this.store$.select(selectIsLoading);
 
     this.uvIndex$ = this.store$.select(selectUvIndex);

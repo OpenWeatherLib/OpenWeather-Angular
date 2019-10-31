@@ -19,7 +19,7 @@ export class WeatherCurrentComponent implements OnInit {
 
   constructor(private readonly store$: Store<RootState>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoading$ = this.store$.select(selectIsLoading);
 
     this.weatherCurrent$ = this.store$.select(selectWeatherCurrent);

@@ -24,11 +24,11 @@ export class WeatherForecastComponent implements OnInit {
 
   readonly filterWeatherForecast = (): void => this.store$.dispatch(setFilterRequestAction({ filter: this.weatherForecastSearch }));
 
-  readonly trackByIndex = (index: number, _: WeatherForecastPart) => index;
+  readonly trackByIndex = (index: number, _: WeatherForecastPart): number => index;
 
   constructor(private readonly store$: Store<RootState>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isLoading$ = this.store$.select(selectIsLoading);
 
     this.mostWeatherCondition$ = this.store$.select(selectMostWeatherCondition);

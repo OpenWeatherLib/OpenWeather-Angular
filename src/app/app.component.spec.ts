@@ -14,7 +14,6 @@ import { AppComponent } from "./app.component";
 
 describe("AppComponent", () => {
   let classToTest: AppComponent;
-  let store$: Store<RootState>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,7 +30,7 @@ describe("AppComponent", () => {
     classToTest = fixture.debugElement.componentInstance;
   });
 
-  store$ = TestBed.get(Store);
+  const store$: Store<RootState> = TestBed.get(Store);
   store$.dispatch = jest.fn();
   store$.select = jest.fn()
     .mockReturnValueOnce(() => of(undefined))

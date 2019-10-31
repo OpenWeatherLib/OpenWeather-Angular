@@ -5,6 +5,16 @@ import { TestBed } from "@angular/core/testing";
 import { City, UvIndex, WeatherCurrent, WeatherForecast } from "@lib/models";
 import { ApiService } from "./api.service";
 
+const apiKey = (): string => "fdsje423rfsdu";
+
+const city = (): City => ({
+    id: 420,
+    name: "Nuremberg",
+    country: "DE",
+    population: 499523,
+    coord: { lat: 45.3452, lon: 23.543 }
+});
+
 describe("ApiService", () => {
     let classToTest: ApiService;
     let httpTestingController: HttpTestingController;
@@ -166,14 +176,4 @@ describe("ApiService", () => {
             req.flush(JSON.parse(expectedJson));
         });
     });
-});
-
-const apiKey = (): string => "fdsje423rfsdu";
-
-const city = (): City => ({
-    id: 420,
-    name: "Nuremberg",
-    country: "DE",
-    population: 499523,
-    coord: { lat: 45.3452, lon: 23.543 }
 });

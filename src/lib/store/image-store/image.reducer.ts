@@ -1,10 +1,10 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 
 import { loadCitySuccessAction } from "../city-store/city.actions";
 import { loadImageUrlSuccessAction, loadImageUrlErrorAction } from "./image.actions";
 import { initialState, ImageState } from "./image.state";
 
-const reducer = createReducer(
+const reducer: ActionReducer<ImageState, Action> = createReducer(
     initialState,
     on(loadCitySuccessAction, (state) => ({
         ...state,
@@ -24,6 +24,6 @@ const reducer = createReducer(
     }))
 );
 
-export function imageReducer(state: ImageState | undefined, action: Action) {
+export function imageReducer(state: ImageState | undefined, action: Action): ImageState {
     return reducer(state, action);
 }

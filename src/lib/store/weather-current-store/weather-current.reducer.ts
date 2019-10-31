@@ -1,10 +1,10 @@
-import { Action, createReducer, on } from "@ngrx/store";
+import { Action, ActionReducer, createReducer, on } from "@ngrx/store";
 
 import { loadCitySuccessAction } from "../city-store/city.actions";
 import { loadWeatherCurrentRequestAction, loadWeatherCurrentSuccessAction, loadWeatherCurrentErrorAction } from "./weather-current.actions";
 import { initialState, WeatherCurrentState } from "./weather-current.state";
 
-const reducer = createReducer(
+const reducer: ActionReducer<WeatherCurrentState, Action> = createReducer(
     initialState,
     on(loadCitySuccessAction, (state) => ({
         ...state,
@@ -28,6 +28,6 @@ const reducer = createReducer(
     }))
 );
 
-export function weatherCurrentReducer(state: WeatherCurrentState | undefined, action: Action) {
+export function weatherCurrentReducer(state: WeatherCurrentState | undefined, action: Action): WeatherCurrentState {
     return reducer(state, action);
 }

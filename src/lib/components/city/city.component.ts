@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
@@ -22,7 +22,7 @@ export class CityComponent implements OnInit {
 
   constructor(private readonly store$: Store<RootState>) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.cityPictureUrl$ = this.store$.select(selectUrl);
 
     this.city$ = this.store$.select(selectCity);
