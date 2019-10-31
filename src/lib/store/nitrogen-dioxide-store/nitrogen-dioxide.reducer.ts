@@ -16,7 +16,7 @@ const reducer: ActionReducer<NitrogenDioxideState, Action> = createReducer(
     })),
     on(loadNitrogenDioxideSuccessAction, (state, { nitrogenDioxide }) => ({
         ...state,
-        nitrogenDioxide: nitrogenDioxide,
+        nitrogenDioxide,
         isLoading: false,
         error: undefined
     })),
@@ -24,15 +24,15 @@ const reducer: ActionReducer<NitrogenDioxideState, Action> = createReducer(
         ...state,
         nitrogenDioxide: undefined,
         isLoading: false,
-        error: error
+        error
     })),
     on(setAccuracy, (state, { accuracy }) => ({
         ...state,
-        accuracy: accuracy
+        accuracy
     })),
     on(setDateTime, (state, { dateTime }) => ({
         ...state,
-        dateTime: dateTime
+        dateTime
     }))
 );
 

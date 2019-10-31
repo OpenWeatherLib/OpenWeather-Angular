@@ -15,7 +15,7 @@ describe("Image Reducer Tests", () => {
     describe("State Changes", () => {
         test("should have initial state after invalid action", () => {
             // Arrange & Act
-            const testState = imageReducer(initialState, { type: "INVALID_ACTION" } as any);
+            const testState: ImageState = imageReducer(initialState, { type: "INVALID_ACTION" } as any);
 
             // Assert
             expect(testState).toBe(initialState);
@@ -27,7 +27,7 @@ describe("Image Reducer Tests", () => {
             const loadSuccess = loadImageUrlSuccessAction({ url: "New URL" });
 
             // Act
-            const testState = [loadRequest, loadSuccess].reduce(imageReducer, initialState);
+            const testState: ImageState = [loadRequest, loadSuccess].reduce(imageReducer, initialState);
 
             // Assert
             expect(testState).toMatchSnapshot();
@@ -39,7 +39,7 @@ describe("Image Reducer Tests", () => {
             const loadError = loadImageUrlErrorAction({ error: "Error" });
 
             // Act
-            const testState = [loadRequest, loadError].reduce(imageReducer, initialState);
+            const testState: ImageState = [loadRequest, loadError].reduce(imageReducer, initialState);
 
             // Assert
             expect(testState).toMatchSnapshot();

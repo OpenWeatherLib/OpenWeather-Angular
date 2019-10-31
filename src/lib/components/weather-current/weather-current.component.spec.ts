@@ -3,12 +3,13 @@ import { TestBed, async } from "@angular/core/testing";
 import { combineReducers, Store, StoreModule } from "@ngrx/store";
 import { of } from "rxjs";
 
+import { WeatherCurrent } from "@lib/models";
 import { weatherCurrentReducer } from "@lib/store/weather-current-store";
 import { RootState } from "@lib/store/root-state";
 import { WeatherCurrentComponent } from "./weather-current.component";
 
 describe("WeatherCurrentComponent", () => {
-  let classToTest: WeatherCurrentComponent;
+  let component: WeatherCurrentComponent;
   let store$: Store<RootState>;
 
   beforeEach(() => {
@@ -24,15 +25,75 @@ describe("WeatherCurrentComponent", () => {
 
     store$ = TestBed.get(Store);
     store$.select = jest.fn()
-      .mockReturnValueOnce(() => of(false))
-      .mockReturnValueOnce(() => of(undefined));
+      .mockReturnValueOnce(of(false))
+      .mockReturnValueOnce(of({
+        coord: undefined,
+        weather: [],
+        base: "",
+        main: undefined,
+        visibility: 10,
+        wind: undefined,
+        clouds: undefined,
+        dt: 0,
+        sys: undefined,
+        id: 0,
+        name: "Name",
+        cod: 0,
+        weatherCondition: undefined
+      }));
 
     const fixture = TestBed.createComponent(WeatherCurrentComponent);
-    classToTest = fixture.debugElement.componentInstance;
+    component = fixture.debugElement.componentInstance;
   });
 
   test("should create the app", async(() => {
     // Assert
-    expect(classToTest).toBeTruthy();
+    expect(component).toBeTruthy();
   }));
+
+  describe("ngOnInit", () => {
+    test("isLoading$", done => {
+      // Arrange 
+      component.ngOnInit();
+
+      // Act
+      component.isLoading$
+        .subscribe({
+          next: (isLoading: boolean) => {
+            // Assert
+            expect(isLoading).toBeFalsy();
+          },
+          complete: () => done()
+        });
+    });
+
+    test("weatherCurrent$", done => {
+      // Arrange 
+      component.ngOnInit();
+
+      // Act
+      component.weatherCurrent$
+        .subscribe({
+          next: (weatherCurrent: WeatherCurrent) => {
+            // Assert
+            expect(weatherCurrent).toMatchSnapshot({
+              coord: undefined,
+              weather: [],
+              base: "",
+              main: undefined,
+              visibility: 10,
+              wind: undefined,
+              clouds: undefined,
+              dt: 0,
+              sys: undefined,
+              id: 0,
+              name: "Name",
+              cod: 0,
+              weatherCondition: undefined
+            });
+          },
+          complete: () => done()
+        });
+    });
+  });
 });

@@ -24,15 +24,15 @@ const reducer: ActionReducer<OzoneState, Action> = createReducer(
         ...state,
         ozone: undefined,
         isLoading: false,
-        error: error
+        error
     })),
     on(setAccuracy, (state, { accuracy }) => ({
         ...state,
-        accuracy: accuracy
+        accuracy
     })),
     on(setDateTime, (state, { dateTime }) => ({
         ...state,
-        dateTime: dateTime
+        dateTime
     }))
 );
 

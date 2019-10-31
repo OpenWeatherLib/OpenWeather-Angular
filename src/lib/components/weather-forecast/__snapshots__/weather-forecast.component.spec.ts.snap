@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeatherForecastComponent ngOnInit mostWeatherCondition$ 1`] = `
+Object {
+  "count": 0,
+  "description": "Null",
+  "icon": "/assets/weather_dummy.png",
+  "id": 0,
+  "wallpaper": "/assets/weather_wallpaper_dummy.png",
+}
+`;
+
+exports[`WeatherForecastComponent ngOnInit weatherForecastList$ 1`] = `Object {}`;

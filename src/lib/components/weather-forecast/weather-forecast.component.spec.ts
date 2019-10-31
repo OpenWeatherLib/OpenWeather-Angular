@@ -3,12 +3,14 @@ import { TestBed } from "@angular/core/testing";
 import { combineReducers, Store, StoreModule } from "@ngrx/store";
 import { of } from "rxjs";
 
+import WeatherCondition from "@lib/enums/weather-condition.enum";
+import { WeatherForecastPart } from "@lib/models";
 import { weatherForecastReducer, setFilterRequestAction } from "@lib/store/weather-forecast-store";
 import { RootState } from "@lib/store/root-state";
 import { WeatherForecastComponent } from "./weather-forecast.component";
 
 describe("WeatherForecastComponent", () => {
-  let classToTest: WeatherForecastComponent;
+  let component: WeatherForecastComponent;
   let store$: Store<RootState>;
 
   beforeEach(() => {
@@ -25,26 +27,79 @@ describe("WeatherForecastComponent", () => {
     store$ = TestBed.get(Store);
     store$.dispatch = jest.fn();
     store$.select = jest.fn()
-      .mockReturnValueOnce(() => of(false))
-      .mockReturnValueOnce(() => of(undefined))
-      .mockReturnValueOnce(() => of([]));
+      .mockReturnValueOnce(of(false))
+      .mockReturnValueOnce(of(WeatherCondition.null))
+      .mockReturnValueOnce(of([]));
 
     const fixture = TestBed.createComponent(WeatherForecastComponent);
-    classToTest = fixture.debugElement.componentInstance;
+    component = fixture.debugElement.componentInstance;
   });
 
   test("should create the app", () => {
     // Assert
-    expect(classToTest).toBeTruthy();
+    expect(component).toBeTruthy();
+  });
+
+  describe("ngOnInit", () => {
+    test("isLoading$", done => {
+      // Arrange 
+      component.ngOnInit();
+
+      // Act
+      component.isLoading$
+        .subscribe({
+          next: (isLoading: boolean) => {
+            // Assert
+            expect(isLoading).toBeFalsy();
+          },
+          complete: () => done()
+        });
+    });
+
+    test("mostWeatherCondition$", done => {
+      // Arrange 
+      component.ngOnInit();
+
+      // Act
+      component.mostWeatherCondition$
+        .subscribe({
+          next: (weatherCondition: WeatherCondition) => {
+            // Assert
+            expect(weatherCondition).toMatchSnapshot({
+              id: 0,
+              description: "Null",
+              wallpaper: "/assets/weather_wallpaper_dummy.png",
+              icon: "/assets/weather_dummy.png",
+              count: 0
+            });
+          },
+          complete: () => done()
+        });
+    });
+
+    test("weatherForecastList$", done => {
+      // Arrange 
+      component.ngOnInit();
+
+      // Act
+      component.weatherForecastList$
+        .subscribe({
+          next: (weatherForecastList: WeatherForecastPart[]) => {
+            // Assert
+            expect(weatherForecastList).toMatchSnapshot([]);
+          },
+          complete: () => done()
+        });
+    });
   });
 
   describe("filterWeatherForecast", () => {
     test("should dispatch action", () => {
       // Arrange
-      classToTest.weatherForecastSearch = "Filter";
+      component.weatherForecastSearch = "Filter";
 
       // Act
-      classToTest.filterWeatherForecast();
+      component.filterWeatherForecast();
 
       // Assert
       expect(store$.dispatch).toHaveBeenCalledTimes(1);
@@ -55,7 +110,7 @@ describe("WeatherForecastComponent", () => {
   describe("trackByIndex", () => {
     test("should return expected value", () => {
       // Arrange & Act
-      const actual = classToTest.trackByIndex(42, undefined);
+      const actual: number = component.trackByIndex(42, undefined);
 
       // Assert
       expect(actual).toBe(42);

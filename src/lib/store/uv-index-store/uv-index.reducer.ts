@@ -24,7 +24,7 @@ const reducer: ActionReducer<UvIndexState, Action> = createReducer(
         ...state,
         uvIndex: undefined,
         isLoading: false,
-        error: error
+        error
     }))
 );
 

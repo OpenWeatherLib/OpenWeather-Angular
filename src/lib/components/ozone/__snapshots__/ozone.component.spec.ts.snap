@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OzoneComponent ngOnInit ozone$ 1`] = `
+Object {
+  "coordinates": Object {
+    "latitude": 0,
+    "longitude": 10,
+  },
+  "data": 259.3334655761719,
+  "dateTime": Object {},
+}
+`;

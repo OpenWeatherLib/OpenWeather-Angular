@@ -17,10 +17,10 @@ module.exports = {
   roots: ["src/lib"],
   coverageThreshold: {
     global: {
-      statements: 90,
+      statements: 95,
       branches: 70,
-      functions: 80,
-      lines: 90
+      functions: 90,
+      lines: 95
     }
   },
   collectCoverageFrom: [

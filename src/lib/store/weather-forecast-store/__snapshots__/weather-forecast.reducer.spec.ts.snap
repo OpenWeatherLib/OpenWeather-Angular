@@ -34,3 +34,54 @@ Object {
   "weatherForecastList": Array [],
 }
 `;
+
+exports[`WeatherForecast Reducer Tests State Changes should set loading to true on loadCitySuccessAction 1`] = `
+Object {
+  "error": "Test Error",
+  "filter": undefined,
+  "isLoading": true,
+  "mostWeatherCondition": Object {
+    "count": 0,
+    "description": "Null",
+    "icon": "/assets/weather_dummy.png",
+    "id": 0,
+    "wallpaper": "/assets/weather_wallpaper_dummy.png",
+  },
+  "weatherForecast": undefined,
+  "weatherForecastList": Array [],
+}
+`;
+
+exports[`WeatherForecast Reducer Tests State Changes should update state on clearFilterRequestAction 1`] = `
+Object {
+  "error": "Test Error",
+  "filter": undefined,
+  "isLoading": false,
+  "mostWeatherCondition": Object {
+    "count": 0,
+    "description": "Null",
+    "icon": "/assets/weather_dummy.png",
+    "id": 0,
+    "wallpaper": "/assets/weather_wallpaper_dummy.png",
+  },
+  "weatherForecast": undefined,
+  "weatherForecastList": Array [],
+}
+`;
+
+exports[`WeatherForecast Reducer Tests State Changes should update state on setFilterRequestAction 1`] = `
+Object {
+  "error": "Test Error",
+  "filter": "Filter",
+  "isLoading": false,
+  "mostWeatherCondition": Object {
+    "count": 0,
+    "description": "Null",
+    "icon": "/assets/weather_dummy.png",
+    "id": 0,
+    "wallpaper": "/assets/weather_wallpaper_dummy.png",
+  },
+  "weatherForecast": undefined,
+  "weatherForecastList": Array [],
+}
+`;

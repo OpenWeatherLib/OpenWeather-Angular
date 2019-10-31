@@ -1,4 +1,5 @@
 import { City, WeatherCurrent } from "@lib/models";
+import { loadCitySuccessAction } from "../city-store/city.actions";
 import { loadWeatherCurrentRequestAction, loadWeatherCurrentSuccessAction, loadWeatherCurrentErrorAction } from "./weather-current.actions";
 import { weatherCurrentReducer } from "./weather-current.reducer";
 import { WeatherCurrentState } from "./weather-current.state";
@@ -7,14 +8,14 @@ describe("WeatherCurrent Reducer Tests", () => {
 
     const initialState: WeatherCurrentState = {
         weatherCurrent: undefined,
-        isLoading: true,
+        isLoading: false,
         error: "Test Error"
     };
 
     describe("State Changes", () => {
         test("should have initial state after invalid action", () => {
             // Arrange & Act
-            const testState = weatherCurrentReducer(initialState, { type: "INVALID_ACTION" } as any);
+            const testState: WeatherCurrentState = weatherCurrentReducer(initialState, { type: "INVALID_ACTION" } as any);
 
             // Assert
             expect(testState).toBe(initialState);
@@ -26,7 +27,7 @@ describe("WeatherCurrent Reducer Tests", () => {
             const loadSuccess = loadWeatherCurrentSuccessAction({ weatherCurrent: {} as WeatherCurrent });
 
             // Act
-            const testState = [loadRequest, loadSuccess].reduce(weatherCurrentReducer, initialState);
+            const testState: WeatherCurrentState = [loadRequest, loadSuccess].reduce(weatherCurrentReducer, initialState);
 
             // Assert
             expect(testState).toMatchSnapshot();
@@ -38,7 +39,18 @@ describe("WeatherCurrent Reducer Tests", () => {
             const loadError = loadWeatherCurrentErrorAction({ error: "Error" });
 
             // Act
-            const testState = [loadRequest, loadError].reduce(weatherCurrentReducer, initialState);
+            const testState: WeatherCurrentState = [loadRequest, loadError].reduce(weatherCurrentReducer, initialState);
+
+            // Assert
+            expect(testState).toMatchSnapshot();
+        });
+
+        test("should set loading to true on loadCitySuccessAction", () => {
+            // Arrange
+            const loadSuccess = loadCitySuccessAction({ city: {} as City });
+
+            // Act
+            const testState: WeatherCurrentState = [loadSuccess].reduce(weatherCurrentReducer, initialState);
 
             // Assert
             expect(testState).toMatchSnapshot();

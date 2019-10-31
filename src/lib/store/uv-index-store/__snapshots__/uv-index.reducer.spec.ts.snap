@@ -15,3 +15,11 @@ Object {
   "uvIndex": undefined,
 }
 `;
+
+exports[`UvIndex Reducer Tests State Changes should set loading to true on loadCitySuccessAction 1`] = `
+Object {
+  "error": "Test Error",
+  "isLoading": true,
+  "uvIndex": undefined,
+}
+`;

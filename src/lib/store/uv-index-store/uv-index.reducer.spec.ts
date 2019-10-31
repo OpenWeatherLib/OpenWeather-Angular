@@ -1,4 +1,5 @@
 import { City, UvIndex } from "@lib/models";
+import { loadCitySuccessAction } from "../city-store/city.actions";
 import { loadUvIndexRequestAction, loadUvIndexSuccessAction, loadUvIndexErrorAction } from "./uv-index.actions";
 import { uvIndexReducer } from "./uv-index.reducer";
 import { UvIndexState } from "./uv-index.state";
@@ -7,14 +8,14 @@ describe("UvIndex Reducer Tests", () => {
 
     const initialState: UvIndexState = {
         uvIndex: undefined,
-        isLoading: true,
+        isLoading: false,
         error: "Test Error"
     };
 
     describe("State Changes", () => {
         test("should have initial state after invalid action", () => {
             // Arrange & Act
-            const testState = uvIndexReducer(initialState, { type: "INVALID_ACTION" } as any);
+            const testState: UvIndexState = uvIndexReducer(initialState, { type: "INVALID_ACTION" } as any);
 
             // Assert
             expect(testState).toBe(initialState);
@@ -26,7 +27,7 @@ describe("UvIndex Reducer Tests", () => {
             const loadSuccess = loadUvIndexSuccessAction({ uvIndex: {} as UvIndex });
 
             // Act
-            const testState = [loadRequest, loadSuccess].reduce(uvIndexReducer, initialState);
+            const testState: UvIndexState = [loadRequest, loadSuccess].reduce(uvIndexReducer, initialState);
 
             // Assert
             expect(testState).toMatchSnapshot();
@@ -38,7 +39,18 @@ describe("UvIndex Reducer Tests", () => {
             const loadError = loadUvIndexErrorAction({ error: "Error" });
 
             // Act
-            const testState = [loadRequest, loadError].reduce(uvIndexReducer, initialState);
+            const testState: UvIndexState = [loadRequest, loadError].reduce(uvIndexReducer, initialState);
+
+            // Assert
+            expect(testState).toMatchSnapshot();
+        });
+
+        test("should set loading to true on loadCitySuccessAction", () => {
+            // Arrange
+            const loadSuccess = loadCitySuccessAction({ city: {} as City });
+
+            // Act
+            const testState: UvIndexState = [loadSuccess].reduce(uvIndexReducer, initialState);
 
             // Assert
             expect(testState).toMatchSnapshot();

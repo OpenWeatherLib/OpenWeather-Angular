@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CityComponent ngOnInit city$ 1`] = `
+Object {
+  "coord": Object {
+    "lat": 49.460983,
+    "lon": 11.061859,
+  },
+  "country": "DE",
+  "id": 0,
+  "name": "Nuremberg",
+  "population": 518365,
+}
+`;

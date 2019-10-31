@@ -10,12 +10,42 @@ Object {
 }
 `;
 
+exports[`NitrogenDioxide Reducer Tests State Changes should set accuracy on setAccuracy 1`] = `
+Object {
+  "accuracy": 7,
+  "dateTime": "2019-07-12",
+  "error": "Test Error",
+  "isLoading": false,
+  "nitrogenDioxide": undefined,
+}
+`;
+
+exports[`NitrogenDioxide Reducer Tests State Changes should set dateTime on setDateTime 1`] = `
+Object {
+  "accuracy": 2,
+  "dateTime": "DateTime",
+  "error": "Test Error",
+  "isLoading": false,
+  "nitrogenDioxide": undefined,
+}
+`;
+
 exports[`NitrogenDioxide Reducer Tests State Changes should set error on error of loading 1`] = `
 Object {
   "accuracy": 2,
   "dateTime": "2019-07-12",
   "error": "Error",
   "isLoading": false,
+  "nitrogenDioxide": undefined,
+}
+`;
+
+exports[`NitrogenDioxide Reducer Tests State Changes should set loading to true on loadCitySuccessAction 1`] = `
+Object {
+  "accuracy": 2,
+  "dateTime": "2019-07-12",
+  "error": "Test Error",
+  "isLoading": true,
   "nitrogenDioxide": undefined,
 }
 `;

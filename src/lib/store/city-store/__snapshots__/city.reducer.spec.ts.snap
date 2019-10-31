@@ -15,3 +15,30 @@ Object {
   "isLoading": false,
 }
 `;
+
+exports[`Image Reducer Tests State Changes should set city on loadWeatherCurrentSuccessAction 1`] = `
+Object {
+  "city": Object {
+    "coord": Object {
+      "lat": 5,
+      "lon": 7,
+    },
+  },
+  "error": "Test Error",
+  "isLoading": true,
+}
+`;
+
+exports[`Image Reducer Tests State Changes should set city on loadWeatherForecastSuccessAction 1`] = `
+Object {
+  "city": Object {
+    "coord": Object {
+      "lat": 4,
+      "lon": 6,
+    },
+    "population": 27,
+  },
+  "error": "Test Error",
+  "isLoading": true,
+}
+`;

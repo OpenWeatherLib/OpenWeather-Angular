@@ -24,7 +24,7 @@ const reducer: ActionReducer<WeatherCurrentState, Action> = createReducer(
         ...state,
         weatherCurrent: undefined,
         isLoading: false,
-        error: error
+        error
     }))
 );
 

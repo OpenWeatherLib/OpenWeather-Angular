@@ -16,7 +16,7 @@ const reducer: ActionReducer<SulfurDioxideState, Action> = createReducer(
     })),
     on(loadSulfurDioxideSuccessAction, (state, { sulfurDioxide }) => ({
         ...state,
-        sulfurDioxide: sulfurDioxide,
+        sulfurDioxide,
         isLoading: false,
         error: undefined
     })),
@@ -24,15 +24,15 @@ const reducer: ActionReducer<SulfurDioxideState, Action> = createReducer(
         ...state,
         sulfurDioxide: undefined,
         isLoading: false,
-        error: error
+        error
     })),
     on(setAccuracy, (state, { accuracy }) => ({
         ...state,
-        accuracy: accuracy
+        accuracy
     })),
     on(setDateTime, (state, { dateTime }) => ({
         ...state,
-        dateTime: dateTime
+        dateTime
     }))
 );
 

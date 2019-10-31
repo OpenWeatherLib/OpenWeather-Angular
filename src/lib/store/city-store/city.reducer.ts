@@ -37,7 +37,7 @@ const reducer: ActionReducer<CityState, Action> = createReducer(
         ...state,
         city: undefined,
         isLoading: false,
-        error: error
+        error
     })),
     on(loadWeatherForecastSuccessAction, (state, { weatherForecast }) => ({
         ...state,

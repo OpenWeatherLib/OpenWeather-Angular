@@ -19,3 +19,33 @@ Object {
   "isLoading": false,
 }
 `;
+
+exports[`CarbonMonoxide Reducer Tests State Changes should set accuracy on setAccuracy 1`] = `
+Object {
+  "accuracy": 7,
+  "carbonMonoxide": undefined,
+  "dateTime": "2019-07-12",
+  "error": "Test Error",
+  "isLoading": false,
+}
+`;
+
+exports[`CarbonMonoxide Reducer Tests State Changes should set dateTime on setDateTime 1`] = `
+Object {
+  "accuracy": 2,
+  "carbonMonoxide": undefined,
+  "dateTime": "DateTime",
+  "error": "Test Error",
+  "isLoading": false,
+}
+`;
+
+exports[`CarbonMonoxide Reducer Tests State Changes should set loading to true on loadCitySuccessAction 1`] = `
+Object {
+  "accuracy": 2,
+  "carbonMonoxide": undefined,
+  "dateTime": "2019-07-12",
+  "error": "Test Error",
+  "isLoading": true,
+}
+`;

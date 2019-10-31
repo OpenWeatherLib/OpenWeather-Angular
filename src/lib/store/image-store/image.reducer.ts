@@ -20,7 +20,7 @@ const reducer: ActionReducer<ImageState, Action> = createReducer(
         ...state,
         url: undefined,
         isLoading: false,
-        error: error
+        error
     }))
 );
 
