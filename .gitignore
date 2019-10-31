@@ -31,10 +31,11 @@
 /coverage
 /documentation
 /libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
 /typings
+npm-debug.log
+test-report.html
+testem.log
+yarn-error.log
 
 # e2e
 /e2e/*.js
