@@ -1,0 +1,42 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "comma-dangle": "off",
+        "indent": "off",
+        "max-len": [
+            "error",
+            275
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "object-curly-spacing": "off",
+        "quotes": [
+            "error",
+            "double"
+        ]
+    }
+}
