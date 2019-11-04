@@ -1,4 +1,4 @@
-@import "../../../styles/ga-common.scss";
+@import '../../../styles/ga-common';
 
 .ga-card-forecast-header {
   @extend .ga-card;
@@ -6,8 +6,8 @@
 }
 
 .ga-forecast-container {
-  overflow: overlay;
   height: 90vh;
+  overflow: overlay;
   width: 27rem;
 }
 
