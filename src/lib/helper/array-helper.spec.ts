@@ -1,33 +1,16 @@
 import { any } from "./array-helper";
 
 describe("any", () => {
-    test("should return true if one or more entries in array", () => {
-        // Arrange
-        const testArray = [0, 1, 2, 3, 4];
-
-        // Act
-        const actual = any(testArray);
-
-        // Assert
-        expect(actual).toBeTruthy();
-    });
-
-    test("should return false if no entry is in array", () => {
-        // Arrange
-        const testArray = [];
-
-        // Act
-        const actual = any(testArray);
+    test.each([
+        ["should return true for filled number array", true, [0, 1, 2, 3, 4]],
+        ["should return false for empty array", false, []],
+        ["should return false for null", false, null],
+        ["should return false for undefined", false, undefined]
+    ])("%s", (_: string, expected: boolean, array: any[]) => {
+        // Arrange & Act
+        const actual: boolean = any(array);
 
         // Assert
-        expect(actual).toBeFalsy();
-    });
-
-    test("should return false for null", () => {
-        // Arrange + Act
-        const actual = any(null);
-
-        // Assert
-        expect(actual).toBeFalsy();
+        expect(actual).toBe(expected);
     });
 });

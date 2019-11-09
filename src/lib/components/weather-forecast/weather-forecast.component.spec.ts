@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { combineReducers, Store, StoreModule } from "@ngrx/store";
 import { of } from "rxjs";
 
@@ -31,7 +31,7 @@ describe("WeatherForecastComponent", () => {
       .mockReturnValueOnce(of(WeatherCondition.null))
       .mockReturnValueOnce(of([]));
 
-    const fixture = TestBed.createComponent(WeatherForecastComponent);
+    const fixture: ComponentFixture<WeatherForecastComponent> = TestBed.createComponent(WeatherForecastComponent);
     component = fixture.debugElement.componentInstance;
   });
 

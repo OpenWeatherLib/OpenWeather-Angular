@@ -14,7 +14,7 @@ export const required = <T>(type: ValidationRequiredType, prohibitedValues: T[] 
 };
 
 export const validate = <T>(defaultReturnValue: T): any => (target: any, propertyName: string, descriptor: TypedPropertyDescriptor<Function>): any => {
-    const method = descriptor.value;
+    const method: Function = descriptor.value;
 
     descriptor.value = function (): any {
         const requiredParameters: any[] = Reflect.getOwnMetadata(requiredMetadataKey, target, propertyName);

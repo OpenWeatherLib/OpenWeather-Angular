@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 import { City } from "@lib/models";
 import { substitute } from "@lib/mock";
 import { CityService } from "@lib/services";
-import { loadCityRequestAction, loadCitySuccessAction } from "./city.actions";
+import { loadCityErrorAction, loadCityRequestAction, loadCitySuccessAction } from "./city.actions";
 import { CityStoreEffects } from "./city.effects";
 
 describe("City Effects Tests", () => {
@@ -39,6 +39,22 @@ describe("City Effects Tests", () => {
 
             // Act
             actions$ = hot("a", { a: action });
+            cityServiceMock.loadCityData.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadCityDataEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadCityDataEffect, with data, on error", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadCityRequestAction({ cityName: "Nuremberg" });
+            const completion = loadCityErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
             cityServiceMock.loadCityData.mockReturnValue(responseFromService);
 
             // Assert

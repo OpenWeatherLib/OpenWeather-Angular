@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`values should not change unexpected 1`] = `
+Object {
+  "0": Object {
+    "count": 0,
+    "description": "Null",
+    "icon": "/assets/weather_dummy.png",
+    "id": 0,
+    "wallpaper": "/assets/weather_wallpaper_dummy.png",
+  },
+  "1": Object {
+    "count": 0,
+    "description": "Clear",
+    "icon": "/assets/weather_clear.png",
+    "id": 1,
+    "wallpaper": "/assets/weather_wallpaper_clear.png",
+  },
+  "10": Object {
+    "count": 0,
+    "description": "Squalls",
+    "icon": "/assets/weather_squalls.png",
+    "id": 10,
+    "wallpaper": "/assets/weather_wallpaper_squalls.png",
+  },
+  "11": Object {
+    "count": 0,
+    "description": "Sun",
+    "icon": "/assets/weather_sun.png",
+    "id": 11,
+    "wallpaper": "/assets/weather_wallpaper_sun.png",
+  },
+  "12": Object {
+    "count": 0,
+    "description": "Thunderstorm",
+    "icon": "/assets/weather_thunderstorm.png",
+    "id": 12,
+    "wallpaper": "/assets/weather_wallpaper_thunderstorm.png",
+  },
+  "2": Object {
+    "count": 0,
+    "description": "Clouds",
+    "icon": "/assets/weather_cloud.png",
+    "id": 2,
+    "wallpaper": "/assets/weather_wallpaper_cloud.png",
+  },
+  "3": Object {
+    "count": 0,
+    "description": "Drizzle",
+    "icon": "/assets/weather_drizzle.png",
+    "id": 3,
+    "wallpaper": "/assets/weather_wallpaper_drizzle.png",
+  },
+  "4": Object {
+    "count": 0,
+    "description": "Fog",
+    "icon": "/assets/weather_fog.png",
+    "id": 4,
+    "wallpaper": "/assets/weather_wallpaper_fog.png",
+  },
+  "5": Object {
+    "count": 0,
+    "description": "Haze",
+    "icon": "/assets/weather_haze.png",
+    "id": 5,
+    "wallpaper": "/assets/weather_wallpaper_haze.png",
+  },
+  "6": Object {
+    "count": 0,
+    "description": "Mist",
+    "icon": "/assets/weather_mist.png",
+    "id": 6,
+    "wallpaper": "/assets/weather_wallpaper_mist.png",
+  },
+  "7": Object {
+    "count": 0,
+    "description": "Rain",
+    "icon": "/assets/weather_rain.png",
+    "id": 7,
+    "wallpaper": "/assets/weather_wallpaper_rain.png",
+  },
+  "8": Object {
+    "count": 0,
+    "description": "Sleet",
+    "icon": "/assets/weather_sleet.png",
+    "id": 8,
+    "wallpaper": "/assets/weather_wallpaper_sleet.png",
+  },
+  "9": Object {
+    "count": 0,
+    "description": "Snow",
+    "icon": "/assets/weather_snow.png",
+    "id": 9,
+    "wallpaper": "/assets/weather_wallpaper_snow.png",
+  },
+}
+`;

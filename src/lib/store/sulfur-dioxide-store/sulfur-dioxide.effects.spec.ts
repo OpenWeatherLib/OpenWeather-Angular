@@ -11,7 +11,7 @@ import { substitute } from "@lib/mock";
 import { OpenWeatherService } from "@lib/services";
 import { loadCitySuccessAction } from "../city-store/city.actions";
 import { RootState } from "../root-state";
-import { loadSulfurDioxideRequestAction, loadSulfurDioxideSuccessAction } from "./sulfur-dioxide.actions";
+import { loadSulfurDioxideErrorAction, loadSulfurDioxideRequestAction, loadSulfurDioxideSuccessAction } from "./sulfur-dioxide.actions";
 import { SulfurDioxideStoreEffects } from "./sulfur-dioxide.effects";
 import { sulfurDioxideReducer } from "./sulfur-dioxide.reducer";
 
@@ -61,7 +61,23 @@ describe("SulfurDioxide Effects Tests", () => {
             expect(testEffects.loadSulfurDioxideEffect$).toBeObservable(expected);
         });
 
-        test("should return a loadCitySuccessAction, with data, on success | loadCitySuccessAction", () => {
+        test("should return a loadSulfurDioxideRequestAction, with data, on error | loadCitySuccessAction", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadSulfurDioxideRequestAction({ city: {} as City });
+            const completion = loadSulfurDioxideErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
+            openWeatherServiceMock.loadSulfurDioxide.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadSulfurDioxideEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadSulfurDioxideRequestAction, with data, on success | loadCitySuccessAction", () => {
             // Arrange
             const result: SulfurDioxide = {} as SulfurDioxide;
             const responseFromService = cold("-b", { b: result });
@@ -71,6 +87,22 @@ describe("SulfurDioxide Effects Tests", () => {
 
             // Act
             actions$ = hot("a", { a: action });
+            openWeatherServiceMock.loadSulfurDioxide.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadSulfurDioxideEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadSulfurDioxideRequestAction, with data, on error | loadCitySuccessAction", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadCitySuccessAction({ city: {} as City });
+            const completion = loadSulfurDioxideErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
             openWeatherServiceMock.loadSulfurDioxide.mockReturnValue(responseFromService);
 
             // Assert

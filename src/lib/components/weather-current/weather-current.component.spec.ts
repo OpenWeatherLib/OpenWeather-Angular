@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { TestBed, async } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { combineReducers, Store, StoreModule } from "@ngrx/store";
 import { of } from "rxjs";
 
@@ -42,7 +42,7 @@ describe("WeatherCurrentComponent", () => {
         weatherCondition: undefined
       }));
 
-    const fixture = TestBed.createComponent(WeatherCurrentComponent);
+    const fixture: ComponentFixture<WeatherCurrentComponent> = TestBed.createComponent(WeatherCurrentComponent);
     component = fixture.debugElement.componentInstance;
   });
 

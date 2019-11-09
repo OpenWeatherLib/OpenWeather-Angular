@@ -11,7 +11,7 @@ import { substitute } from "@lib/mock";
 import { OpenWeatherService } from "@lib/services";
 import { loadCitySuccessAction } from "../city-store/city.actions";
 import { RootState } from "../root-state";
-import { loadWeatherCurrentRequestAction, loadWeatherCurrentSuccessAction } from "./weather-current.actions";
+import { loadWeatherCurrentErrorAction, loadWeatherCurrentRequestAction, loadWeatherCurrentSuccessAction } from "./weather-current.actions";
 import { WeatherCurrentStoreEffects } from "./weather-current.effects";
 import { weatherCurrentReducer } from "./weather-current.reducer";
 
@@ -60,7 +60,23 @@ describe("Weather Current Effects Tests", () => {
             expect(testEffects.loadWeatherCurrentEffect$).toBeObservable(expected);
         });
 
-        test("should return a loadCitySuccessAction, with data, on success | loadCitySuccessAction", () => {
+        test("should return a loadWeatherCurrentRequestAction, with data, on error | loadWeatherCurrentRequestAction", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadWeatherCurrentRequestAction({ city: {} as City });
+            const completion = loadWeatherCurrentErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
+            openWeatherServiceMock.loadWeatherCurrent.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadWeatherCurrentEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadWeatherCurrentRequestAction, with data, on success | loadCitySuccessAction", () => {
             // Arrange
             const result: WeatherCurrent = {} as WeatherCurrent;
             const responseFromService = cold("-b", { b: result });
@@ -70,6 +86,22 @@ describe("Weather Current Effects Tests", () => {
 
             // Act
             actions$ = hot("a", { a: action });
+            openWeatherServiceMock.loadWeatherCurrent.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadWeatherCurrentEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadWeatherCurrentRequestAction, with data, on error | loadCitySuccessAction", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadCitySuccessAction({ city: {} as City });
+            const completion = loadWeatherCurrentErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
             openWeatherServiceMock.loadWeatherCurrent.mockReturnValue(responseFromService);
 
             // Assert

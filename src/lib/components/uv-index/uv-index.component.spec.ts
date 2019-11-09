@@ -1,7 +1,7 @@
 /*eslint-disable @typescript-eslint/camelcase */
 
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { TestBed, async } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { combineReducers, Store, StoreModule } from "@ngrx/store";
 import { of } from "rxjs";
 
@@ -36,7 +36,7 @@ describe("UvIndexComponent", () => {
         value: 10.16
       }));
 
-    const fixture = TestBed.createComponent(UvIndexComponent);
+    const fixture: ComponentFixture<UvIndexComponent> = TestBed.createComponent(UvIndexComponent);
     component = fixture.debugElement.componentInstance;
   });
 

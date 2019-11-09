@@ -11,7 +11,7 @@ import { substitute } from "@lib/mock";
 import { OpenWeatherService } from "@lib/services";
 import { loadCitySuccessAction } from "../city-store/city.actions";
 import { RootState } from "../root-state";
-import { loadCarbonMonoxideRequestAction, loadCarbonMonoxideSuccessAction } from "./carbon-monoxide.actions";
+import { loadCarbonMonoxideErrorAction, loadCarbonMonoxideRequestAction, loadCarbonMonoxideSuccessAction } from "./carbon-monoxide.actions";
 import { CarbonMonoxideStoreEffects } from "./carbon-monoxide.effects";
 import { carbonMonoxideReducer } from "./carbon-monoxide.reducer";
 
@@ -61,6 +61,22 @@ describe("CarbonMonoxide Effects Tests", () => {
             expect(testEffects.loadCarbonMonoxideEffect$).toBeObservable(expected);
         });
 
+        test("should return a loadCarbonMonoxideErrorAction, with data, on error | loadCarbonMonoxideRequestAction", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadCarbonMonoxideRequestAction({ city: {} as City });
+            const completion = loadCarbonMonoxideErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
+            openWeatherServiceMock.loadCarbonMonoxide.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadCarbonMonoxideEffect$).toBeObservable(expected);
+        });
+
         test("should return a loadCitySuccessAction, with data, on success | loadCitySuccessAction", () => {
             // Arrange
             const result: CarbonMonoxide = {} as CarbonMonoxide;
@@ -71,6 +87,22 @@ describe("CarbonMonoxide Effects Tests", () => {
 
             // Act
             actions$ = hot("a", { a: action });
+            openWeatherServiceMock.loadCarbonMonoxide.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadCarbonMonoxideEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadCarbonMonoxideErrorAction, with data, on error | loadCitySuccessAction", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadCitySuccessAction({ city: {} as City });
+            const completion = loadCarbonMonoxideErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
             openWeatherServiceMock.loadCarbonMonoxide.mockReturnValue(responseFromService);
 
             // Assert

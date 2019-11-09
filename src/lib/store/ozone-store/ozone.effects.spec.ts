@@ -11,7 +11,7 @@ import { substitute } from "@lib/mock";
 import { OpenWeatherService } from "@lib/services";
 import { loadCitySuccessAction } from "../city-store/city.actions";
 import { RootState } from "../root-state";
-import { loadOzoneRequestAction, loadOzoneSuccessAction } from "./ozone.actions";
+import { loadOzoneErrorAction, loadOzoneRequestAction, loadOzoneSuccessAction } from "./ozone.actions";
 import { OzoneStoreEffects } from "./ozone.effects";
 import { ozoneReducer } from "./ozone.reducer";
 
@@ -61,7 +61,23 @@ describe("Ozone Effects Tests", () => {
             expect(testEffects.loadOzoneEffect$).toBeObservable(expected);
         });
 
-        test("should return a loadCitySuccessAction, with data, on success | loadCitySuccessAction", () => {
+        test("should return a loadOzoneRequestAction, with data, on error | loadOzoneRequestAction", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadOzoneRequestAction({ city: {} as City });
+            const completion = loadOzoneErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
+            openWeatherServiceMock.loadOzone.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadOzoneEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadOzoneRequestAction, with data, on success | loadCitySuccessAction", () => {
             // Arrange
             const result: Ozone = {} as Ozone;
             const responseFromService = cold("-b", { b: result });
@@ -71,6 +87,22 @@ describe("Ozone Effects Tests", () => {
 
             // Act
             actions$ = hot("a", { a: action });
+            openWeatherServiceMock.loadOzone.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadOzoneEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadOzoneRequestAction, with data, on error | loadCitySuccessAction", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadCitySuccessAction({ city: {} as City });
+            const completion = loadOzoneErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
             openWeatherServiceMock.loadOzone.mockReturnValue(responseFromService);
 
             // Assert

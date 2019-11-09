@@ -1,19 +1,20 @@
 # OpenWeather-Angular
 
 [![Platform](https://img.shields.io/badge/platform-Angular-blue.svg)](https://angular.io/)
-[![Build](https://img.shields.io/badge/build-successful-green.svg)](src)
-[![Version](https://img.shields.io/badge/version-v0.8.2-green.svg)](src)
-
-[![CodeCoverageStatements](https://img.shields.io/badge/Statements-98-green.svg)](src)
-[![CodeCoverageBranch](https://img.shields.io/badge/Branch-73-yellow.svg)](src)
-[![CodeCoverageFunctions](https://img.shields.io/badge/Functions-94-green.svg)](src)
-[![CodeCoverageLines](https://img.shields.io/badge/Lines-98-green.svg)](src)
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
 
-Angular 8 library for downloading and handling data from openweather
+[![Version](https://img.shields.io/badge/version-0.8.3-green.svg)](src)
+[![Build](https://img.shields.io/badge/build-successful-green.svg)](src)
+
+[![CodeCoverageStatements](https://img.shields.io/badge/Statements-98.81&#37;-green.svg)](src)
+[![CodeCoverageBranch](https://img.shields.io/badge/Branch-77.75&#37;-yellow.svg)](src)
+[![CodeCoverageFunctions](https://img.shields.io/badge/Functions-98.71&#37;-green.svg)](src)
+[![CodeCoverageLines](https://img.shields.io/badge/Lines-98.88&#37;-green.svg)](src)
+
+
+Angular 8 library for downloading and handling data from openweather.
 
 ---
 
@@ -27,6 +28,10 @@ Required api keys are
 
 - [x] [Unsplash](https://unsplash.com/)
 - [x] [openweathermap](https://openweathermap.org/)
+
+## Example
+
+You can find an example implementation [here](./src/app).
 
 ## Contributors
 

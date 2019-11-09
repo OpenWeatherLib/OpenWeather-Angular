@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { TestBed, async } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { combineReducers, Store, StoreModule } from "@ngrx/store";
 import { of } from "rxjs";
 
@@ -39,7 +39,7 @@ describe("CityComponent", () => {
       }))
       .mockReturnValueOnce(of(false));
 
-    const fixture = TestBed.createComponent(CityComponent);
+    const fixture: ComponentFixture<CityComponent> = TestBed.createComponent(CityComponent);
     component = fixture.debugElement.componentInstance;
   });
 

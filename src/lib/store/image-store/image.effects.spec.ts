@@ -7,7 +7,7 @@ import { substitute } from "@lib/mock";
 import { City } from "@lib/models";
 import { ImageService } from "@lib/services";
 import { loadCitySuccessAction } from "../city-store/city.actions";
-import { loadImageUrlSuccessAction } from "./image.actions";
+import { loadImageUrlErrorAction, loadImageUrlSuccessAction } from "./image.actions";
 import { ImageStoreEffects } from "./image.effects";
 
 describe("Image Effects Tests", () => {
@@ -40,6 +40,22 @@ describe("Image Effects Tests", () => {
 
             // Act
             actions$ = hot("a", { a: action });
+            imageServiceMock.loadImagePictureUrl.mockReturnValue(responseFromService);
+
+            // Assert
+            expect(testEffects.loadImagePictureUrlEffect$).toBeObservable(expected);
+        });
+
+        test("should return a loadImageUrlErrorAction, with data, on error", () => {
+            // Arrange
+            const result = new Error("Error") as any;
+            const responseFromService = cold("-#|", {}, result);
+            const action = loadCitySuccessAction({ city: { name: "Nuremberg" } as City });
+            const completion = loadImageUrlErrorAction({ error: result });
+            const expected = cold("--b", { b: completion });
+
+            // Act
+            actions$ = hot("-a", { a: action });
             imageServiceMock.loadImagePictureUrl.mockReturnValue(responseFromService);
 
             // Assert

@@ -14,15 +14,28 @@ export default class WeatherCondition {
     static thunderstorm = { id: 12, description: "Thunderstorm", wallpaper: "/assets/weather_wallpaper_thunderstorm.png", icon: "/assets/weather_thunderstorm.png", count: 0 };
 
     static values: any[] = [
-        WeatherCondition.null, WeatherCondition.clear, WeatherCondition.clouds, WeatherCondition.drizzle, WeatherCondition.fog,
-        WeatherCondition.haze, WeatherCondition.mist, WeatherCondition.rain, WeatherCondition.sleet, WeatherCondition.snow,
-        WeatherCondition.squalls, WeatherCondition.sun, WeatherCondition.thunderstorm
+        WeatherCondition.null,
+        WeatherCondition.clear,
+        WeatherCondition.clouds,
+        WeatherCondition.drizzle,
+        WeatherCondition.fog,
+        WeatherCondition.haze,
+        WeatherCondition.mist,
+        WeatherCondition.rain,
+        WeatherCondition.sleet,
+        WeatherCondition.snow,
+        WeatherCondition.squalls,
+        WeatherCondition.sun,
+        WeatherCondition.thunderstorm
     ];
 
     static getByDescription(description: string): WeatherCondition {
-        const weatherCondition = WeatherCondition.values
-            .find((condition: any) => condition.description.toUpperCase().indexOf(description.toUpperCase()) !== -1
-                || description.toUpperCase().indexOf(condition.description.toUpperCase()) !== -1);
+        const weatherCondition = !!description
+            ? WeatherCondition.values
+                .find((condition: any) =>
+                    condition.description.toUpperCase().indexOf(description.toUpperCase()) !== -1
+                    || description.toUpperCase().indexOf(condition.description.toUpperCase()) !== -1)
+            : WeatherCondition.null;
 
         return !!weatherCondition ? weatherCondition : WeatherCondition.null;
     }

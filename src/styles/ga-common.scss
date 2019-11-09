@@ -1,13 +1,25 @@
 @import "./ga-theme.scss";
 
-$widths: "0" 0, "10" 10, "20" 20, "30" 30, "40" 40, "50" 50, "60" 60, "70" 70, "80" 80, "90" 90, "100" 100;
+.ga-card {
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  max-width: 22rem;
+  min-width: 22rem;
+  width: 22rem;
+}
 
-@each $width in $widths {
-  .ga-width-#{nth($width, 1)}-per {
-    width: nth($width, 2) + "%";
-    left: 0;
-    right: 0;
-  }
+.ga-card-header-image {
+  background-color: mat-color(map-get($theme, primary));
+  background-size: cover;
+}
+
+.ga-cursor-pointer {
+  cursor: pointer;
+}
+
+.ga-display-inline-block {
+  display: inline-block;
+  vertical-align: top;
 }
 
 $margins: "0" 0, "1" 1, "2" 2, "3" 3, "4" 4, "5" 5;
@@ -34,24 +46,12 @@ $margins: "0" 0, "1" 1, "2" 2, "3" 3, "4" 4, "5" 5;
   }
 }
 
-.ga-cursor-pointer {
-  cursor: pointer;
-}
+$widths: "0" 0, "10" 10, "20" 20, "30" 30, "40" 40, "50" 50, "60" 60, "70" 70, "80" 80, "90" 90, "100" 100;
 
-.ga-display-inline-block {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.ga-card {
-  margin-bottom: 1rem;
-  margin-left: 1rem;
-  max-width: 22rem;
-  min-width: 22rem;
-  width: 22rem;
-}
-
-.ga-card-header-image {
-  background-color: mat-color(map-get($theme, primary));
-  background-size: cover;
+@each $width in $widths {
+  .ga-width-#{nth($width, 1)}-per {
+    width: nth($width, 2) + "%";
+    left: 0;
+    right: 0;
+  }
 }

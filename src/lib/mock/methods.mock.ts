@@ -1,6 +1,6 @@
 export const substitute = <T>(type: new (...x: any) => T): any => {
-    const mockObj = {};
-    const obj = type.prototype;
+    const mockObj: any = {};
+    const obj: any = type.prototype;
     Object
         .getOwnPropertyNames(obj)
         .filter(key => typeof obj[key] === "function")
