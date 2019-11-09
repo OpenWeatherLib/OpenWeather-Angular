@@ -8,11 +8,10 @@
 [![Version](https://img.shields.io/badge/version-0.8.3-green.svg)](src)
 [![Build](https://img.shields.io/badge/build-successful-green.svg)](src)
 
-[![CodeCoverageStatements](https://img.shields.io/badge/Statements-98.81&#37;-green.svg)](src)
-[![CodeCoverageBranch](https://img.shields.io/badge/Branch-77.75&#37;-yellow.svg)](src)
-[![CodeCoverageFunctions](https://img.shields.io/badge/Functions-98.71&#37;-green.svg)](src)
-[![CodeCoverageLines](https://img.shields.io/badge/Lines-98.88&#37;-green.svg)](src)
-
+[![CodeCoverageStatements](https://img.shields.io/badge/Statements-98.81%25-green.svg)](src)
+[![CodeCoverageBranch](https://img.shields.io/badge/Branch-77.75%25-yellow.svg)](src)
+[![CodeCoverageFunctions](https://img.shields.io/badge/Functions-98.71%25-green.svg)](src)
+[![CodeCoverageLines](https://img.shields.io/badge/Lines-98.88%25-green.svg)](src)
 
 Angular 8 library for downloading and handling data from openweather.
 
