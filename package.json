@@ -4,8 +4,8 @@
   "description": "Angular 8 library to grab data from openweathermap.org",
   "author": {
     "name": "Jonas Schubert",
-    "url": "https://github.com/OpenWeatherLib/OpenWeather-Angular",
-    "email": "guepardoapps@gmail.com"
+    "url": "https://github.com/JonasSchubert",
+    "email": "jonas.schubert.projects@web.de"
   },
   "license": "MIT",
   "scripts": {
