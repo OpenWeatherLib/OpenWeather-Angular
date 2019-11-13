@@ -7,6 +7,10 @@
     "url": "https://github.com/JonasSchubert",
     "email": "jonas.schubert.projects@web.de"
   },
+  "funding": {
+    "type": "paypal",
+    "url": "https://www.paypal.me/GuepardoApps"
+  },
   "license": "MIT",
   "scripts": {
     "build": "ng build --prod",
