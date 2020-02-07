@@ -50,3 +50,6 @@ src/.vs/ProjectSettings.json
 src/.vs/slnx.sqlite
 src/.vs/src/v15/.suo
 src/.vs/VSWorkspaceState.json
+
+# Misc
+test-report.html
