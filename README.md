@@ -5,15 +5,15 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
 
-[![Version](https://img.shields.io/badge/version-0.8.4-green.svg)](src)
+[![Version](https://img.shields.io/badge/version-20.3.11-green.svg)](src)
 [![Build](https://img.shields.io/badge/build-successful-green.svg)](src)
 
 [![CodeCoverageStatements](https://img.shields.io/badge/Statements-98.81%25-green.svg)](src)
-[![CodeCoverageBranch](https://img.shields.io/badge/Branch-74.75%25-yellow.svg)](src)
+[![CodeCoverageBranch](https://img.shields.io/badge/Branch-74.75%25-green.svg)](src)
 [![CodeCoverageFunctions](https://img.shields.io/badge/Functions-98.71%25-green.svg)](src)
 [![CodeCoverageLines](https://img.shields.io/badge/Lines-98.88%25-green.svg)](src)
 
-Angular 8 library for downloading and handling data from openweather.
+Angular 9 library for downloading and handling data from openweather.
 
 ---
 
