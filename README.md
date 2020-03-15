@@ -5,7 +5,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Paypal](https://img.shields.io/badge/paypal-donate-blue.svg)](https://www.paypal.me/GuepardoApps)
 
-[![Version](https://img.shields.io/badge/version-20.3.11-green.svg)](src)
+[![Version](https://img.shields.io/badge/version-20.3.15-green.svg)](src)
 [![Build](https://img.shields.io/badge/build-successful-green.svg)](src)
 
 [![CodeCoverageStatements](https://img.shields.io/badge/Statements-98.81%25-green.svg)](src)
